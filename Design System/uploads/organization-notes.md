@@ -24,12 +24,15 @@ General coaching and administrative reference for AI Code Academy classes.
   - Two **Honors** students
   - **Regular** certificates for all other students
 - Announce the winners:
-  - Post a winners message to the class page.
   - Post in the `final-project-winners` Discord channel with your class name, meeting time, and winners' names.
+  - Send the certificates as a private message to the student.
 - Full instructions are available on the certificate site.
 
 ## Coach Checklist
 
-- Always post a class announcement.
-- Always post in the proper Discord channel for absent students.
-- Always start a new class with an announcement introducing yourself.
+- Always start a new class with an class page announcement introducing yourself.
+- Always post a class announcement after a class, discussing what was accomplished that class.
+- Always post in the proper Discord channel for absent students, usually the `attendance` channel.
+- Be sure to check private messages on the respective class site for private student messages, class page comments, and parent or guardian communication.
+- Update parents or guardians about their child if there is any issues.
+- Once halfway through a course, provide a private message to the parents or guardians about their childs progress thus far, being warm and polite, and noting anything worthwhile.

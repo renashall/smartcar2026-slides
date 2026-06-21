@@ -25,10 +25,11 @@
   "Battery safety — do this slide seriously and slowly. Stop and answer questions. When in doubt, set a bad cell aside and don't use it. Details in About_Battery.pdf (https://github.com/renashall/smartcar2026/blob/main/Resources/About_Battery.pdf).",
   "Charging — start charging early in the session so cells are ready for later lessons. Most 'car won't drive' issues are weak batteries. Unplug when done; don't leave unattended.",
   "Powering the Pi — Pi 4/5 use USB-C; Pi 3 uses micro-USB. Wrong or weak adapters are a top cause of boot and stability problems. Under-power shows a lightning-bolt warning on screen.",
-  "Which Raspberry Pi — help students identify their board; it changes the power cable and adapter. Lessons 7-8 (face detection) are CPU-heavy and run best on a Pi 4/5 or a laptop.",
+  "Which Raspberry Pi, part 1 (Pi 4 / 5) — the Pi 4 is the recommended board: fast enough for the camera and vision lessons, and it uses USB-C power (shared with the Pi 5). The Pi 5 works for everything EXCEPT the camera/vision lessons (6-8): its camera connector is different, so the kit's ribbon camera won't plug in unless students source a Pi 5 adapter cable. Lessons 7-8 (face detection) are CPU-heavy and run best on a Pi 4 or a laptop.",
+  "Which Raspberry Pi, part 2 (Pi 3B+) — the Pi 3B+ also runs the whole course, camera included, because it has the standard ribbon camera connector. It uses micro-USB power, a different cable from the Pi 4/5. It's slower than a Pi 4, so expect lower frame rates on the vision lessons, but everything works. The board a student has decides the power cable and adapter.",
   "What you need — make sure each student has a card reader that fits their computer. Have Wi-Fi name and password ready, or a hotspot.",
   "Step 1: Imager — on YOUR computer, download Raspberry Pi Imager for your OS from https://www.raspberrypi.com/software/. It's free and flashes Raspberry Pi OS onto the microSD card.",
-  "Step 2: device, OS, storage — flashing ERASES the chosen drive. Have students confirm it's the SD card, not a USB drive. Pick Raspberry Pi OS 64-bit.",
+  "Step 2: device, OS, storage — flashing ERASES the chosen drive. Have students confirm it's the SD card, not a USB drive. For the OS, pick Raspberry Pi OS (32-bit), the Bookworm image, under 'Raspberry Pi OS (other)' — NOT the default 64-bit. 64-bit may work if the course code has been updated since this video, so feel free to test it, but 32-bit Bookworm is the stable, known-good version as of this video.",
   "Step 3: pre-configure — this is the step that makes headless (no-monitor) setup possible. Enabling SSH + Wi-Fi here saves huge pain later. Write down each student's hostname / username / password.",
   "Step 4: write & first boot — first boot can be slow and may reboot itself once. Don't pull power mid-boot. The Pi joins Wi-Fi automatically using the Step-3 settings.",
   "Two ways to reach the Pi — most setups are headless. SSH gives a text terminal; VNC gives the full desktop. SSH first (already enabled from Step 3), then turn on VNC through SSH.",
@@ -38,7 +39,7 @@
   "Install VNC Viewer — on your computer, download VNC Viewer from https://www.realvnc.com/en/connect/download/viewer/. Free; pick your OS. Newer versions may ask you to create an account.",
   "Connect with VNC — enter the Pi's hostname or IP, log in with the Pi username and password. First connection may warn about identity/encryption: accept to continue. Tiny/black screen -> see troubleshooting (resolution).",
   "Optional: Raspberry Pi Connect — reach your Pi from anywhere, not just home Wi-Fi: https://www.raspberrypi.com/software/connect/. Needs an account and a one-time sign-in on the Pi. Good fallback when a school/home network blocks local discovery.",
-  "Download the course code — needed in TWO places: on the Pi (to drive the car) and on your computer (camera/vision lessons 6-8 & 11). The clone link is https://github.com/renashall/smartcar2026.git, also posted on the class page / Discord. No git? Download the ZIP from the repo page.",
+  "Download the course code — needed in TWO places: on the Pi (to drive the car) and on your computer (camera/vision lessons 6-8 & 11). The clone link is https://github.com/renashall/smartcar2026.git (HTTPS) or git@github.com:renashall/smartcar2026.git (SSH), also posted on the class page / Discord. No git? Download the ZIP from the repo page.",
   "Cloning everywhere — the git clone command is identical on every system; only the terminal differs. Windows: PowerShell. macOS: Terminal. Pi: Terminal or your SSH session. On the Pi git is normally already there.",
   "Setup Part 1 (Pi) — it auto-detects the Pi model/OS, enables interfaces, makes python3 the default python, and installs I2C support. These scripts run on the Pi ONLY. Let it reboot before Part 2. If SSH drops on reboot, reconnect after a minute.",
   "Setup Part 2 (Pi) — after the reboot, run part 2. It sets up the camera boot config, installs the WS281x LED driver, and the course Python packages. Two scripts, two reboots, by design. After this the Pi has all the hardware libraries the lessons need.",
@@ -48,11 +49,11 @@
   "Install Python if needed — the #1 Windows mistake is forgetting 'Add python.exe to PATH' (then python/py isn't found). Re-running the installer and ticking it fixes it. macOS: python.org or 'brew install python'. Close and reopen the terminal, then re-check.",
   "Create a venv — a venv is a private package box for this project. Always put it at the repo root as .venv (that's also where Code/setup.py puts it). One venv per project keeps versions clean. Do this once.",
   "Activate the venv — stress: activate first, EVERY session, before running any lesson. The (.venv) tag is proof it worked. Packages only need installing once per venv. PowerShell blocks the script? Run once: Set-ExecutionPolicy -Scope CurrentUser RemoteSigned.",
-  "Shortcut: Code/setup.py — this is slides 38-39's create+install in one step. No admin/sudo needed; --force rebuilds it. It's the easy path; the manual steps teach what it's doing. Either way, you still activate the venv to run a lesson.",
+  "Shortcut: Code/setup.py — this is slides 39-40's create+install in one step. No admin/sudo needed; --force rebuilds it. It's the easy path; the manual steps teach what it's doing. Either way, you still activate the venv to run a lesson.",
   "Try it yourself — walk the room and tick these six checks off per student. Don't move to Lesson 1 until everyone clears the checklist. The venv 'import cv2' check catches missing packages early.",
   "Troubleshooting — power, 'SSH not enabled in Imager', and Windows 'Add to PATH' are the biggest time-sinks. Keep a known-good adapter and a spare flashed SD card handy.",
   "Recap & what's next — congratulate them; setup is the hardest logistics day. From here on it's coding and fun. Next, Lesson 1: write your first program and light up the car's components.",
-  "COACH (hidden) — do not present. Timing: this often spans more than one session. Before class have ready: charged spare 18650s, a known-good adapter per Pi model, a spare pre-flashed SD card, the Wi-Fi name/password, and the repo link (also in Discord / class page). Pre-flash a demo card to show the Imager steps live. Lead the battery and power-adapter safety seriously. Pi uses system Python (no venv); the venv steps are computer-only. Write down each student's hostname / username / password. Assets still to source: Imager main screen (slide 20) and the OS-customisation dialog with SSH enabled (slide 21)."
+  "COACH (hidden) — do not present. Timing: this often spans more than one session. Before class have ready: charged spare 18650s, a known-good adapter per Pi model, a spare pre-flashed SD card, the Wi-Fi name/password, and the repo link (also in Discord / class page). Pre-flash a demo card to show the Imager steps live. Lead the battery and power-adapter safety seriously. Pi uses system Python (no venv); the venv steps are computer-only. Write down each student's hostname / username / password. Assets still to source: Imager main screen (slide 21) and the OS-customisation dialog with SSH enabled (slide 22)."
 ]</script>
 
 <style>
@@ -620,7 +621,7 @@
     </footer>
   </section>
 
-  <!-- 17 · Which Raspberry Pi -->
+  <!-- 17 · Which Raspberry Pi — Pi 4 / 5 -->
   <section class="slide frame">
     <header class="slide__header">
       <div class="slide__brand"><img src="../../../Design%20System/assets/main/company-logo.png" alt="" /><span class="co">AI Code Academy</span></div>
@@ -628,20 +629,23 @@
     </header>
     <div class="slide__body">
       <div class="slide__head">
-        <div class="slide__eyebrow">Lesson 0 — Initial setup</div>
-        <h1 class="slide__title">Which Raspberry Pi?</h1>
-        <p class="slide__desc">This course works with the Pi 3B+, 4, or 5 — check which one you have.</p>
+        <div class="slide__eyebrow">Lesson 0 — Initial setup · choosing a Pi</div>
+        <h1 class="slide__title">Which Raspberry Pi? — Pi 4 or 5</h1>
+        <p class="slide__desc">The course runs on a Pi 3B+, 4, or 5 — the Pi 4 is the one we recommend.</p>
       </div>
       <div class="slide__content">
-        <div style="display:grid;grid-template-columns:1.05fr .95fr;gap:44px;align-items:center">
+        <div style="display:grid;grid-template-columns:.82fr 1.18fr;gap:44px;align-items:center">
           <div>
-            <div class="row"><span class="dot"></span><p>Works with <span class="k">Raspberry Pi 3B+, 4, or 5</span>.</p></div>
-            <div class="row"><span class="dot"></span><p>Your board decides your <b>power cable</b> and adapter.</p></div>
-            <div class="row"><span class="dot"></span><p>Faster Pis (4/5) run the <b>camera and face detection</b> more smoothly.</p></div>
+            <div class="row"><span class="dot"></span><p>⭐ <span class="k">Pi 4 recommended</span> — fast enough for the camera and vision lessons.</p></div>
+            <div class="row"><span class="dot"></span><p>Pi 4 and Pi 5 both use <b>USB-C</b> power.</p></div>
+            <div class="row"><span class="dot"></span><p><span class="k">Pi 5 works too</span> — but its camera port is different, so the kit's ribbon camera <b>won't connect</b> and the camera lessons (6–8) won't run on it.</p></div>
           </div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
-            <div class="mtile"><img src="../../../Design%20System/assets/raspberry-pi-boards/raspberry-pi-4-b-plus.png" alt="" style="height:88px" /><div class="nm">Pi 4 / 5</div><div class="sub">USB-C power</div></div>
-            <div class="mtile"><img src="../../../Design%20System/assets/raspberry-pi-boards/raspberry-pi-3-b-plus-to-1-b-plus.png" alt="" style="height:88px" /><div class="nm">Pi 3B+</div><div class="sub">micro-USB power</div></div>
+          <div style="background:var(--neutral-50);border:1px solid var(--border-subtle);border-radius:var(--radius-xl);box-shadow:var(--shadow-md);height:336px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;overflow:hidden;padding:18px">
+            <img src="../../../Design%20System/assets/raspberry-pi-boards/raspberry-pi-4-b-plus.png" alt="Raspberry Pi 4 board" style="max-width:92%;max-height:248px;object-fit:contain" />
+            <div style="text-align:center">
+              <div style="font-size:19px;font-weight:800;color:var(--navy-700)">Raspberry Pi 4 / 5</div>
+              <div style="font-size:14px;color:var(--text-muted)">USB-C power</div>
+            </div>
           </div>
         </div>
       </div>
@@ -652,11 +656,46 @@
     </footer>
   </section>
 
-  <!-- 18 · What you need to set up the Pi -->
+  <!-- 18 · Which Raspberry Pi — Pi 3B+ -->
   <section class="slide frame">
     <header class="slide__header">
       <div class="slide__brand"><img src="../../../Design%20System/assets/main/company-logo.png" alt="" /><span class="co">AI Code Academy</span></div>
       <span class="slide__num">18</span>
+    </header>
+    <div class="slide__body">
+      <div class="slide__head">
+        <div class="slide__eyebrow">Lesson 0 — Initial setup · choosing a Pi</div>
+        <h1 class="slide__title">Which Raspberry Pi? — Pi 3B+</h1>
+        <p class="slide__desc">Also a great choice — it has the standard camera connector the kit needs.</p>
+      </div>
+      <div class="slide__content">
+        <div style="display:grid;grid-template-columns:.82fr 1.18fr;gap:44px;align-items:center">
+          <div>
+            <div class="row"><span class="dot"></span><p>⭐ <span class="k">Standard camera connector</span> — the kit's ribbon camera plugs straight in.</p></div>
+            <div class="row"><span class="dot"></span><p>Uses <b>micro-USB</b> power — a different cable from the Pi 4 / 5.</p></div>
+            <div class="row"><span class="dot"></span><p>A little slower for the vision lessons (7–8), but everything still runs — just expect lower frame rates.</p></div>
+          </div>
+          <div style="background:var(--neutral-50);border:1px solid var(--border-subtle);border-radius:var(--radius-xl);box-shadow:var(--shadow-md);height:336px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;overflow:hidden;padding:18px">
+            <img src="../../../Design%20System/assets/raspberry-pi-boards/raspberry-pi-3-b-plus-to-1-b-plus.png" alt="Raspberry Pi 3B+ board" style="max-width:92%;max-height:248px;object-fit:contain" />
+            <div style="text-align:center">
+              <div style="font-size:19px;font-weight:800;color:var(--navy-700)">Raspberry Pi 3B+</div>
+              <div style="font-size:14px;color:var(--text-muted)">micro-USB power</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer class="slide__footer">
+      <span class="course">Machine Learning with Raspberry Pi &amp; Smart Car — Level 3</span>
+      <span class="lesson">Lesson 0</span>
+    </footer>
+  </section>
+
+  <!-- 19 · What you need to set up the Pi -->
+  <section class="slide frame">
+    <header class="slide__header">
+      <div class="slide__brand"><img src="../../../Design%20System/assets/main/company-logo.png" alt="" /><span class="co">AI Code Academy</span></div>
+      <span class="slide__num">19</span>
     </header>
     <div class="slide__body">
       <div class="slide__head">
@@ -690,12 +729,12 @@
     </footer>
   </section>
 
-  <!-- 19 · Step 1: install imager -->
+  <!-- 20 · Step 1: install imager -->
   <section class="slide frame">
     <!-- SLIDE NOTES (hidden): Raspberry Pi Imager — https://www.raspberrypi.com/software/ -->
     <header class="slide__header">
       <div class="slide__brand"><img src="../../../Design%20System/assets/main/company-logo.png" alt="" /><span class="co">AI Code Academy</span></div>
-      <span class="slide__num">19</span>
+      <span class="slide__num">20</span>
     </header>
     <div class="slide__body">
       <div class="slide__head">
@@ -728,11 +767,11 @@
     </footer>
   </section>
 
-  <!-- 20 · Step 2: device, OS, storage -->
+  <!-- 21 · Step 2: device, OS, storage -->
   <section class="slide frame">
     <header class="slide__header">
       <div class="slide__brand"><img src="../../../Design%20System/assets/main/company-logo.png" alt="" /><span class="co">AI Code Academy</span></div>
-      <span class="slide__num">20</span>
+      <span class="slide__num">21</span>
     </header>
     <div class="slide__body">
       <div class="slide__head">
@@ -750,7 +789,7 @@
           <div style="background:var(--surface-card);border:1px solid var(--border-subtle);border-top:4px solid var(--teal-300);border-radius:var(--radius-lg);padding:22px;box-shadow:var(--shadow-sm)">
             <div style="width:42px;height:42px;border-radius:50%;background:var(--navy-700);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;margin-bottom:12px">2</div>
             <div style="font-size:19px;font-weight:800;color:var(--navy-700);margin-bottom:6px">Operating system</div>
-            <p style="margin:0;font-size:15px;color:var(--text-body);line-height:1.45">Raspberry Pi OS (recommended, 64-bit).</p>
+            <p style="margin:0;font-size:15px;color:var(--text-body);line-height:1.45">Raspberry Pi OS <b>(32-bit)</b> — the Bookworm image, under "Raspberry Pi OS (other)". <b>Not</b> 64-bit.</p>
           </div>
           <div style="background:var(--surface-card);border:1px solid var(--border-subtle);border-top:4px solid var(--amber-400);border-radius:var(--radius-lg);padding:22px;box-shadow:var(--shadow-sm)">
             <div style="width:42px;height:42px;border-radius:50%;background:var(--navy-700);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;margin-bottom:12px">3</div>
@@ -758,9 +797,13 @@
             <p style="margin:0;font-size:15px;color:var(--text-body);line-height:1.45">Your microSD card — double-check you pick the SD card!</p>
           </div>
         </div>
-        <div style="margin-top:20px;display:flex;gap:13px;align-items:center;background:var(--navy-600);border-radius:var(--radius-lg);padding:14px 20px;color:#fff">
+        <div style="margin-top:16px;display:flex;gap:13px;align-items:center;background:var(--navy-600);border-radius:var(--radius-lg);padding:14px 20px;color:#fff">
           <img src="../../../Design%20System/assets/icons/warning.png" alt="" style="width:28px;height:28px;flex-shrink:0;object-fit:contain" />
           <p style="margin:0;font-size:16px;color:var(--teal-100)">Flashing <b>erases</b> the chosen drive — confirm it's the SD card, not a USB drive.</p>
+        </div>
+        <div style="margin-top:12px;display:flex;gap:13px;align-items:flex-start;background:var(--surface-card);border:1px solid var(--border-subtle);border-left:4px solid var(--teal-300);border-radius:var(--radius-lg);padding:12px 18px">
+          <span style="font-size:19px;flex-shrink:0;line-height:1.3">ℹ️</span>
+          <p style="margin:0;font-size:14px;color:var(--text-body);line-height:1.45">64-bit <i>may</i> work if the course code has been updated since this video — feel free to test it. As of this video, <b>32-bit Bookworm is the stable, known-good version</b>.</p>
         </div>
       </div>
     </div>
@@ -770,11 +813,11 @@
     </footer>
   </section>
 
-  <!-- 21 · Step 3: pre-configure -->
+  <!-- 22 · Step 3: pre-configure -->
   <section class="slide frame">
     <header class="slide__header">
       <div class="slide__brand"><img src="../../../Design%20System/assets/main/company-logo.png" alt="" /><span class="co">AI Code Academy</span></div>
-      <span class="slide__num">21</span>
+      <span class="slide__num">22</span>
     </header>
     <div class="slide__body">
       <div class="slide__head">
@@ -808,11 +851,11 @@
     </footer>
   </section>
 
-  <!-- 22 · Step 4: write & first boot -->
+  <!-- 23 · Step 4: write & first boot -->
   <section class="slide frame">
     <header class="slide__header">
       <div class="slide__brand"><img src="../../../Design%20System/assets/main/company-logo.png" alt="" /><span class="co">AI Code Academy</span></div>
-      <span class="slide__num">22</span>
+      <span class="slide__num">23</span>
     </header>
     <div class="slide__body">
       <div class="slide__head">
@@ -843,11 +886,11 @@
     </footer>
   </section>
 
-  <!-- 23 · Two ways to reach your Pi -->
+  <!-- 24 · Two ways to reach your Pi -->
   <section class="slide frame">
     <header class="slide__header">
       <div class="slide__brand"><img src="../../../Design%20System/assets/main/company-logo.png" alt="" /><span class="co">AI Code Academy</span></div>
-      <span class="slide__num">23</span>
+      <span class="slide__num">24</span>
     </header>
     <div class="slide__body">
       <div class="slide__head">
@@ -880,11 +923,11 @@
     </footer>
   </section>
 
-  <!-- 24 · Find your Pi -->
+  <!-- 25 · Find your Pi -->
   <section class="slide frame">
     <header class="slide__header">
       <div class="slide__brand"><img src="../../../Design%20System/assets/main/company-logo.png" alt="" /><span class="co">AI Code Academy</span></div>
-      <span class="slide__num">24</span>
+      <span class="slide__num">25</span>
     </header>
     <div class="slide__body">
       <div class="slide__head">
@@ -918,11 +961,11 @@
     </footer>
   </section>
 
-  <!-- 25 · SSH into the Pi -->
+  <!-- 26 · SSH into the Pi -->
   <section class="slide frame">
     <header class="slide__header">
       <div class="slide__brand"><img src="../../../Design%20System/assets/main/company-logo.png" alt="" /><span class="co">AI Code Academy</span></div>
-      <span class="slide__num">25</span>
+      <span class="slide__num">26</span>
     </header>
     <div class="slide__body">
       <div class="slide__head">
@@ -956,11 +999,11 @@ ssh pi@192.168.1.50</pre>
     </footer>
   </section>
 
-  <!-- 26 · Enable VNC on the Pi -->
+  <!-- 27 · Enable VNC on the Pi -->
   <section class="slide frame">
     <header class="slide__header">
       <div class="slide__brand"><img src="../../../Design%20System/assets/main/company-logo.png" alt="" /><span class="co">AI Code Academy</span></div>
-      <span class="slide__num">26</span>
+      <span class="slide__num">27</span>
     </header>
     <div class="slide__body">
       <div class="slide__head">
@@ -994,12 +1037,12 @@ ssh pi@192.168.1.50</pre>
     </footer>
   </section>
 
-  <!-- 27 · Install VNC Viewer -->
+  <!-- 28 · Install VNC Viewer -->
   <section class="slide frame">
     <!-- SLIDE NOTES (hidden): VNC Viewer — https://www.realvnc.com/en/connect/download/viewer/ -->
     <header class="slide__header">
       <div class="slide__brand"><img src="../../../Design%20System/assets/main/company-logo.png" alt="" /><span class="co">AI Code Academy</span></div>
-      <span class="slide__num">27</span>
+      <span class="slide__num">28</span>
     </header>
     <div class="slide__body">
       <div class="slide__head">
@@ -1028,11 +1071,11 @@ ssh pi@192.168.1.50</pre>
     </footer>
   </section>
 
-  <!-- 28 · Connect with VNC Viewer -->
+  <!-- 29 · Connect with VNC Viewer -->
   <section class="slide frame">
     <header class="slide__header">
       <div class="slide__brand"><img src="../../../Design%20System/assets/main/company-logo.png" alt="" /><span class="co">AI Code Academy</span></div>
-      <span class="slide__num">28</span>
+      <span class="slide__num">29</span>
     </header>
     <div class="slide__body">
       <div class="slide__head">
@@ -1061,12 +1104,12 @@ ssh pi@192.168.1.50</pre>
     </footer>
   </section>
 
-  <!-- 29 · Optional: Raspberry Pi Connect -->
+  <!-- 30 · Optional: Raspberry Pi Connect -->
   <section class="slide frame">
     <!-- SLIDE NOTES (hidden): Raspberry Pi Connect — https://www.raspberrypi.com/software/connect/ -->
     <header class="slide__header">
       <div class="slide__brand"><img src="../../../Design%20System/assets/main/company-logo.png" alt="" /><span class="co">AI Code Academy</span></div>
-      <span class="slide__num">29</span>
+      <span class="slide__num">30</span>
     </header>
     <div class="slide__body">
       <div class="slide__head">
@@ -1094,12 +1137,12 @@ ssh pi@192.168.1.50</pre>
     </footer>
   </section>
 
-  <!-- 30 · Download the course code -->
+  <!-- 31 · Download the course code -->
   <section class="slide frame">
-    <!-- SLIDE NOTES (hidden): course repo — https://github.com/renashall/smartcar2026.git -->
+    <!-- SLIDE NOTES (hidden): course repo (HTTPS) — https://github.com/renashall/smartcar2026.git · (SSH) — git@github.com:renashall/smartcar2026.git -->
     <header class="slide__header">
       <div class="slide__brand"><img src="../../../Design%20System/assets/main/company-logo.png" alt="" /><span class="co">AI Code Academy</span></div>
-      <span class="slide__num">30</span>
+      <span class="slide__num">31</span>
     </header>
     <div class="slide__body">
       <div class="slide__head">
@@ -1117,7 +1160,12 @@ ssh pi@192.168.1.50</pre>
           </div>
           <div class="cwrap">
             <div class="cbar"><i style="background:var(--red-400)"></i><i style="background:var(--amber-400)"></i><i style="background:var(--teal-300)"></i><span class="cfile">any terminal</span></div>
-<pre class="cpre">git clone https://github.com/renashall/smartcar2026.git
+<pre class="cpre"><span class="co"># HTTPS</span>
+git clone https://github.com/renashall/smartcar2026.git
+
+<span class="co"># SSH</span>
+git clone git@github.com:renashall/smartcar2026.git
+
 cd smartcar2026</pre>
           </div>
         </div>
@@ -1129,11 +1177,11 @@ cd smartcar2026</pre>
     </footer>
   </section>
 
-  <!-- 31 · Cloning on Mac / Windows / Pi -->
+  <!-- 32 · Cloning on Mac / Windows / Pi -->
   <section class="slide frame">
     <header class="slide__header">
       <div class="slide__brand"><img src="../../../Design%20System/assets/main/company-logo.png" alt="" /><span class="co">AI Code Academy</span></div>
-      <span class="slide__num">31</span>
+      <span class="slide__num">32</span>
     </header>
     <div class="slide__body">
       <div class="slide__head">
@@ -1167,11 +1215,11 @@ cd smartcar2026</pre>
     </footer>
   </section>
 
-  <!-- 32 · Run setup, part 1 -->
+  <!-- 33 · Run setup, part 1 -->
   <section class="slide frame">
     <header class="slide__header">
       <div class="slide__brand"><img src="../../../Design%20System/assets/main/company-logo.png" alt="" /><span class="co">AI Code Academy</span></div>
-      <span class="slide__num">32</span>
+      <span class="slide__num">33</span>
     </header>
     <div class="slide__body">
       <div class="slide__head">
@@ -1203,11 +1251,11 @@ chmod +x setupPart1.sh setupPart2.sh
     </footer>
   </section>
 
-  <!-- 33 · Run setup, part 2 -->
+  <!-- 34 · Run setup, part 2 -->
   <section class="slide frame">
     <header class="slide__header">
       <div class="slide__brand"><img src="../../../Design%20System/assets/main/company-logo.png" alt="" /><span class="co">AI Code Academy</span></div>
-      <span class="slide__num">33</span>
+      <span class="slide__num">34</span>
     </header>
     <div class="slide__body">
       <div class="slide__head">
@@ -1238,11 +1286,11 @@ chmod +x setupPart1.sh setupPart2.sh
     </footer>
   </section>
 
-  <!-- 34 · What the setup scripts did -->
+  <!-- 35 · What the setup scripts did -->
   <section class="slide frame">
     <header class="slide__header">
       <div class="slide__brand"><img src="../../../Design%20System/assets/main/company-logo.png" alt="" /><span class="co">AI Code Academy</span></div>
-      <span class="slide__num">34</span>
+      <span class="slide__num">35</span>
     </header>
     <div class="slide__body">
       <div class="slide__head">
@@ -1272,11 +1320,11 @@ chmod +x setupPart1.sh setupPart2.sh
     </footer>
   </section>
 
-  <!-- 35 · Where your code lives -->
+  <!-- 36 · Where your code lives -->
   <section class="slide frame">
     <header class="slide__header">
       <div class="slide__brand"><img src="../../../Design%20System/assets/main/company-logo.png" alt="" /><span class="co">AI Code Academy</span></div>
-      <span class="slide__num">35</span>
+      <span class="slide__num">36</span>
     </header>
     <div class="slide__body">
       <div class="slide__head">
@@ -1308,11 +1356,11 @@ chmod +x setupPart1.sh setupPart2.sh
     </footer>
   </section>
 
-  <!-- 36 · Is Python installed? -->
+  <!-- 37 · Is Python installed? -->
   <section class="slide frame">
     <header class="slide__header">
       <div class="slide__brand"><img src="../../../Design%20System/assets/main/company-logo.png" alt="" /><span class="co">AI Code Academy</span></div>
-      <span class="slide__num">36</span>
+      <span class="slide__num">37</span>
     </header>
     <div class="slide__body">
       <div class="slide__head">
@@ -1344,11 +1392,11 @@ python3 --version</pre>
     </footer>
   </section>
 
-  <!-- 37 · Install Python if needed -->
+  <!-- 38 · Install Python if needed -->
   <section class="slide frame">
     <header class="slide__header">
       <div class="slide__brand"><img src="../../../Design%20System/assets/main/company-logo.png" alt="" /><span class="co">AI Code Academy</span></div>
-      <span class="slide__num">37</span>
+      <span class="slide__num">38</span>
     </header>
     <div class="slide__body">
       <div class="slide__head">
@@ -1381,11 +1429,11 @@ python3 --version</pre>
     </footer>
   </section>
 
-  <!-- 38 · Create a virtual environment -->
+  <!-- 39 · Create a virtual environment -->
   <section class="slide frame">
     <header class="slide__header">
       <div class="slide__brand"><img src="../../../Design%20System/assets/main/company-logo.png" alt="" /><span class="co">AI Code Academy</span></div>
-      <span class="slide__num">38</span>
+      <span class="slide__num">39</span>
     </header>
     <div class="slide__body">
       <div class="slide__head">
@@ -1419,11 +1467,11 @@ python3 -m venv .venv</pre>
     </footer>
   </section>
 
-  <!-- 39 · Activate the venv -->
+  <!-- 40 · Activate the venv -->
   <section class="slide frame">
     <header class="slide__header">
       <div class="slide__brand"><img src="../../../Design%20System/assets/main/company-logo.png" alt="" /><span class="co">AI Code Academy</span></div>
-      <span class="slide__num">39</span>
+      <span class="slide__num">40</span>
     </header>
     <div class="slide__body">
       <div class="slide__head">
@@ -1459,24 +1507,24 @@ pip install -r requirements.txt</pre>
     </footer>
   </section>
 
-  <!-- 40 · Shortcut: Code/setup.py -->
+  <!-- 41 · Shortcut: Code/setup.py -->
   <section class="slide frame">
     <header class="slide__header">
       <div class="slide__brand"><img src="../../../Design%20System/assets/main/company-logo.png" alt="" /><span class="co">AI Code Academy</span></div>
-      <span class="slide__num">40</span>
+      <span class="slide__num">41</span>
     </header>
     <div class="slide__body">
       <div class="slide__head">
         <div class="slide__eyebrow">Lesson 0 — Initial setup · your computer</div>
         <h1 class="slide__title">Shortcut: let Code/setup.py do it</h1>
-        <p class="slide__desc">Don't want to do slides 38-39 by hand? Run the helper from the repo root.</p>
+        <p class="slide__desc">Don't want to do slides 39-40 by hand? Run the helper from the repo root.</p>
       </div>
       <div class="slide__content">
         <div style="display:grid;grid-template-columns:.86fr 1.14fr;gap:44px;align-items:center">
           <div>
             <div class="row"><span class="dot"></span><p>It <b>creates <code class="inl">.venv</code></b> and <b>installs all the packages</b> for you.</p></div>
             <div class="row"><span class="dot"></span><p>No admin or <code class="inl">sudo</code> needed. <code class="inl">--force</code> rebuilds it.</p></div>
-            <div class="row"><span class="dot"></span><p>You <b>still activate</b> the venv (slide 39) before running a lesson.</p></div>
+            <div class="row"><span class="dot"></span><p>You <b>still activate</b> the venv (slide 40) before running a lesson.</p></div>
           </div>
           <div class="cwrap">
             <div class="cbar"><i style="background:var(--red-400)"></i><i style="background:var(--amber-400)"></i><i style="background:var(--teal-300)"></i><span class="cfile">your computer · repo root</span></div>
@@ -1495,11 +1543,11 @@ python3 Code/setup.py</pre>
     </footer>
   </section>
 
-  <!-- 41 · Try it yourself: verify -->
+  <!-- 42 · Try it yourself: verify -->
   <section class="slide frame">
     <header class="slide__header">
       <div class="slide__brand"><img src="../../../Design%20System/assets/main/company-logo.png" alt="" /><span class="co">AI Code Academy</span></div>
-      <span class="slide__num">41</span>
+      <span class="slide__num">42</span>
     </header>
     <div class="slide__body">
       <div class="slide__head">
@@ -1528,11 +1576,11 @@ python3 Code/setup.py</pre>
     </footer>
   </section>
 
-  <!-- 42 · Troubleshooting -->
+  <!-- 43 · Troubleshooting -->
   <section class="slide frame">
     <header class="slide__header">
       <div class="slide__brand"><img src="../../../Design%20System/assets/main/company-logo.png" alt="" /><span class="co">AI Code Academy</span></div>
-      <span class="slide__num">42</span>
+      <span class="slide__num">43</span>
     </header>
     <div class="slide__body">
       <div class="slide__head">
@@ -1545,8 +1593,8 @@ python3 Code/setup.py</pre>
           <div style="display:flex;gap:12px;align-items:flex-start"><img src="../../../Design%20System/assets/icons/warning.png" alt="" style="width:26px;height:26px;flex-shrink:0" /><p style="margin:0;font-size:15px;color:var(--text-body);line-height:1.4"><b>Won't boot / lightning icon</b> → wrong or weak power adapter (slide 16).</p></div>
           <div style="display:flex;gap:12px;align-items:flex-start"><img src="../../../Design%20System/assets/icons/warning.png" alt="" style="width:26px;height:26px;flex-shrink:0" /><p style="margin:0;font-size:15px;color:var(--text-body);line-height:1.4"><b>Can't find the Pi</b> → same Wi-Fi? Try the IP instead of <code class="inl">.local</code>.</p></div>
           <div style="display:flex;gap:12px;align-items:flex-start"><img src="../../../Design%20System/assets/icons/error.png" alt="" style="width:26px;height:26px;flex-shrink:0" /><p style="margin:0;font-size:15px;color:var(--text-body);line-height:1.4"><b>SSH refused / times out</b> → SSH wasn't enabled in Imager; re-flash.</p></div>
-          <div style="display:flex;gap:12px;align-items:flex-start"><img src="../../../Design%20System/assets/icons/warning.png" alt="" style="width:26px;height:26px;flex-shrink:0" /><p style="margin:0;font-size:15px;color:var(--text-body);line-height:1.4"><b>VNC won't connect</b> → not enabled (slide 26); black screen → set a resolution.</p></div>
-          <div style="display:flex;gap:12px;align-items:flex-start"><img src="../../../Design%20System/assets/icons/error.png" alt="" style="width:26px;height:26px;flex-shrink:0" /><p style="margin:0;font-size:15px;color:var(--text-body);line-height:1.4"><code class="inl">git: command not found</code> → install git (slide 31) or use the ZIP.</p></div>
+          <div style="display:flex;gap:12px;align-items:flex-start"><img src="../../../Design%20System/assets/icons/warning.png" alt="" style="width:26px;height:26px;flex-shrink:0" /><p style="margin:0;font-size:15px;color:var(--text-body);line-height:1.4"><b>VNC won't connect</b> → not enabled (slide 27); black screen → set a resolution.</p></div>
+          <div style="display:flex;gap:12px;align-items:flex-start"><img src="../../../Design%20System/assets/icons/error.png" alt="" style="width:26px;height:26px;flex-shrink:0" /><p style="margin:0;font-size:15px;color:var(--text-body);line-height:1.4"><code class="inl">git: command not found</code> → install git (slide 32) or use the ZIP.</p></div>
           <div style="display:flex;gap:12px;align-items:flex-start"><img src="../../../Design%20System/assets/icons/error.png" alt="" style="width:26px;height:26px;flex-shrink:0" /><p style="margin:0;font-size:15px;color:var(--text-body);line-height:1.4"><b><code class="inl">python</code> not found (Windows)</b> → use <code class="inl">py</code>, or reinstall with "Add to PATH".</p></div>
           <div style="display:flex;gap:12px;align-items:flex-start"><img src="../../../Design%20System/assets/icons/warning.png" alt="" style="width:26px;height:26px;flex-shrink:0" /><p style="margin:0;font-size:15px;color:var(--text-body);line-height:1.4"><b>Venv won't activate</b> → <code class="inl">Set-ExecutionPolicy -Scope CurrentUser RemoteSigned</code>.</p></div>
           <div style="display:flex;gap:12px;align-items:flex-start"><img src="../../../Design%20System/assets/icons/error.png" alt="" style="width:26px;height:26px;flex-shrink:0" /><p style="margin:0;font-size:15px;color:var(--text-body);line-height:1.4"><code class="inl">ModuleNotFoundError</code> → activate <code class="inl">.venv</code>, then <code class="inl">pip install -r requirements.txt</code>.</p></div>
@@ -1563,11 +1611,11 @@ python3 Code/setup.py</pre>
     </footer>
   </section>
 
-  <!-- 43 · Recap & what's next -->
+  <!-- 44 · Recap & what's next -->
   <section class="slide frame">
     <header class="slide__header">
       <div class="slide__brand"><img src="../../../Design%20System/assets/main/company-logo.png" alt="" /><span class="co">AI Code Academy</span></div>
-      <span class="slide__num">43</span>
+      <span class="slide__num">44</span>
     </header>
     <div class="slide__body">
       <div class="slide__head">
@@ -1596,12 +1644,12 @@ python3 Code/setup.py</pre>
     </footer>
   </section>
 
-  <!-- 44 · Coach notes (HIDDEN — coach) -->
+  <!-- 45 · Coach notes (HIDDEN — coach) -->
   <section class="slide frame">
     <div style="position:absolute;left:0;top:0;width:6px;height:100%;background:var(--amber-400)"></div>
     <header class="slide__header">
       <div class="slide__brand"><img src="../../../Design%20System/assets/main/company-logo.png" alt="" /><span class="co">AI Code Academy</span></div>
-      <span class="slide__num">44</span>
+      <span class="slide__num">45</span>
     </header>
     <div class="slide__body">
       <div class="slide__head">
@@ -1614,8 +1662,8 @@ python3 Code/setup.py</pre>
           <div>
             <div style="display:flex;gap:14px;align-items:flex-start;padding:0 0 13px"><span class="pnum">1</span><div><h3 style="font-size:18px;font-weight:700;color:var(--text-strong);margin:0 0 3px">Before class — have ready</h3><p style="font-size:14.5px;color:var(--text-muted);margin:0;line-height:1.45">Charged spare 18650s, a known-good adapter per Pi model, a spare <b>pre-flashed SD card</b>, the Wi-Fi name/password, and the repo link (also in Discord / class page). Pre-flash a demo card to show the Imager steps live.</p></div></div>
             <div style="display:flex;gap:14px;align-items:flex-start;padding:13px 0;border-top:1px solid var(--border-subtle)"><span class="pnum">2</span><div><h3 style="font-size:18px;font-weight:700;color:var(--text-strong);margin:0 0 3px">Lead safety seriously</h3><p style="font-size:14.5px;color:var(--text-muted);margin:0;line-height:1.45">Battery handling (slide 14) and the correct Pi power adapter (slide 16) — under-power causes most boot issues.</p></div></div>
-            <div style="display:flex;gap:14px;align-items:flex-start;padding:13px 0;border-top:1px solid var(--border-subtle)"><span class="pnum">3</span><div><h3 style="font-size:18px;font-weight:700;color:var(--text-strong);margin:0 0 3px">Pi vs. computer</h3><p style="font-size:14.5px;color:var(--text-muted);margin:0;line-height:1.45">The Pi uses system Python (<b>no venv</b>); the venv steps 36-40 are computer-only, for the vision lessons.</p></div></div>
-            <div style="display:flex;gap:14px;align-items:flex-start;padding:13px 0 0;border-top:1px solid var(--border-subtle)"><span class="pnum">4</span><div><h3 style="font-size:18px;font-weight:700;color:var(--text-strong);margin:0 0 3px">Record-keeping &amp; assets</h3><p style="font-size:14.5px;color:var(--text-muted);margin:0;line-height:1.45">Write down each student's <b>hostname / username / password</b>. Still to source: Imager main screen (slide 20) and the OS-customisation dialog with SSH enabled (slide 21).</p></div></div>
+            <div style="display:flex;gap:14px;align-items:flex-start;padding:13px 0;border-top:1px solid var(--border-subtle)"><span class="pnum">3</span><div><h3 style="font-size:18px;font-weight:700;color:var(--text-strong);margin:0 0 3px">Pi vs. computer</h3><p style="font-size:14.5px;color:var(--text-muted);margin:0;line-height:1.45">The Pi uses system Python (<b>no venv</b>); the venv steps 37-41 are computer-only, for the vision lessons.</p></div></div>
+            <div style="display:flex;gap:14px;align-items:flex-start;padding:13px 0 0;border-top:1px solid var(--border-subtle)"><span class="pnum">4</span><div><h3 style="font-size:18px;font-weight:700;color:var(--text-strong);margin:0 0 3px">Record-keeping &amp; assets</h3><p style="font-size:14.5px;color:var(--text-muted);margin:0;line-height:1.45">Write down each student's <b>hostname / username / password</b>. Still to source: Imager main screen (slide 21) and the OS-customisation dialog with SSH enabled (slide 22).</p></div></div>
           </div>
           <div style="background:var(--navy-600);border-radius:var(--radius-xl);padding:24px;color:#fff;box-shadow:var(--shadow-md)">
             <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--teal-300);margin-bottom:12px">Biggest time-sinks</div>
