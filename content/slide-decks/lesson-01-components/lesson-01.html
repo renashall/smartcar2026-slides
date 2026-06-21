@@ -16,7 +16,7 @@
   "Script shape — setup -> do work -> destroy repeats in Lessons 2 and 3; call it out now.",
   "car_setup — reassure them this is plumbing they type once. It must come BEFORE the hardware imports.",
   "Case-sensitivity — the #1 'works on my laptop, breaks on the Pi' bug. Make them notice the lowercase servo.",
-  "Settings: bitmask — don't over-explain hex; '0xFF means all of them' is enough for now.",
+  "Settings: bitmask — the hex table is a reference, not a lecture. '0xFF means all of them' is enough for most students; point out that each hex digit = 4 bits, so 0xFF = 8 ones = all LEDs, and let the keen ones read the rest of the table.",
   "Settings: colours/angles — tie colours back to the (R,G,B) idea from art/screens. Asset to source: head-angle diagram.",
   "setup() — point out setServoPwm(\"0\", ...): the channel is the STRING \"0\", not the number 0.",
   "Demo 1 LEDs — run just this part live (DEMO_MODE = \"leds\") for an instant payoff. Asset to source: LED close-up photo.",
@@ -318,24 +318,64 @@ Run this on the Raspberry Pi (the car).
       <div class="slide__head">
         <div class="slide__eyebrow">Lesson 1 — Components · the file, chunk 3</div>
         <h1 class="slide__title">Settings: a menu switch and the LED bitmask</h1>
-        <p class="slide__desc">Two values you can change at the top of the file.</p>
+        <p class="slide__desc"><code class="inl">DEMO_MODE</code> picks what runs; the LED bitmask picks which of the 8 LEDs light up — one bit per LED.</p>
       </div>
       <div class="slide__content">
-        <div style="display:grid;grid-template-columns:.84fr 1.16fr;gap:44px;align-items:center">
-          <div>
-            <div class="row"><span class="dot"></span><p><code class="inl">DEMO_MODE</code> lets you run <span class="k">one part at a time</span> while you learn.</p></div>
-            <div class="row"><span class="dot"></span><p>The 8 LEDs are picked with a <span class="k">bitmask</span> — one on/off switch per LED.</p></div>
-            <div class="row"><span class="dot"></span><p><code class="inl">0xFF</code> = 255 = <span class="k">all 8 on</span>. <code class="inl">0x00</code> = all off.</p></div>
-          </div>
+        <div style="display:grid;grid-template-columns:.95fr 1.05fr;gap:32px;align-items:center">
           <div class="cwrap">
             <div class="cbar"><i style="background:var(--red-400)"></i><i style="background:var(--amber-400)"></i><i style="background:var(--teal-300)"></i><span class="cfile">lesson_1_components.py</span></div>
 <pre class="cpre"><span class="co"># ---- settings you can change ----</span>
-DEMO_MODE = <span class="st">"all"</span>    <span class="co"># "leds", "servo", "distance", "all"</span>
+DEMO_MODE = <span class="st">"all"</span>   <span class="co"># leds / servo / distance / all</span>
 
-<span class="co"># 0xFF = 255 = all 8 LEDs on at once. 0x00 = all off.</span>
-LED_ALL = <span class="kw">0xFF</span>
-LED_OFF = <span class="kw">0x00</span></pre>
+<span class="co"># pick which of the 8 LEDs to light up</span>
+LED_ALL = <span class="kw">0xFF</span>   <span class="co"># all on</span>
+LED_OFF = <span class="kw">0x00</span>   <span class="co"># all off</span></pre>
           </div>
+          <table style="width:100%;border-collapse:collapse;background:var(--surface-card);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-sm)">
+            <thead>
+              <tr style="background:var(--navy-600);color:#fff">
+                <th style="text-align:left;padding:8px 14px;font-size:12px;font-weight:800;letter-spacing:.04em">Value (hex)</th>
+                <th style="text-align:left;padding:8px 14px;font-size:12px;font-weight:800;letter-spacing:.04em">Binary</th>
+                <th style="text-align:left;padding:8px 14px;font-size:12px;font-weight:800;letter-spacing:.04em">Which LEDs</th>
+              </tr>
+            </thead>
+            <tbody style="font-size:14px">
+              <tr>
+                <td style="padding:7px 14px;font-family:var(--font-mono);font-weight:700;color:var(--navy-700)">0xFF</td>
+                <td style="padding:7px 14px;font-family:var(--font-mono);color:var(--text-muted)">1111 1111</td>
+                <td style="padding:7px 14px;color:var(--text-body)">all 8</td>
+              </tr>
+              <tr style="background:var(--neutral-50);border-top:1px solid var(--border-subtle)">
+                <td style="padding:7px 14px;font-family:var(--font-mono);font-weight:700;color:var(--navy-700)">0x00</td>
+                <td style="padding:7px 14px;font-family:var(--font-mono);color:var(--text-muted)">0000 0000</td>
+                <td style="padding:7px 14px;color:var(--text-body)">none (off)</td>
+              </tr>
+              <tr style="border-top:1px solid var(--border-subtle)">
+                <td style="padding:7px 14px;font-family:var(--font-mono);font-weight:700;color:var(--navy-700)">0x01</td>
+                <td style="padding:7px 14px;font-family:var(--font-mono);color:var(--text-muted)">0000 0001</td>
+                <td style="padding:7px 14px;color:var(--text-body)">only LED 0 (first)</td>
+              </tr>
+              <tr style="background:var(--neutral-50);border-top:1px solid var(--border-subtle)">
+                <td style="padding:7px 14px;font-family:var(--font-mono);font-weight:700;color:var(--navy-700)">0x80</td>
+                <td style="padding:7px 14px;font-family:var(--font-mono);color:var(--text-muted)">1000 0000</td>
+                <td style="padding:7px 14px;color:var(--text-body)">only LED 7 (last)</td>
+              </tr>
+              <tr style="border-top:1px solid var(--border-subtle)">
+                <td style="padding:7px 14px;font-family:var(--font-mono);font-weight:700;color:var(--navy-700)">0x0F</td>
+                <td style="padding:7px 14px;font-family:var(--font-mono);color:var(--text-muted)">0000 1111</td>
+                <td style="padding:7px 14px;color:var(--text-body)">first 4</td>
+              </tr>
+              <tr style="background:var(--neutral-50);border-top:1px solid var(--border-subtle)">
+                <td style="padding:7px 14px;font-family:var(--font-mono);font-weight:700;color:var(--navy-700)">0xAA</td>
+                <td style="padding:7px 14px;font-family:var(--font-mono);color:var(--text-muted)">1010 1010</td>
+                <td style="padding:7px 14px;color:var(--text-body)">every other one</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div style="margin-top:16px;display:flex;gap:13px;align-items:center;background:var(--neutral-50);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);padding:12px 18px">
+          <span style="font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--teal-700);flex-shrink:0">Hex</span>
+          <p style="margin:0;font-size:15px;color:var(--text-body);line-height:1.45"><code class="inl">0x</code> just means the number is written in <b>hexadecimal</b> — each hex digit = <b>4 bits</b>, so <code class="inl">0xFF</code> reads straight off as "8 ones = all LEDs." (<code class="inl">0xFF</code> = 255, <code class="inl">0x0F</code> = 15, <code class="inl">0x80</code> = 128)</p>
         </div>
       </div>
     </div>
