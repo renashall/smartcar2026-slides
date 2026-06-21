@@ -1,0 +1,30 @@
+# OS/editor noise
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*.swo
+
+# Python virtual environment
+.venv/
+
+# Local temp/cache
+.tmp/
+tmp/
+temp/
+__pycache__/
+*.py[cod]
+
+# Claude local state that should not be shared
+.claude/settings.local.json
+
+# Generated render/export scratch
+exports/
+renders/
+previews/
+*.log
+content/old-slide-decks
+
+# Exported deck deliverables (any folder under content/)
+content/**/*.pdf
+content/**/*.pptx

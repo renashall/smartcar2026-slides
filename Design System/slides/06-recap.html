@@ -1,0 +1,61 @@
+<!-- @dsCard group="Slides" viewport="1280x720" name="Recap / closing" subtitle="CheckList recap + next-up callout" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../styles.css" />
+<link rel="stylesheet" href="./slide-frame.css" />
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../_ds_bundle.js"></script>
+<style>
+  body { margin: 0; display: flex; }
+  .grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 56px; align-items: stretch; }
+  .checks { display: flex; flex-direction: column; justify-content: center; }
+</style>
+</head>
+<body>
+  <section class="slide">
+    <header class="slide__header">
+      <div class="slide__brand"><img src="../assets/main/company-logo.png" alt="" /><span class="co">AI Code Academy</span></div>
+      <span class="slide__num">06</span>
+    </header>
+
+    <div class="slide__body">
+      <div class="slide__head">
+        <div class="slide__eyebrow">Lesson 0 — Template Lesson</div>
+        <h1 class="slide__title">You did it!</h1>
+        <p class="slide__desc">Here's everything you got working in this lesson — nice driving.</p>
+      </div>
+
+      <div class="slide__content">
+        <div class="grid">
+          <div class="checks"><div id="checks-list"></div></div>
+          <div id="next-card" style="display:flex"></div>
+        </div>
+      </div>
+    </div>
+    <footer class="slide__footer">
+      <span class="course">Template Course Name — Level 3</span>
+      <span class="lesson">Lesson 0</span>
+    </footer>
+  </section>
+
+  <script type="text/babel">
+    const { CheckList, InfoCard } = window.DesignSystem_df7c10;
+    ReactDOM.createRoot(document.getElementById("checks-list")).render(
+      <CheckList size="lg" items={[
+        "Wired up motors, sensors and the camera",
+        "Ran your first Python on the Pi",
+        "Drove the car around an obstacle",
+      ]} />
+    );
+    ReactDOM.createRoot(document.getElementById("next-card")).render(
+      <InfoCard eyebrow="Up next" title={<>Lesson 05<br/>Line follower</>} style={{ width: "100%" }}>
+        Teach the car to trace a black line on the floor using its reflectance sensors.
+      </InfoCard>
+    );
+  </script>
+</body>
+</html>

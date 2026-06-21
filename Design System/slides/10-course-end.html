@@ -1,0 +1,87 @@
+<!-- @dsCard group="Slides" viewport="1280x720" name="Course end — coach checklist (hidden)" subtitle="Coach-only: announcement, certificates, winners" -->
+<!DOCTYPE html><html lang="en"><head>
+
+
+<meta charset="utf-8">
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="./slide-frame.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../_ds_bundle.js"></script>
+<style>
+  body { margin: 0; display: flex; }
+  .coachbar { position: absolute; left: 0; top: 0; width: 6px; height: 100%; background: var(--amber-400); }
+  .pill { display: inline-flex; align-items: center; gap: 8px; background: var(--amber-100); color: var(--amber-800); font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; padding: 5px 12px; border-radius: var(--radius-pill); }
+  .grid { display: grid; grid-template-columns: 1.35fr 0.65fr; gap: 44px; align-items: start; }
+  .step { display: flex; gap: 14px; align-items: flex-start; padding: 13px 0; border-top: 1px solid var(--border-subtle); }
+  .step:first-child { border-top: 0; padding-top: 0; }
+  .step .n { flex-shrink: 0; width: 30px; height: 30px; border-radius: 50%; background: var(--navy-600); color: #fff; font-weight: 700; font-size: 15px; display: flex; align-items: center; justify-content: center; }
+  .step h3 { font-size: 18px; font-weight: 700; color: var(--text-strong); margin: 0 0 3px; }
+  .step p { font-size: 15px; color: var(--text-muted); margin: 0; line-height: 1.45; }
+  .step a, .lnk { color: var(--navy-600); font-weight: 600; font-family: var(--font-mono); font-size: 13.5px; }
+  .side { background: var(--navy-600); border-radius: var(--radius-xl); padding: 26px; color: #fff; box-shadow: var(--shadow-md); }
+  .side .lbl { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--teal-300); margin-bottom: 12px; }
+</style>
+</head>
+<body style="">
+  <section class="slide">
+    <!-- SLIDE NOTES (hidden) — full links for this slide:
+         Final Meeting Announcement → https://aicode-coach-resources.notion.site/Final-Meeting-Announcement-9ff5b8cc4d9b4d8ba2691eb52f1b023e
+         scg.aicode101.com → https://scg.aicode101.com/
+         #final-project-winners → the class's Discord #final-project-winners channel -->
+    <div class="coachbar"></div>
+    <header class="slide__header">
+      <div class="slide__brand"><img src="../assets/main/company-logo.png" alt=""><span class="co">AI Code Academy</span></div>
+      <span class="slide__num">10</span>
+    </header>
+
+    <div class="slide__body">
+      <div class="slide__head">
+        <span class="pill">● Coach only · hidden slide</span>
+        <h1 class="slide__title" style="margin-top:12px">End-of-course checklist</h1>
+        <p class="slide__desc">Don't present this slide. Work through it after the final project presentations.</p>
+      </div>
+
+      <div class="slide__content">
+        <div class="grid">
+          <div>
+            <div class="step"><span class="n">1</span><div><h3>Post the final meeting announcement</h3><p>Copy the <a class="lnk" href="https://aicode-coach-resources.notion.site/Final-Meeting-Announcement-9ff5b8cc4d9b4d8ba2691eb52f1b023e" target="_blank" rel="noopener">Final Meeting Announcement</a> Notion template onto the class page; edit as needed.</p></div></div>
+            <div class="step"><span class="n">2</span><div><h3>Generate the certificates</h3><p>After final presentations, use <a class="lnk" href="https://scg.aicode101.com/" target="_blank" rel="noopener">scg.aicode101.com</a> — full instructions are on the site.</p></div></div>
+            <div class="step"><span class="n">3</span><div><h3>Issue to every student</h3><p>All students receive a class certificate; pick the top three on presentation quality.</p></div></div>
+            <div class="step"><span class="n">4</span><div><h3>Announce the winners</h3><p>Post to the class page <b>and</b> the <span class="lnk">#final-project-winners</span> Discord channel — class name, meeting time &amp; winners' names.</p></div></div>
+          </div>
+          <div class="side">
+            <div class="lbl">Certificate tiers</div>
+            <div id="tiers"></div>
+            <div style="margin-top:18px;padding-top:16px;border-top:1px solid rgba(255,255,255,.15)"><div id="rem"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="slide__footer">
+      <span class="course">Template Course Name — Level 3</span>
+      <span class="lesson">Lesson 0</span>
+    </footer>
+  </section>
+
+
+  <script type="text/babel">
+    const { TierList, MiniChecklist } = window.DesignSystem_df7c10;
+    ReactDOM.createRoot(document.getElementById("tiers")).render(
+      <TierList items={[
+        { tag: "×1", label: "High Honors" },
+        { tag: "×2", label: "Honors" },
+        { tag: "all", label: "Regular — everyone else" },
+      ]} />
+    );
+    ReactDOM.createRoot(document.getElementById("rem")).render(
+      <MiniChecklist divided={false} items={[
+        "Always post a class announcement",
+        "Post in Discord for absent students",
+        "Introductions if needed",
+      ]} />
+    );
+  </script>
+</body></html>

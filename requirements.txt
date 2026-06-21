@@ -1,0 +1,26 @@
+# Slide-rendering toolchain for smartcar2026-slides
+# Approach (Claude-design-tool style): author HTML slides -> screenshot each
+# slide with a headless browser -> pack the images into PDF and/or PPTX, and/or
+# author PPTX directly. Also supports PDF <-> image conversion both directions.
+#
+# Install:  uv pip install -r requirements.txt
+# Then:     python -m playwright install chromium
+
+# --- PPTX authoring ---------------------------------------------------------
+python-pptx>=1.0.2      # build PPTX, embed full-bleed slide images
+
+# --- Imaging ----------------------------------------------------------------
+Pillow>=11.0.0          # load/resize/compose slide images
+
+# --- PDF: render, convert, assemble ----------------------------------------
+PyMuPDF>=1.24.0         # import fitz; PDF<->PNG, no external binaries (poppler-free)
+pypdf>=5.1.0            # merge / split / reorder PDF pages
+img2pdf>=0.5.1          # lossless image -> PDF (no recompression)
+reportlab>=4.2.0        # build PDFs programmatically
+
+# --- HTML slide rendering (headless browser) --------------------------------
+playwright>=1.48.0      # screenshot HTML slides at exact size; HTML -> PDF
+
+# --- Templating / content ---------------------------------------------------
+Jinja2>=3.1.4           # HTML slide templates
+Markdown>=3.7           # markdown deck source -> HTML

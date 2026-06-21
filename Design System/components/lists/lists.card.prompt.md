@@ -1,0 +1,1 @@
+List components, each driven by an items array. CheckList (green ticks, for recaps and requirements), StepList (navy numbered steps, for ordered procedures), NumberedList (green numbered, for lesson goals), and IconList (icon + bold title + description rows, the common-issues / feature pattern). Several slides render these directly so the lists stay a single source of truth.

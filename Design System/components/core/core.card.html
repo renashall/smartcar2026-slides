@@ -1,0 +1,83 @@
+<!-- @dsCard group="Components" viewport="700x600" name="Core components" subtitle="Buttons, badges, callouts, cards & code blocks" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../../styles.css" />
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+  body { margin: 0; padding: 26px 30px; background: var(--surface-page); font-family: var(--font-sans); }
+  .group { margin-bottom: 22px; }
+  .glabel { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 12px; }
+  .rowf { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+</style>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    const { Button, Badge, Callout, Card, CodeBlock } = window.DesignSystem_df7c10;
+
+    function Demo() {
+      return (
+        <div>
+          <div className="group">
+            <div className="glabel">Buttons — variants &amp; sizes</div>
+            <div className="rowf">
+              <Button variant="primary">Start lesson</Button>
+              <Button variant="accent">Drive</Button>
+              <Button variant="secondary">Back</Button>
+              <Button variant="ghost">Skip</Button>
+              <Button variant="danger">Stop</Button>
+              <Button variant="primary" disabled>Disabled</Button>
+            </div>
+            <div className="rowf" style={{ marginTop: 12 }}>
+              <Button variant="primary" size="sm">Small</Button>
+              <Button variant="primary" size="md">Medium</Button>
+              <Button variant="primary" size="lg">Large</Button>
+            </div>
+          </div>
+
+          <div className="group">
+            <div className="glabel">Badges</div>
+            <div className="rowf">
+              <Badge tone="solid">Lesson 4</Badge>
+              <Badge tone="teal">Beginner</Badge>
+              <Badge tone="amber">New</Badge>
+              <Badge tone="navy">Raspberry Pi</Badge>
+              <Badge tone="success">Passed</Badge>
+              <Badge tone="warning">sudo</Badge>
+              <Badge tone="error">Blocked</Badge>
+            </div>
+          </div>
+
+          <div className="group">
+            <div className="glabel">Callouts — color carries meaning</div>
+            <div style={{ display: "grid", gap: 10 }}>
+              <Callout kind="tip">Give the car space to move before you run it.</Callout>
+              <Callout kind="warning">Lessons 1 &amp; 2 light the LEDs — run them with <code>sudo</code>.</Callout>
+              <Callout kind="dont">Don't lift the car while the wheels are spinning.</Callout>
+            </div>
+          </div>
+
+          <div className="group">
+            <div className="glabel">Cards &amp; code</div>
+            <div className="grid2">
+              <Card accent="teal" interactive>
+                <div style={{ fontWeight: 700, color: "var(--text-strong)", marginBottom: 6 }}>Lesson 7</div>
+                <div style={{ fontSize: 14, color: "var(--text-muted)" }}>Face tracking with the camera servo.</div>
+              </Card>
+              <CodeBlock language="bash" prompt>{`cd Code/User
+sudo python3 lesson_1_components.py`}</CodeBlock>
+            </div>
+          </div>
+        </div>
+      );
+    }
+    ReactDOM.createRoot(document.getElementById("root")).render(<Demo />);
+  </script>
+</body>
+</html>

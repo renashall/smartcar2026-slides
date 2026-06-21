@@ -1,0 +1,63 @@
+<!-- @dsCard group="Components" viewport="700x560" name="Lists" subtitle="Check · steps · numbered · icon" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../../styles.css" />
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+  body { margin: 0; padding: 26px 30px; background: var(--surface-page); font-family: var(--font-sans); }
+  .glabel { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 10px; }
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 26px 30px; }
+  .blk { margin-bottom: 6px; }
+</style>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    const { CheckList, StepList, NumberedList, IconList } = window.DesignSystem_df7c10;
+
+    function Demo() {
+      return (
+        <div className="cols">
+          <div className="blk">
+            <div className="glabel">CheckList</div>
+            <CheckList items={[
+              "Wired up motors and sensors",
+              "Ran your first Python on the Pi",
+              { text: "Tuned the drive speed", checked: false },
+            ]} />
+          </div>
+          <div className="blk">
+            <div className="glabel">StepList</div>
+            <StepList items={[
+              { title: "Set DEMO_MODE", body: "Choose how the car thinks." },
+              { title: "Run the script", body: "sudo python3 lesson_4.py" },
+              { title: "Watch it drive", body: "Around an obstacle." },
+            ]} />
+          </div>
+          <div className="blk">
+            <div className="glabel">NumberedList (green)</div>
+            <NumberedList items={[
+              "Connect to the Pi over Wi-Fi",
+              "Run your first lesson script",
+              "Drive around an obstacle on its own",
+            ]} />
+          </div>
+          <div className="blk">
+            <div className="glabel">IconList</div>
+            <IconList items={[
+              { icon: "../../assets/icons/error.png", title: "Permission denied", text: "Run the LED lessons with sudo." },
+              { icon: "../../assets/icons/wifi.png", title: "Can't connect", text: "Check the IP and Wi-Fi." },
+            ]} />
+          </div>
+        </div>
+      );
+    }
+    ReactDOM.createRoot(document.getElementById("root")).render(<Demo />);
+  </script>
+</body>
+</html>

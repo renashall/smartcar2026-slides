@@ -1,0 +1,29 @@
+<!-- @dsCard group="Colors" viewport="700x130" name="Neutral scale" subtitle="Navy-tinted slate — text, borders, backgrounds" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; padding: 24px; background: var(--surface-card); }
+  .ramp { display: flex; border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-sm); border: 1px solid var(--border-subtle); }
+  .step { flex: 1; height: 76px; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 8px; font-family: var(--font-mono); font-size: 10px; font-weight: 500; }
+</style>
+</head>
+<body>
+  <div class="ramp">
+    <div class="step" style="background:var(--neutral-0);color:#171b23">0</div>
+    <div class="step" style="background:var(--neutral-50);color:#171b23">50</div>
+    <div class="step" style="background:var(--neutral-100);color:#171b23">100</div>
+    <div class="step" style="background:var(--neutral-200);color:#171b23">200</div>
+    <div class="step" style="background:var(--neutral-300);color:#171b23">300</div>
+    <div class="step" style="background:var(--neutral-400);color:#171b23">400</div>
+    <div class="step" style="background:var(--neutral-500);color:#fff">500</div>
+    <div class="step" style="background:var(--neutral-600);color:#fff">600</div>
+    <div class="step" style="background:var(--neutral-700);color:#fff">700</div>
+    <div class="step" style="background:var(--neutral-800);color:#fff">800</div>
+    <div class="step" style="background:var(--neutral-900);color:#fff">900</div>
+    <div class="step" style="background:var(--neutral-950);color:#fff">950</div>
+  </div>
+</body>
+</html>

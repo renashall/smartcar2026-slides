@@ -1,0 +1,1 @@
+Core UI primitives. Button (primary / accent / secondary / ghost / danger, in sm / md / lg), Badge (8 tones), Callout (color = meaning: tip green, warning amber, dont red, note navy), Card (rounded surface with optional accent bar and hover lift), and CodeBlock (dark terminal panel). Compose these to build lesson UIs and slide blocks; read them from window.DesignSystem_df7c10.

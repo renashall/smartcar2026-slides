@@ -1,0 +1,78 @@
+<!-- @dsCard group="Slides" viewport="1280x720" name="Code walkthrough" subtitle="StepList left, dark code panel right" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../styles.css" />
+<link rel="stylesheet" href="./slide-frame.css" />
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../_ds_bundle.js"></script>
+<style>
+  body { margin: 0; display: flex; }
+  .grid { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 48px; align-items: center; }
+  .term { background: var(--surface-code); border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); overflow: hidden; font-family: var(--font-mono); }
+  .term .bar { display: flex; gap: 8px; align-items: center; padding: 13px 16px; border-bottom: 1px solid rgba(255,255,255,.08); }
+  .dot { width: 11px; height: 11px; border-radius: 50%; }
+  .term .file { margin-left: 8px; font-size: 13px; color: var(--neutral-400); }
+  .term pre { margin: 0; padding: 22px 24px; font-size: 16px; line-height: 1.85; color: #e8eaed; }
+  .c-kw { color: var(--amber-300); }
+  .c-co { color: var(--neutral-500); }
+  .c-st { color: var(--teal-300); }
+</style>
+</head>
+<body>
+  <section class="slide">
+    <header class="slide__header">
+      <div class="slide__brand"><img src="../assets/main/company-logo.png" alt="" /><span class="co">AI Code Academy</span></div>
+      <span class="slide__num">03</span>
+    </header>
+
+    <div class="slide__body">
+      <div class="slide__head">
+        <div class="slide__eyebrow">Lesson 0 — Template Lesson</div>
+        <h1 class="slide__title">Pick a self-driving mode</h1>
+        <p class="slide__desc">Open the lesson file and change just the settings at the top — no other edits needed.</p>
+      </div>
+
+      <div class="slide__content">
+        <div class="grid">
+          <div id="steps-list"></div>
+          <div class="term">
+            <div class="bar">
+              <span class="dot" style="background:var(--red-400)"></span>
+              <span class="dot" style="background:var(--amber-400)"></span>
+              <span class="dot" style="background:var(--teal-300)"></span>
+              <span class="file">lesson_4_autonomous_modes.py</span>
+            </div>
+            <pre><span class="c-co"># pick one self-driving mode</span>
+DEMO_MODE   = <span class="c-st">"sonic"</span>   <span class="c-co"># or "light"</span>
+DRIVE_SPEED = <span class="c-kw">1200</span>
+TURN_SPEED  = <span class="c-kw">1500</span>
+
+<span class="c-co"># closer than this (cm) = obstacle</span>
+BLOCKED     = <span class="c-kw">30</span></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer class="slide__footer">
+      <span class="course">Template Course Name — Level 3</span>
+      <span class="lesson">Lesson 0</span>
+    </footer>
+  </section>
+
+  <script type="text/babel">
+    const { StepList } = window.DesignSystem_df7c10;
+    const b = { color: "var(--text-strong)" };
+    ReactDOM.createRoot(document.getElementById("steps-list")).render(
+      <StepList items={[
+        { title: <span>Set <b style={b}>DEMO_MODE</b> to choose how the car thinks.</span> },
+        { title: <span><b style={b}>"sonic"</b> steers around obstacles with the ultrasonic sensor.</span> },
+        { title: <span>Tune <b style={b}>DRIVE_SPEED</b> — start gentle, then go faster.</span> },
+      ]} />
+    );
+  </script>
+</body>
+</html>

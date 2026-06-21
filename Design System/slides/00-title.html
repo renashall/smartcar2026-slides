@@ -1,0 +1,38 @@
+<!-- @dsCard group="Slides" viewport="1280x720" name="Title slide" subtitle="Course opener — logo badge, course name as title" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../styles.css" />
+<link rel="stylesheet" href="./slide-frame.css" />
+<style>
+  body { margin: 0; display: flex; }
+  .slide--title { background: var(--navy-600); }
+  .blob { position: absolute; border-radius: 50%; }
+</style>
+</head>
+<body>
+  <section class="slide slide--dark slide--title">
+    <!-- decorative brand blobs -->
+    <div class="blob" style="width:520px;height:520px;right:-160px;top:-160px;background:var(--navy-500);opacity:.5"></div>
+    <div class="blob" style="width:300px;height:300px;right:120px;bottom:-120px;background:var(--teal-300);opacity:.18"></div>
+    <div class="slide__dot" style="right:150px;top:470px;width:30px;height:30px"></div>
+
+    <header class="slide__header">
+      <div class="slide__brand"><img src="../assets/main/company-logo.png" alt="" /><span class="co">AI Code Academy</span></div>
+      <span class="slide__num">00</span>
+    </header>
+
+    <div class="slide__body" style="display:flex;flex-direction:column;justify-content:center">
+      <div class="slide__eyebrow" style="margin-bottom:22px">Lesson 0 — Template Lesson</div>
+      <h1 class="slide__title" style="font-size:60px;max-width:880px">Template Course Name</h1>
+      <p class="slide__lead" style="margin-top:26px">Learn by building — wire up the hardware, run real Python, and watch your car drive itself.</p>
+    </div>
+
+    <footer class="slide__footer">
+      <span class="course">Template Course Name — Level 3</span>
+      <a class="site" href="https://aicodeacademy.com" target="_blank" rel="noopener">aicodeacademy.com</a>
+    </footer>
+  </section>
+</body>
+</html>

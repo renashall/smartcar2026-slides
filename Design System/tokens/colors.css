@@ -1,0 +1,123 @@
+/* ============================================================
+   AI Code Academy — Color tokens
+   Brand: navy #224289 · teal #61cbc8 · amber #fcb600
+   Base palettes (raw scales) + semantic aliases.
+   ============================================================ */
+
+:root {
+  /* ---- Navy (primary brand) ---- */
+  --navy-50:  #eef2fb;
+  --navy-100: #d9e1f4;
+  --navy-200: #b4c4e7;
+  --navy-300: #859fd4;
+  --navy-400: #5675bd;
+  --navy-500: #3a57a2;
+  --navy-600: #224289; /* ◆ brand navy */
+  --navy-700: #1d3872;
+  --navy-800: #182c58;
+  --navy-900: #132142;
+  --navy-950: #0c142b;
+
+  /* ---- Teal (secondary brand) ---- */
+  --teal-50:  #e9faf8;
+  --teal-100: #c9f1ee;
+  --teal-200: #9ce5e1;
+  --teal-300: #61cbc8; /* ◆ brand teal */
+  --teal-400: #38b4b1;
+  --teal-500: #259c9a;
+  --teal-600: #1d7e7d;
+  --teal-700: #1b6564;
+  --teal-800: #1a5150;
+  --teal-900: #194343;
+
+  /* ---- Amber (accent) ---- */
+  --amber-50:  #fff8e3;
+  --amber-100: #ffeab3;
+  --amber-200: #ffd968;
+  --amber-300: #fdc62f;
+  --amber-400: #fcb600; /* ◆ brand amber */
+  --amber-500: #e09e00;
+  --amber-600: #b87e00;
+  --amber-700: #915f06;
+  --amber-800: #774c10;
+  --amber-900: #653f12;
+
+  /* ---- Neutral (navy-tinted slate) ---- */
+  --neutral-0:   #ffffff;
+  --neutral-50:  #f6f7fb;
+  --neutral-100: #edeff5;
+  --neutral-200: #dde1ec;
+  --neutral-300: #c3c9d8;
+  --neutral-400: #99a1b5;
+  --neutral-500: #6e7789;
+  --neutral-600: #515a6c;
+  --neutral-700: #3b4351;
+  --neutral-800: #272c37;
+  --neutral-900: #171b23;
+  --neutral-950: #0c0e14;
+
+  /* ---- Functional hues ---- */
+  --green-100: #d6f3e0;
+  --green-400: #34b96a;
+  --green-600: #1f8f4e;
+  --green-700: #19743f;
+
+  --red-100:   #fbdedb;
+  --red-400:   #ef5b50;
+  --red-600:   #d83a2e;
+  --red-700:   #b22d23;
+
+  /* ============================================================
+     Semantic aliases — prefer these in components & layouts
+     ============================================================ */
+
+  /* Brand shorthands */
+  --brand-navy:  var(--navy-600);
+  --brand-teal:  var(--teal-300);
+  --brand-amber: var(--amber-400);
+
+  /* Surfaces */
+  --surface-page:    var(--neutral-50);
+  --surface-card:    var(--neutral-0);
+  --surface-sunken:  var(--neutral-100);
+  --surface-inverse: var(--navy-600);
+  --surface-code:    var(--navy-950);
+
+  /* Text */
+  --text-strong:   var(--navy-900);
+  --text-body:     var(--neutral-700);
+  --text-muted:    var(--neutral-500);
+  --text-on-brand: var(--neutral-0);
+  --text-on-teal:  var(--navy-900);
+  --text-on-amber: var(--navy-900);
+  --text-link:     var(--navy-600);
+
+  /* Borders & lines */
+  --border-subtle:  var(--neutral-200);
+  --border-default: var(--neutral-300);
+  --border-strong:  var(--neutral-400);
+
+  /* Interactive (primary = navy) */
+  --action-bg:          var(--navy-600);
+  --action-bg-hover:    var(--navy-700);
+  --action-bg-active:   var(--navy-800);
+  --action-fg:          var(--neutral-0);
+
+  /* Interactive (accent = teal) */
+  --accent-bg:        var(--teal-300);
+  --accent-bg-hover:  var(--teal-400);
+  --accent-fg:        var(--navy-900);
+
+  /* Focus ring */
+  --focus-ring: var(--teal-400);
+
+  /* Status */
+  --status-success:    var(--green-600);
+  --status-success-bg: var(--green-100);
+  --status-warning:    var(--amber-500);
+  --status-warning-bg: var(--amber-100);
+  --status-error:      var(--red-600);
+  --status-error-bg:   var(--red-100);
+  --status-info:       var(--navy-600);
+  --status-info-bg:    var(--navy-100);
+}

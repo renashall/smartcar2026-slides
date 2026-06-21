@@ -1,0 +1,46 @@
+/* ============================================================
+   AI Code Academy — Base element defaults
+   Light resets + brand-aware defaults. Safe for specimen cards.
+   ============================================================ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  color: var(--text-body);
+  background: var(--surface-page);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  color: var(--text-strong);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  margin: 0;
+}
+
+p { margin: 0; text-wrap: pretty; }
+
+a {
+  color: var(--text-link);
+  text-decoration: none;
+}
+a:hover { text-decoration: underline; }
+
+code, pre, kbd {
+  font-family: var(--font-mono);
+}
+
+::selection {
+  background: var(--teal-200);
+  color: var(--navy-900);
+}

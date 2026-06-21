@@ -1,0 +1,1 @@
+Title slide that opens a deck. The big title is always the course name; the eyebrow above it is the lesson (`Lesson <n> — <name>`). The footer's left shows the course name followed by the level, separated by a dash (`course name — Level <n>`); the right shows the site. Also carries the organization/brand badge and a short description lead.

@@ -1,0 +1,64 @@
+<!-- @dsCard group="Slides" viewport="1280x720" name="Content + image" subtitle="Text left, product image right" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../styles.css" />
+<link rel="stylesheet" href="./slide-frame.css" />
+<style>
+  body { margin: 0; display: flex; }
+  .grid { display: grid; grid-template-columns: 1fr 0.92fr; gap: 56px; height: 100%; align-items: stretch; }
+  .feats { display: flex; flex-direction: column; justify-content: center; }
+  .feat { display: flex; gap: 16px; align-items: flex-start; padding: 14px 0; border-top: 1px solid var(--border-subtle); }
+  .feat:first-of-type { border-top: 0; padding-top: 0; }
+  .feat:last-of-type { padding-bottom: 0; }
+  .feat img { width: 40px; height: 40px; flex-shrink: 0; }
+  .feat h3 { font-size: 21px; font-weight: 700; color: var(--text-strong); margin: 0 0 3px; }
+  .feat p { font-size: 16px; color: var(--text-muted); margin: 0; line-height: 1.45; }
+  .imgwrap { background: var(--neutral-50); border-radius: var(--radius-xl); border: 1px solid var(--border-subtle); display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-md); overflow: hidden; }
+  .imgwrap img { max-width: 90%; max-height: 88%; width: auto; height: auto; object-fit: contain; }
+  .slide__content { height: 326px; }
+</style>
+</head>
+<body>
+  <section class="slide">
+    <header class="slide__header">
+      <div class="slide__brand"><img src="../assets/main/company-logo.png" alt="" /><span class="co">AI Code Academy</span></div>
+      <span class="slide__num">04</span>
+    </header>
+
+    <div class="slide__body">
+      <div class="slide__head">
+        <div class="slide__eyebrow">Lesson 0 — Template Lesson</div>
+        <h1 class="slide__title">A robot that senses its world</h1>
+        <p class="slide__desc">Three building blocks come together in this kit — each one a lesson of its own.</p>
+      </div>
+
+      <div class="slide__content">
+        <div class="grid">
+          <div class="feats">
+            <div class="feat">
+              <img src="../assets/icons/camera-black.png" alt="" />
+              <div><h3>Camera vision</h3><p>Stream live video and track faces in real time.</p></div>
+            </div>
+            <div class="feat">
+              <img src="../assets/icons/car-black.png" alt="" />
+              <div><h3>Autonomous driving</h3><p>Follow light, dodge obstacles, trace a line.</p></div>
+            </div>
+            <div class="feat">
+              <img src="../assets/icons/wifi.png" alt="" />
+              <div><h3>Remote control</h3><p>Drive it from your laptop over Wi-Fi.</p></div>
+            </div>
+          </div>
+          <div class="imgwrap"><img src="../assets/main/smart-car-full.png" alt="Smart car" /></div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="slide__footer">
+      <span class="course">Template Course Name — Level 3</span>
+      <span class="lesson">Lesson 0</span>
+    </footer>
+  </section>
+</body>
+</html>

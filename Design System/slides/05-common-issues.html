@@ -1,0 +1,62 @@
+<!-- @dsCard group="Slides" viewport="1280x720" name="Common issues" subtitle="IconList + questions card" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../styles.css" />
+<link rel="stylesheet" href="./slide-frame.css" />
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../_ds_bundle.js"></script>
+<style>
+  body { margin: 0; display: flex; }
+  .grid { display: grid; grid-template-columns: 1.25fr 0.75fr; gap: 48px; align-items: center; height: 100%; }
+</style>
+</head>
+<body style="background-color: rgb(246, 247, 251)">
+  <section class="slide">
+    <header class="slide__header">
+      <div class="slide__brand"><img src="../assets/main/company-logo.png" alt="" /><span class="co">AI Code Academy</span></div>
+      <span class="slide__num">05</span>
+    </header>
+
+    <div class="slide__body">
+      <div class="slide__head">
+        <div class="slide__eyebrow">Lesson 0 — Template Lesson</div>
+        <h1 class="slide__title">Common issues</h1>
+        <p class="slide__desc">If your car isn't behaving, it's almost always one of these.</p>
+      </div>
+
+      <div class="slide__content">
+        <div class="grid">
+          <div id="issues-list"></div>
+          <div id="ask-mount" style="display:flex"></div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="slide__footer">
+      <span class="course">Template Course Name — Level 3</span>
+      <span class="lesson">Lesson 0</span>
+    </footer>
+  </section>
+
+  <script type="text/babel">
+    const { IconList, InfoCard } = window.DesignSystem_df7c10;
+    const code = { fontFamily: "var(--font-mono)", fontSize: "14px", background: "var(--neutral-100)", padding: "1px 6px", borderRadius: "5px", color: "var(--navy-700)" };
+    ReactDOM.createRoot(document.getElementById("issues-list")).render(
+      <IconList items={[
+        { icon: "../assets/icons/error.png", title: <span>Permission denied / <code style={code}>mmap() failed</code></span>, text: <span>The LED lessons need root — run them with <code style={code}>sudo</code>.</span> },
+        { icon: "../assets/icons/wifi.png", title: "Can't connect to the Pi", text: "Check both devices are on the same Wi-Fi and the IP is correct." },
+        { icon: "../assets/icons/warning.png", title: "Car drives but won't steer", text: "The servo cable is in the wrong header — match channel 0 to pan." },
+      ]} />
+    );
+    ReactDOM.createRoot(document.getElementById("ask-mount")).render(
+      <InfoCard badge="?" title="Questions?" style={{ height: "100%" }}>
+        If anything isn't working, ask now — we'll fix it together before we move on.
+      </InfoCard>
+    );
+  </script>
+</body>
+</html>

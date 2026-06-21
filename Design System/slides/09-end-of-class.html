@@ -1,0 +1,76 @@
+<!-- @dsCard group="Slides" viewport="1280x720" name="End of class — coach checklist (hidden)" subtitle="Coach-only: post-class recap, log absences in #attendance" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../styles.css" />
+<link rel="stylesheet" href="./slide-frame.css" />
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../_ds_bundle.js"></script>
+<style>
+  body { margin: 0; display: flex; }
+  .coachbar { position: absolute; left: 0; top: 0; width: 6px; height: 100%; background: var(--amber-400); }
+  .pill { display: inline-flex; align-items: center; gap: 8px; background: var(--amber-100); color: var(--amber-800); font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; padding: 5px 12px; border-radius: var(--radius-pill); }
+  .grid { display: grid; grid-template-columns: 1.35fr 0.65fr; gap: 44px; align-items: start; }
+  .step { display: flex; gap: 14px; align-items: flex-start; padding: 16px 0; border-top: 1px solid var(--border-subtle); }
+  .step:first-child { border-top: 0; padding-top: 0; }
+  .step .n { flex-shrink: 0; width: 30px; height: 30px; border-radius: 50%; background: var(--navy-600); color: #fff; font-weight: 700; font-size: 15px; display: flex; align-items: center; justify-content: center; }
+  .step h3 { font-size: 19px; font-weight: 700; color: var(--text-strong); margin: 0 0 3px; }
+  .step p { font-size: 15px; color: var(--text-muted); margin: 0; line-height: 1.45; }
+  .lnk { color: var(--navy-600); font-family: var(--font-mono); font-size: 13.5px; }
+  .side { background: var(--navy-600); border-radius: var(--radius-xl); padding: 26px; color: #fff; box-shadow: var(--shadow-md); }
+  .side .lbl { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--teal-300); margin-bottom: 14px; }
+</style>
+</head>
+<body>
+  <section class="slide">
+    <!-- SLIDE NOTES (hidden) — full links for this slide:
+         #attendance → the class's Discord #attendance channel -->
+    <div class="coachbar"></div>
+    <header class="slide__header">
+      <div class="slide__brand"><img src="../assets/main/company-logo.png" alt="" /><span class="co">AI Code Academy</span></div>
+      <span class="slide__num">09</span>
+    </header>
+
+    <div class="slide__body">
+      <div class="slide__head">
+        <span class="pill">● Coach only · hidden slide</span>
+        <h1 class="slide__title" style="margin-top:12px">End-of-class checklist</h1>
+        <p class="slide__desc">Don't present this slide. Run through it right after every class.</p>
+      </div>
+
+      <div class="slide__content">
+        <div class="grid">
+          <div>
+            <div class="step"><span class="n">1</span><div><h3>Post the after-class meeting recap</h3><p>Summarise what you covered today on the class page so students can catch up.</p></div></div>
+            <div class="step"><span class="n">2</span><div><h3>Log absent students</h3><p>Post anyone who missed class in the <span class="lnk">#attendance</span> Discord channel.</p></div></div>
+            <div class="step"><span class="n">3</span><div><h3>Set up the next class</h3><p>Share any reminders, homework or prep students need before next time.</p></div></div>
+          </div>
+          <div class="side">
+            <div class="lbl">Every class</div>
+            <div id="rem"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="slide__footer">
+      <span class="course">Template Course Name — Level 3</span>
+      <span class="lesson">Lesson 0</span>
+    </footer>
+  </section>
+
+  <script type="text/babel">
+    const { MiniChecklist } = window.DesignSystem_df7c10;
+    ReactDOM.createRoot(document.getElementById("rem")).render(
+      <MiniChecklist items={[
+        "Post a class announcement",
+        "Introductions if needed",
+        "Note absences in #attendance",
+      ]} />
+    );
+  </script>
+</body>
+</html>
