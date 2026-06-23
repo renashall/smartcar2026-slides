@@ -520,7 +520,22 @@ smartcar2026/Code/User
 
 ---
 
-## Slide 35 — Is Python Installed? (Your Computer)
+## Slide 35 — Editing Code on the Pi: Thonny
+
+**On screen**
+- Raspberry Pi OS comes with **Thonny**, a beginner-friendly Python editor — already installed, nothing to download.
+- Open it on the Pi desktop (over **VNC**): **Menu → Programming → Thonny**.
+- Use it to open, write, and **save** your lesson files in `smartcar2026/Code/User`.
+- It's the easy way to read and edit code right on the car.
+- You **run** lessons from the terminal, not Thonny's Run button — we cover that in **Lesson 1**.
+
+**Visual:** Design System/assets/icons/thonny-logo.png + Design System/assets/icons/raspberry-pi.png + Design System/assets/icons/terminal.png
+
+**Coach note:** Thonny ships with Raspberry Pi OS and runs on the Pi desktop (reach it over VNC) — no install needed. Students edit and save in Thonny but run lessons from the terminal (the LED lessons need `sudo`); we explain that split in Lesson 1. Keep all work saved in `Code/User`.
+
+---
+
+## Slide 36 — Is Python Installed? (Your Computer)
 
 **On screen**
 - The **Pi** already has Python (the setup scripts handled it). These next steps are for **your computer**, for the vision lessons.
@@ -539,7 +554,7 @@ python3 --version
 
 ---
 
-## Slide 36 — Install Python if Needed
+## Slide 37 — Install Python if Needed
 
 **On screen**
 - If the check failed, install **Python 3**:
@@ -553,7 +568,7 @@ python3 --version
 
 ---
 
-## Slide 37 — Create a Virtual Environment
+## Slide 38 — Create a Virtual Environment
 
 **On screen**
 - A **virtual environment (venv)** is a private package box for this project — installs stay here, not on your whole computer.
@@ -573,7 +588,7 @@ python3 -m venv .venv
 
 ---
 
-## Slide 38 — Activate the Venv Every Time You Run Code
+## Slide 39 — Activate the Venv Every Time You Run Code
 
 **On screen**
 - **Activate it whenever** you open a terminal to run a lesson:
@@ -596,10 +611,10 @@ pip install -r requirements.txt
 
 ---
 
-## Slide 39 — Shortcut: Let Code/setup.py Do It for You
+## Slide 40 — Shortcut: Let Code/setup.py Do It for You
 
 **On screen**
-- Don't want to do slides 37–38 by hand? In the **repo root**, run the helper:
+- Don't want to do slides 38–39 by hand? In the **repo root**, run the helper:
 ```sh
 # Windows
 python Code\setup.py
@@ -607,15 +622,15 @@ python Code\setup.py
 python3 Code/setup.py
 ```
 - It **creates `.venv`** and **installs all the packages** for you. No admin/`sudo` needed. (`--force` rebuilds it.)
-- You **still activate** the venv (slide 38) before running a lesson.
+- You **still activate** the venv (slide 39) before running a lesson.
 
 **Visual:** Design System/assets/icons/success.png
 
-**Coach note:** `Code/setup.py` = slides 37–38's create+install in one step. It's the easy path; the manual steps teach what it's doing under the hood. Either way, you activate to run.
+**Coach note:** `Code/setup.py` = slides 38–39's create+install in one step. It's the easy path; the manual steps teach what it's doing under the hood. Either way, you activate to run.
 
 ---
 
-## Slide 40 — Try It Yourself: Verify Your Setup
+## Slide 41 — Try It Yourself: Verify Your Setup
 
 **On screen**
 - Confirm each piece works:
@@ -633,7 +648,7 @@ python3 Code/setup.py
 
 ---
 
-## Slide 41 — Troubleshooting
+## Slide 42 — Troubleshooting
 
 **On screen**
 - **Pi won't boot / rainbow screen / ⚡ icon** → wrong or weak power adapter (match slide 15).
@@ -652,7 +667,7 @@ python3 Code/setup.py
 
 ---
 
-## Slide 42 — Recap & What's Next
+## Slide 43 — Recap & What's Next
 
 **On screen**
 - You built/inventoried the kit, learned **battery safety**, and powered the Pi correctly.
@@ -670,7 +685,7 @@ python3 Code/setup.py
 
 ## Coach Notes (hidden)
 
-**Timing:** This often spans **more than one session**. Rough split: kit + assembly (5–10) variable (assembly can be homework) · battery safety + power (11–15) ~15 min · flashing (16–21) ~25 min · SSH/VNC (22–28) ~25 min · install code on the Pi (29–34) ~20 min · Python/venv on your computer (35–39) ~15 min · verify/troubleshoot (40–41) ~15 min. Don't rush; later lessons depend on this working.
+**Timing:** This often spans **more than one session**. Rough split: kit + assembly (5–10) variable (assembly can be homework) · battery safety + power (11–15) ~15 min · flashing (16–21) ~25 min · SSH/VNC (22–28) ~25 min · install code on the Pi + Thonny (29–35) ~22 min · Python/venv on your computer (36–40) ~15 min · verify/troubleshoot (41–42) ~15 min. Don't rush; later lessons depend on this working.
 
 **Before class**
 - Have ready: charged spare 18650s, a known-good power adapter per Pi model, a spare pre-flashed SD card, the Wi-Fi name/password, and the course repo link (also pasted in Discord / the class page).
@@ -684,7 +699,7 @@ python3 Code/setup.py
 
 **Pi vs. computer**
 - The **Pi** uses its **system Python** via the setup scripts — **no venv** there.
-- The **venv steps (35–39) are computer-only**, for the camera/vision lessons (6 viewer, 7, 8, 11).
+- The **venv steps (36–40) are computer-only**, for the camera/vision lessons (6 viewer, 7, 8, 11).
 
 **Biggest time-sinks (head these off)**
 1. SSH not enabled in Imager Step 3 → can't connect headless. Make everyone enable it.

@@ -25,6 +25,7 @@
   "destroy() — connect 'clean up' to real robots: never leave hardware in a weird state.",
   "Main block — 'finally' is the key idea: clean-up runs no matter how the program ends.",
   "Whole file — quick scroll through the full assembled file so they see the result.",
+  "Where to write & save — Thonny is pre-installed on Raspberry Pi OS and runs on the Pi desktop (reach it over VNC). Students EDIT and SAVE in Thonny but RUN from the terminal, because the LED strip needs sudo. Stress saving into Code/User next to car_setup.py — saving elsewhere is why imports fail. This edit-in-Thonny / run-in-terminal split repeats every Pi lesson.",
   "Run it — ~5 min hands-on. Circulate; everyone should see at least the LEDs change. sudo is needed because the LED strip library needs root.",
   "Try it yourself — the red-when-close challenge previews sensor->action logic in later lessons.",
   "Troubleshooting — casing and missing sudo cover ~90% of failures today; check those first.",
@@ -743,7 +744,7 @@ ultrasonic = <span class="kw">None</span>
     </footer>
   </section>
 
-  <!-- 17 · Run it -->
+  <!-- 17 · Where to write & save: Thonny + Code/User -->
   <section class="slide frame">
     <header class="slide__header">
       <div class="slide__brand"><img src="../../../Design%20System/assets/main/company-logo.png" alt="" /><span class="co">AI Code Academy</span></div>
@@ -752,8 +753,43 @@ ultrasonic = <span class="kw">None</span>
     <div class="slide__body">
       <div class="slide__head">
         <div class="slide__eyebrow">Lesson 1 — Components</div>
+        <h1 class="slide__title">Where to write &amp; save it</h1>
+        <p class="slide__desc">Edit and save in Thonny — then run from the terminal.</p>
+      </div>
+      <div class="slide__content">
+        <div style="display:grid;grid-template-columns:1.12fr .88fr;gap:46px;align-items:center">
+          <div>
+            <div class="row" style="padding-top:0;border-top:0"><span class="dot"></span><p><span class="k">Write it in Thonny</span> — the Pi's built-in Python editor (already on Raspberry Pi OS). Open it on the Pi desktop: <span class="k">Menu → Programming → Thonny</span>.</p></div>
+            <div class="row"><span class="dot"></span><p><span class="k">Save in</span> <code class="inl">smartcar2026/Code/User</code> — next to <code class="inl">car_setup.py</code>, so the imports resolve. Keep the name <code class="inl">lesson_1_components.py</code>.</p></div>
+            <div class="row"><span class="dot"></span><p>All course long: <span class="k">edit &amp; save in Thonny → run from the terminal</span>.</p></div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:18px">
+            <img src="../../../Design%20System/assets/icons/thonny-logo.png" alt="Thonny" style="width:104px;height:104px;object-fit:contain" />
+            <div style="background:var(--amber-100);border:1px solid var(--amber-400);border-radius:var(--radius-lg);padding:20px 22px">
+              <div style="font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--amber-800);margin-bottom:8px">Not Thonny's Run button</div>
+              <p style="font-size:16px;color:var(--text-body);line-height:1.55;margin:0">These lessons need <code class="inl">sudo</code> (root) for the hardware, so we run them from the <span class="k">terminal</span>, not Thonny's green Run.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer class="slide__footer">
+      <span class="course">Machine Learning with Raspberry Pi &amp; Smart Car — Level 3</span>
+      <span class="lesson">Lesson 1</span>
+    </footer>
+  </section>
+
+  <!-- 18 · Run it -->
+  <section class="slide frame">
+    <header class="slide__header">
+      <div class="slide__brand"><img src="../../../Design%20System/assets/main/company-logo.png" alt="" /><span class="co">AI Code Academy</span></div>
+      <span class="slide__num">18</span>
+    </header>
+    <div class="slide__body">
+      <div class="slide__head">
+        <div class="slide__eyebrow">Lesson 1 — Components</div>
         <h1 class="slide__title">Run it on the Pi</h1>
-        <p class="slide__desc">From the Pi's terminal — and yes, it needs sudo.</p>
+        <p class="slide__desc">Saved in Code/User — now run it from the Pi's terminal (it needs sudo).</p>
       </div>
       <div class="slide__content">
         <div style="display:grid;grid-template-columns:1.04fr .96fr;gap:44px;align-items:center">
@@ -779,11 +815,11 @@ ultrasonic = <span class="kw">None</span>
     </footer>
   </section>
 
-  <!-- 18 · Try it yourself -->
+  <!-- 19 · Try it yourself -->
   <section class="slide frame">
     <header class="slide__header">
       <div class="slide__brand"><img src="../../../Design%20System/assets/main/company-logo.png" alt="" /><span class="co">AI Code Academy</span></div>
-      <span class="slide__num">18</span>
+      <span class="slide__num">19</span>
     </header>
     <div class="slide__body">
       <div class="slide__head">
@@ -812,11 +848,11 @@ ultrasonic = <span class="kw">None</span>
     </footer>
   </section>
 
-  <!-- 19 · Troubleshooting -->
+  <!-- 20 · Troubleshooting -->
   <section class="slide frame">
     <header class="slide__header">
       <div class="slide__brand"><img src="../../../Design%20System/assets/main/company-logo.png" alt="" /><span class="co">AI Code Academy</span></div>
-      <span class="slide__num">19</span>
+      <span class="slide__num">20</span>
     </header>
     <div class="slide__body">
       <div class="slide__head">
@@ -846,11 +882,11 @@ ultrasonic = <span class="kw">None</span>
     </footer>
   </section>
 
-  <!-- 20 · Recap & what's next -->
+  <!-- 21 · Recap & what's next -->
   <section class="slide frame">
     <header class="slide__header">
       <div class="slide__brand"><img src="../../../Design%20System/assets/main/company-logo.png" alt="" /><span class="co">AI Code Academy</span></div>
-      <span class="slide__num">20</span>
+      <span class="slide__num">21</span>
     </header>
     <div class="slide__body">
       <div class="slide__head">
@@ -879,12 +915,12 @@ ultrasonic = <span class="kw">None</span>
     </footer>
   </section>
 
-  <!-- 21 · End-of-class checklist (HIDDEN — coach) -->
+  <!-- 22 · End-of-class checklist (HIDDEN — coach) -->
   <section class="slide frame">
     <div style="position:absolute;left:0;top:0;width:6px;height:100%;background:var(--amber-400)"></div>
     <header class="slide__header">
       <div class="slide__brand"><img src="../../../Design%20System/assets/main/company-logo.png" alt="" /><span class="co">AI Code Academy</span></div>
-      <span class="slide__num">21</span>
+      <span class="slide__num">22</span>
     </header>
     <div class="slide__body">
       <div class="slide__head">

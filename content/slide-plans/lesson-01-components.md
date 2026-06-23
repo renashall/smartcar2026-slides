@@ -340,10 +340,26 @@ if __name__ == "__main__":
 
 ---
 
-## Slide 17 — Run It
+## Slide 17 — Where to Write & Save: Thonny + Code/User
 
 **On screen**
-- On the **Pi's terminal**:
+- Write this lesson in **Thonny** — the Pi's built-in Python editor (already installed on Raspberry Pi OS).
+- Open it on the Pi desktop (over **VNC**): **Menu → Programming → Thonny**.
+- **Save the file in** `smartcar2026/Code/User` — the same folder as `car_setup.py`, so the imports resolve.
+- Keep the filename `lesson_1_components.py`.
+- Our workflow all course long: **edit & save in Thonny → run from the terminal**.
+- We don't use Thonny's green **Run** button for these lessons — they need `sudo` (root), which the terminal handles cleanly.
+
+**Visual:** Design System/assets/icons/thonny-logo.png + Design System/assets/icons/terminal.png
+
+**Coach note:** Thonny is pre-installed on Raspberry Pi OS and runs on the Pi desktop (reach it over VNC). Students **edit and save** in Thonny but **run from the terminal**, because the LED strip needs `sudo`. Stress saving into `Code/User` next to `car_setup.py` — saving elsewhere is why imports fail. This Thonny-edits / terminal-runs split repeats every Pi lesson.
+
+---
+
+## Slide 18 — Run It
+
+**On screen**
+- You saved the file in `Code/User` with Thonny — now switch to the **Pi's terminal** to run it:
 ```sh
 cd smartcar2026/Code/User
 sudo python3 lesson_1_components.py
@@ -357,7 +373,7 @@ sudo python3 lesson_1_components.py
 
 ---
 
-## Slide 18 — Try It Yourself
+## Slide 19 — Try It Yourself
 
 **On screen**
 - Change `DEMO_MODE` to `"leds"`, `"servo"`, or `"distance"` to run one part.
@@ -369,7 +385,7 @@ sudo python3 lesson_1_components.py
 
 ---
 
-## Slide 19 — Troubleshooting
+## Slide 20 — Troubleshooting
 
 **On screen**
 - `Can't open /dev/mem` / `mmap() failed` → you forgot **`sudo`**.
@@ -383,7 +399,7 @@ sudo python3 lesson_1_components.py
 
 ---
 
-## Slide 20 — Recap & What's Next
+## Slide 21 — Recap & What's Next
 
 **On screen**
 - You drove **three components** from one Python program.
@@ -400,7 +416,7 @@ sudo python3 lesson_1_components.py
 
 ## Coach Notes (hidden)
 
-**Timing (~45–50 min):** Intro/concepts (slides 1–7) ~10 min · build the code (8–16) ~20 min · run + experiment (17–18) ~12 min · troubleshooting/recap (19–20) ~6 min.
+**Timing (~45–50 min):** Intro/concepts (slides 1–7) ~10 min · build the code (8–16) ~20 min · save + run + experiment (17–19) ~12 min · troubleshooting/recap (20–21) ~6 min.
 
 **Before class**
 - Charge cars; low battery is the cause of most servo/LED weirdness.
@@ -411,7 +427,8 @@ sudo python3 lesson_1_components.py
 1. Missing `sudo` → `Can't open /dev/mem`.
 2. Import casing (`from servo import Servo`, lowercase file).
 3. `car_setup` not imported first → `ModuleNotFoundError` on the hardware modules.
-4. Servo channel passed as `0` (int) instead of `"0"` (string).
+4. File saved outside `Code/User` (Thonny default) → `car_setup`/module imports fail. Save next to `car_setup.py`.
+5. Servo channel passed as `0` (int) instead of `"0"` (string).
 
 **Safety**
 - LEDs are bright — fine, but tell students not to stare close-up.

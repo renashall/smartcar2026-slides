@@ -45,6 +45,7 @@
   "Setup Part 2 (Pi) — after the reboot, run part 2. It sets up the camera boot config, installs the WS281x LED driver, and the course Python packages. Two scripts, two reboots, by design. After this the Pi has all the hardware libraries the lessons need.",
   "What the scripts did — reassure: the scripts replace a lot of manual fiddling. That's why on the Pi you do NOT need a virtual environment. If one failed, re-run it and read the last error line.",
   "Where your code lives — put all your course work in smartcar2026/Code/User. Lesson files start with 'import car_setup' so the car's modules import cleanly. We explain car_setup.py properly in Lesson 1.",
+  "Editing code on the Pi: Thonny — Thonny ships with Raspberry Pi OS and runs on the Pi desktop (reach it over VNC); no install needed. Students open, edit and SAVE lesson files into Code/User here, but RUN lessons from the terminal (the LED lessons need sudo) — we explain that split in Lesson 1.",
   "Is Python installed (computer) — the Pi already has Python. These next steps are for YOUR computer, for the vision lessons. On Windows, 'py' is the most reliable launcher; if 'python' opens the Microsoft Store, use 'py'. The course needs Python 3.9+.",
   "Install Python if needed — the #1 Windows mistake is forgetting 'Add python.exe to PATH' (then python/py isn't found). Re-running the installer and ticking it fixes it. macOS: python.org or 'brew install python'. Close and reopen the terminal, then re-check.",
   "Create a venv — a venv is a private package box for this project. Always put it at the repo root as .venv (that's also where Code/setup.py puts it). One venv per project keeps versions clean. Do this once.",
@@ -1356,11 +1357,44 @@ chmod +x setupPart1.sh setupPart2.sh
     </footer>
   </section>
 
-  <!-- 37 · Is Python installed? -->
+  <!-- 37 · Editing code on the Pi: Thonny -->
   <section class="slide frame">
     <header class="slide__header">
       <div class="slide__brand"><img src="../../../Design%20System/assets/main/company-logo.png" alt="" /><span class="co">AI Code Academy</span></div>
       <span class="slide__num">37</span>
+    </header>
+    <div class="slide__body">
+      <div class="slide__head">
+        <div class="slide__eyebrow">Lesson 0 — Initial setup · install on the Pi</div>
+        <h1 class="slide__title">Editing code on the Pi: Thonny</h1>
+        <p class="slide__desc">A friendly Python editor that's already on the Pi.</p>
+      </div>
+      <div class="slide__content">
+        <div style="display:grid;grid-template-columns:1.12fr .88fr;gap:46px;align-items:center">
+          <div>
+            <div class="row" style="padding-top:0;border-top:0"><span class="dot"></span><p><span class="k">Thonny</span> comes with Raspberry Pi OS — a beginner-friendly Python editor, nothing to download.</p></div>
+            <div class="row"><span class="dot"></span><p>Open it on the Pi desktop (over <span class="k">VNC</span>): <span class="k">Menu → Programming → Thonny</span>.</p></div>
+            <div class="row"><span class="dot"></span><p>Use it to open, write, and <span class="k">save</span> your lesson files in <code class="inl">smartcar2026/Code/User</code>.</p></div>
+            <div class="row"><span class="dot"></span><p>You <span class="k">run</span> lessons from the terminal, not Thonny's Run button — more in <b>Lesson 1</b>.</p></div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:18px;text-align:center">
+            <img src="../../../Design%20System/assets/icons/thonny-logo.png" alt="Thonny" style="width:140px;height:140px;object-fit:contain" />
+            <p style="font-size:16px;color:var(--text-strong);font-weight:600;margin:0">Edit &amp; save in Thonny → run in the terminal.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer class="slide__footer">
+      <span class="course">Machine Learning with Raspberry Pi &amp; Smart Car — Level 3</span>
+      <span class="lesson">Lesson 0</span>
+    </footer>
+  </section>
+
+  <!-- 38 · Is Python installed? -->
+  <section class="slide frame">
+    <header class="slide__header">
+      <div class="slide__brand"><img src="../../../Design%20System/assets/main/company-logo.png" alt="" /><span class="co">AI Code Academy</span></div>
+      <span class="slide__num">38</span>
     </header>
     <div class="slide__body">
       <div class="slide__head">
@@ -1392,11 +1426,11 @@ python3 --version</pre>
     </footer>
   </section>
 
-  <!-- 38 · Install Python if needed -->
+  <!-- 39 · Install Python if needed -->
   <section class="slide frame">
     <header class="slide__header">
       <div class="slide__brand"><img src="../../../Design%20System/assets/main/company-logo.png" alt="" /><span class="co">AI Code Academy</span></div>
-      <span class="slide__num">38</span>
+      <span class="slide__num">39</span>
     </header>
     <div class="slide__body">
       <div class="slide__head">
@@ -1429,11 +1463,11 @@ python3 --version</pre>
     </footer>
   </section>
 
-  <!-- 39 · Create a virtual environment -->
+  <!-- 40 · Create a virtual environment -->
   <section class="slide frame">
     <header class="slide__header">
       <div class="slide__brand"><img src="../../../Design%20System/assets/main/company-logo.png" alt="" /><span class="co">AI Code Academy</span></div>
-      <span class="slide__num">39</span>
+      <span class="slide__num">40</span>
     </header>
     <div class="slide__body">
       <div class="slide__head">
@@ -1467,11 +1501,11 @@ python3 -m venv .venv</pre>
     </footer>
   </section>
 
-  <!-- 40 · Activate the venv -->
+  <!-- 41 · Activate the venv -->
   <section class="slide frame">
     <header class="slide__header">
       <div class="slide__brand"><img src="../../../Design%20System/assets/main/company-logo.png" alt="" /><span class="co">AI Code Academy</span></div>
-      <span class="slide__num">40</span>
+      <span class="slide__num">41</span>
     </header>
     <div class="slide__body">
       <div class="slide__head">
@@ -1507,11 +1541,11 @@ pip install -r requirements.txt</pre>
     </footer>
   </section>
 
-  <!-- 41 · Shortcut: Code/setup.py -->
+  <!-- 42 · Shortcut: Code/setup.py -->
   <section class="slide frame">
     <header class="slide__header">
       <div class="slide__brand"><img src="../../../Design%20System/assets/main/company-logo.png" alt="" /><span class="co">AI Code Academy</span></div>
-      <span class="slide__num">41</span>
+      <span class="slide__num">42</span>
     </header>
     <div class="slide__body">
       <div class="slide__head">
@@ -1543,11 +1577,11 @@ python3 Code/setup.py</pre>
     </footer>
   </section>
 
-  <!-- 42 · Try it yourself: verify -->
+  <!-- 43 · Try it yourself: verify -->
   <section class="slide frame">
     <header class="slide__header">
       <div class="slide__brand"><img src="../../../Design%20System/assets/main/company-logo.png" alt="" /><span class="co">AI Code Academy</span></div>
-      <span class="slide__num">42</span>
+      <span class="slide__num">43</span>
     </header>
     <div class="slide__body">
       <div class="slide__head">
@@ -1576,11 +1610,11 @@ python3 Code/setup.py</pre>
     </footer>
   </section>
 
-  <!-- 43 · Troubleshooting -->
+  <!-- 44 · Troubleshooting -->
   <section class="slide frame">
     <header class="slide__header">
       <div class="slide__brand"><img src="../../../Design%20System/assets/main/company-logo.png" alt="" /><span class="co">AI Code Academy</span></div>
-      <span class="slide__num">43</span>
+      <span class="slide__num">44</span>
     </header>
     <div class="slide__body">
       <div class="slide__head">
@@ -1611,11 +1645,11 @@ python3 Code/setup.py</pre>
     </footer>
   </section>
 
-  <!-- 44 · Recap & what's next -->
+  <!-- 45 · Recap & what's next -->
   <section class="slide frame">
     <header class="slide__header">
       <div class="slide__brand"><img src="../../../Design%20System/assets/main/company-logo.png" alt="" /><span class="co">AI Code Academy</span></div>
-      <span class="slide__num">44</span>
+      <span class="slide__num">45</span>
     </header>
     <div class="slide__body">
       <div class="slide__head">
@@ -1644,12 +1678,12 @@ python3 Code/setup.py</pre>
     </footer>
   </section>
 
-  <!-- 45 · Coach notes (HIDDEN — coach) -->
+  <!-- 46 · Coach notes (HIDDEN — coach) -->
   <section class="slide frame">
     <div style="position:absolute;left:0;top:0;width:6px;height:100%;background:var(--amber-400)"></div>
     <header class="slide__header">
       <div class="slide__brand"><img src="../../../Design%20System/assets/main/company-logo.png" alt="" /><span class="co">AI Code Academy</span></div>
-      <span class="slide__num">45</span>
+      <span class="slide__num">46</span>
     </header>
     <div class="slide__body">
       <div class="slide__head">
