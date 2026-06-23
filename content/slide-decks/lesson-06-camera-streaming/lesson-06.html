@@ -13,7 +13,7 @@
   "Introduction — frame this as the bridge into the machine-learning / vision half of the course. We send live video from the Pi's camera to a computer over Wi-Fi. This is the foundation for face tracking in Lessons 7 and 8.",
   "Goals — two programs this lesson that talk to each other: a server on the Pi that opens the camera and sends pictures, and a viewer/client on the Pi or a laptop that shows the live video. New idea: programs sending data over a network with sockets. Keep clear which file runs where.",
   "Client & server, again — same idea as Lesson 2, but now over a real network. The Pi is the server: it waits on port 8000 and sends video. Your computer is the client: it connects and displays. A port is like a numbered door on a computer. Reuse the customer/kitchen analogy; the order is now a stream of pictures.",
-  "The frame protocol — this size-then-data rule is the heart of the lesson. A connection only carries bytes, so for every frame both sides agree: send 4 bytes for the picture size, then the JPEG picture bytes. A size of 0 means no more pictures, stop. The viewer reads it back the exact same way.",
+  "The frame protocol — this size-then-data rule is the heart of the lesson. A connection only carries bytes, so for every frame both sides agree: send 4 bytes for the picture size, then the JPEG picture bytes. A size of 0 means no more pictures, stop. The viewer reads it back the exact same way. It's the contract between the two files we'll build: the server lesson_6_pi_camera_stream_server.py on the Pi sends frames, and the client/viewer lesson_6_client_video_receiver.py (Pi or laptop) reads them.",
   "Server imports (chunk A1/7) — io is an in-memory file, socket is the network, struct turns a number into a fixed set of bytes, time for the warm-up. picamera2 controls the Pi camera. No car_setup here: this file uses only standard libraries plus the camera, not the motor/sensor modules.",
   "Server settings (chunk A2/7) — VIDEO_PORT 8000 is the door the computer connects to. Smaller frames stream more smoothly; they'll experiment with FRAME_WIDTH / HEIGHT / RATE later. WARMUP_SECONDS lets the camera adjust before streaming.",
   "Server setup() (chunk A3/7) — make a socket, claim port 8000, listen for one connection, then start the camera and let it warm up. Don't dwell on socket details: make a door, claim a number, listen is enough. SO_REUSEADDR just lets us restart cleanly. AF_INET = internet addresses, SOCK_STREAM = a reliable TCP connection.",
@@ -47,6 +47,7 @@
   .cpre { margin: 0; padding: 16px 20px; font-size: 14px; line-height: 1.6; color: #e8eaed; font-family: var(--font-mono); white-space: pre; overflow: hidden; }
   .cpre.sm { font-size: 13px; }
   .cpre.xs { font-size: 12px; line-height: 1.55; }
+  .cpre.xxs { font-size: 11px; line-height: 1.46; }
   .cpre .co { color: var(--neutral-500); } .cpre .kw { color: var(--amber-300); } .cpre .st { color: var(--teal-300); } .cpre .fn { color: #8fd0ff; } .cpre .nm { color: #e8eaed; } .cpre .nu { color: #f7a8b8; }
 
   /* small shared bits */
@@ -253,6 +254,10 @@
             <p style="margin:0;font-size:13.5px;color:var(--text-muted);text-align:center;line-height:1.4">The same rule repeats for every frame, until a <b style="color:var(--navy-700)">size of 0</b> ends the stream.</p>
           </div>
         </div>
+        <div style="margin-top:16px;display:flex;gap:13px;align-items:center;background:var(--neutral-50);border:1px solid var(--border-subtle);border-left:4px solid var(--navy-600);border-radius:var(--radius-lg);padding:12px 16px">
+          <img src="../../../Design%20System/assets/icons/server-client-black.png" alt="" style="width:30px;height:30px;flex-shrink:0;object-fit:contain" />
+          <p style="margin:0;font-size:14.5px;color:var(--text-body);line-height:1.45">This rule is the contract between the <b>two files</b> we'll build: the <b>server</b> <code class="inl">lesson_6_pi_camera_stream_server.py</code> (on the Pi) sends frames, and the <b>client / viewer</b> <code class="inl">lesson_6_client_video_receiver.py</code> (Pi or laptop) reads them.</p>
+        </div>
       </div>
     </div>
     <footer class="slide__footer">
@@ -362,11 +367,13 @@ WARMUP_SECONDS = <span class="nu">2</span>   <span class="co"># let the camera a
           </div>
           <div class="cwrap">
             <div class="cbar"><i style="background:var(--red-400)"></i><i style="background:var(--amber-400)"></i><i style="background:var(--teal-300)"></i><span class="cfile">lesson_6_pi_camera_stream_server.py</span></div>
-<pre class="cpre xs">server_socket = connection = camera = <span class="kw">None</span>
+<pre class="cpre xxs">server_socket = <span class="kw">None</span>   <span class="co"># waits for the computer</span>
+connection = <span class="kw">None</span>      <span class="co"># the pipe we write pictures into</span>
+camera = <span class="kw">None</span>
 
 
 <span class="kw">def</span> <span class="fn">setup</span>():
-    <span class="st">"""Open the doorway and start the camera."""</span>
+    <span class="st">"""Open the network doorway and start the camera."""</span>
     <span class="kw">global</span> server_socket, camera
     server_socket = socket.<span class="fn">socket</span>(socket.AF_INET, socket.SOCK_STREAM)
     server_socket.<span class="fn">setsockopt</span>(socket.SOL_SOCKET, socket.SO_REUSEADDR, <span class="nu">1</span>)
@@ -615,9 +622,10 @@ WARMUP_SECONDS = <span class="nu">2</span>   <span class="co"># let the camera a
           </div>
           <div class="cwrap">
             <div class="cbar"><i style="background:var(--red-400)"></i><i style="background:var(--amber-400)"></i><i style="background:var(--teal-300)"></i><span class="cfile">lesson_6_client_video_receiver.py</span></div>
-<pre class="cpre xs">VIDEO_PORT = <span class="nu">8000</span>                 <span class="co"># match the Pi server</span>
+<pre class="cpre xxs">VIDEO_PORT = <span class="nu">8000</span>                 <span class="co"># match the Pi server</span>
 WINDOW_NAME = <span class="st">"Lesson 6 - Pi Camera"</span>
-video_socket = video_file = <span class="kw">None</span>
+video_socket = <span class="kw">None</span>   <span class="co"># our connection to the Pi</span>
+video_file = <span class="kw">None</span>     <span class="co"># the same connection, read like a file</span>
 
 
 <span class="kw">def</span> <span class="fn">setup</span>():

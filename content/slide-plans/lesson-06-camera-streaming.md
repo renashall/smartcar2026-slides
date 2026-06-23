@@ -73,6 +73,7 @@
   1. send **4 bytes** = how big the picture is, then
   2. send the **JPEG picture** bytes.
 - A size of **0** means "no more pictures — stop."
+- This is the contract between the **two files** we'll build: the **server** `lesson_6_pi_camera_stream_server.py` (Pi) sends frames, and the **client/viewer** `lesson_6_client_video_receiver.py` (Pi or laptop) reads them.
 
 **Visual:** [ASSET NEEDED: diagram of the stream — [4-byte length][JPEG bytes][4-byte length][JPEG bytes]… [0]]
 
