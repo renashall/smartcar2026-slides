@@ -30,6 +30,11 @@
   --teal-800: #1a5150;
   --teal-900: #194343;
 
+  /* ---- Teal code-chip (highlighted "flow" pills on whole-file slides) ---- */
+  --teal-pill:       #cdeaf2; /* highlighted code-chip background */
+  --teal-pill-text:  #0f6b82; /* highlighted code-chip text */
+  --teal-pill-label: #147d96; /* the word "teal" in body copy describing the chips */
+
   /* ---- Amber (accent) ---- */
   --amber-50:  #fff8e3;
   --amber-100: #ffeab3;
