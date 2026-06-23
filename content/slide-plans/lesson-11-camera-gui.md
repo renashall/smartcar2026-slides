@@ -3,7 +3,7 @@
 **Organization:** AI Code Academy · aicodeacademy.com
 **Course:** Machine Learning with Raspberry Pi & Smart Car (Level 3)
 **Lesson:** 11 — Camera GUI
-**Source file:** ../Code/User/bonus_camera_gui.py
+**Source file:** ../Code/User/lesson_11_camera_gui.py
 **Runs on:** Your **Windows / macOS / Linux computer** (over Wi-Fi) · start `sudo python3 main.py` on the Pi first · needs `opencv-python`, `numpy`, `PyQt5`
 
 > Layout/outline doc. Each `---` block below = one slide. This lesson wraps the
@@ -84,13 +84,13 @@
 ## Slide 6 — Start the File: Imports
 
 **On screen**
-- `car_setup` **first** — so `from Command import COMMAND` just works.
+- `car_setup` **first** — so `from command import COMMAND` just works.
 - `socket` + `struct` read the stream; `threading` runs the background reader.
 - `cv2` + `numpy` handle pictures; **PyQt5** builds the window.
 
 **Code (builds file · chunk 1/15):**
 ```python
-"""Bonus Lesson: Camera GUI.
+"""Lesson 11: Camera GUI (Bonus).
 
 Run this on your computer while the Raspberry Pi runs the server:
     sudo python3 main.py
@@ -107,7 +107,7 @@ import cv2                  # OpenCV: decodes pictures and finds faces
 import numpy as np          # NumPy: turns raw bytes into an image
 from PyQt5 import QtCore, QtGui, QtWidgets   # builds the window
 
-from Command import COMMAND  # the command names the car server understands
+from command import COMMAND  # the command names the car server understands
 ```
 
 **Coach note:** `import car_setup` leads the list — it puts the car's `Server`/`Client` folders on the path so `Command` and the cascade file resolve.
@@ -263,8 +263,8 @@ def track_face(face):
     global pan_angle, tilt_angle
     x, y, w, h = face
     # offset: -1 at the left/top, +1 at the right/bottom, 0 in the middle.
-    offset_x = (x + w / 2) / FRAME_WIDTH - 0.5
-    offset_y = (y + h / 2) / FRAME_HEIGHT - 0.5
+    offset_x = ((x + w / 2) / FRAME_WIDTH - 0.5) * 2
+    offset_y = ((y + h / 2) / FRAME_HEIGHT - 0.5) * 2
     if abs(offset_x) < DEAD_ZONE and abs(offset_y) < DEAD_ZONE:
         return                             # already centred: don't move
     pan_angle = clamp(pan_angle + SERVO_STEP * offset_x, PAN_MIN, PAN_MAX)
@@ -320,7 +320,7 @@ def video_thread():
 class CameraWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()                 # let PyQt set up the window first
-        self.setWindowTitle("Bonus Lesson - Camera GUI")
+        self.setWindowTitle("Lesson 11 - Camera GUI (Bonus)")
 
         # The label the video picture is drawn onto.
         self.video_label = QtWidgets.QLabel("Not connected")
@@ -537,7 +537,7 @@ if __name__ == "__main__":
 ## Slide 21 — We Built the Whole File 🎉
 
 **On screen**
-- Complete `bonus_camera_gui.py`:
+- Complete `lesson_11_camera_gui.py`:
   - imports → settings → shared state → `connect()` → `read_frame()` → `send_servo()`/`clamp()` → `track_face()` → `video_thread()` → `CameraWindow` → handlers → `refresh_video()` → `destroy()` → main
 - **One class** for the window, **plain functions** for the work, **one thread** for the video.
 
@@ -558,7 +558,7 @@ sudo python3 main.py
 - **Step 2 — on your computer:** run the GUI.
 ```sh
 cd smartcar2026/Code/User
-python bonus_camera_gui.py
+python lesson_11_camera_gui.py
 ```
 - In the window: type your Pi's IP → click **Connect** → tick **Track faces**.
 
