@@ -14,7 +14,6 @@
   "Goals — two programs this lesson that talk to each other: a server on the Pi that opens the camera and sends pictures, and a viewer/client on the Pi or a laptop that shows the live video. New idea: programs sending data over a network with sockets. Keep clear which file runs where.",
   "Client & server, again — same idea as Lesson 2, but now over a real network. The Pi is the server: it waits on port 8000 and sends video. Your computer is the client: it connects and displays. A port is like a numbered door on a computer. Reuse the customer/kitchen analogy; the order is now a stream of pictures.",
   "The frame protocol — this size-then-data rule is the heart of the lesson. A connection only carries bytes, so for every frame both sides agree: send 4 bytes for the picture size, then the JPEG picture bytes. A size of 0 means no more pictures, stop. The viewer reads it back the exact same way.",
-  "Part A divider — the Pi camera server. File: lesson_6_pi_camera_stream_server.py. Runs on the Raspberry Pi. Everyone codes this file first; it must be running before the viewer connects. Job: open the camera, wait for the computer, send frames.",
   "Server imports (chunk A1/7) — io is an in-memory file, socket is the network, struct turns a number into a fixed set of bytes, time for the warm-up. picamera2 controls the Pi camera. No car_setup here: this file uses only standard libraries plus the camera, not the motor/sensor modules.",
   "Server settings (chunk A2/7) — VIDEO_PORT 8000 is the door the computer connects to. Smaller frames stream more smoothly; they'll experiment with FRAME_WIDTH / HEIGHT / RATE later. WARMUP_SECONDS lets the camera adjust before streaming.",
   "Server setup() (chunk A3/7) — make a socket, claim port 8000, listen for one connection, then start the camera and let it warm up. Don't dwell on socket details: make a door, claim a number, listen is enough. SO_REUSEADDR just lets us restart cleanly. AF_INET = internet addresses, SOCK_STREAM = a reliable TCP connection.",
@@ -22,7 +21,6 @@
   "Server loop() (chunk A5/7) — take a JPEG into an in-memory file, then send size first, picture second: exactly the protocol from slide 5. struct.pack('<L', length) makes the 4 size-bytes; the viewer's struct.unpack reverses it. flush() pushes the size out right away.",
   "Server destroy() (chunk A6/7) — send a size of 0 as the agreed stop signal, then close the camera and the socket tidily. The length == 0 signal is how the viewer knows to stop cleanly. The computer may already be gone, so the write is wrapped in try/except.",
   "Server main block (chunk A7/7) — open everything, wait for the computer, then stream, with the usual safe wrapper. Note the order: setup, then accept, then loop. The server waits for a viewer before sending anything.",
-  "Part B divider — the computer viewer. File: lesson_6_client_video_receiver.py. Runs on the Pi or a laptop. Job: connect to the Pi, read frames, show them in a window. This file needs opencv-python and numpy installed.",
   "Viewer imports (chunk B1/5) — socket, struct, and sys to read the IP you type. First time using OpenCV (cv2): it does the heavy lifting of showing images. numpy turns raw bytes into an image.",
   "Viewer settings + setup() (chunk B2/5) — you type the Pi's IP on the command line; sys.argv[1] reads it. Connect to port 8000 (must match the server) and read it like a file with makefile('rb'). Use 127.0.0.1 if running the viewer on the Pi itself.",
   "Viewer read_frame() (chunk B3/5) — read the 4 size-bytes, turn them into a number. If the size is 0, the stream ended. Otherwise read exactly that many bytes and decode the JPEG. This mirrors the server exactly: server packs the size, viewer unpacks it. [0] because unpack returns a tuple.",
@@ -33,8 +31,7 @@
   "Try it yourself — smaller frames stream much more smoothly over Wi-Fi, a good thing to discover by experiment. Change FRAME_WIDTH / HEIGHT and FRAME_RATE on the server; rename WINDOW_NAME on the viewer. Challenge: run the viewer on a laptop while a classmate's runs on the Pi.",
   "Troubleshooting — 90% of issues are viewer started before server, or wrong IP. Check those first. Connection refused: start the server first and check the IP/port 8000. Black/frozen window: camera not ready, check the cable and picamera2. Laggy: lower resolution / frame rate or move closer to the router. cv2 not found: install opencv-python and numpy on the viewer.",
   "Recap — you streamed live video from the Pi to a computer using a socket and a simple frame protocol, and you met OpenCV, your tool for everything visual. Next, Lesson 7: detect a face in the video and turn the head to follow it. It reuses this exact read_frame() idea.",
-  "COACH (hidden) — do not present. After class: post the recap on the class page, log absent students in the Discord #attendance channel. Confirm each camera module is connected and picamera2 works on every Pi before next class.",
-  "COACH (hidden) — do not present. Before next class: install opencv-python and numpy on any laptops used as viewers (a venv is ideal), know how to find each Pi's IP (hostname -I) and write it on the board, and charge the cars. Lesson 7 is face tracking and builds straight on today's stream."
+  "COACH (hidden) — do not present. After class: post the recap on the class page, log absent students in the Discord #attendance channel. Confirm each camera module is connected and picamera2 works on every Pi before next class."
 ]</script>
 
 <style>
@@ -93,7 +90,7 @@
           <p class="slide__lead" style="margin-top:24px;max-width:520px">The car already drives and senses. Today we give it eyes — live video from the Pi's camera, streamed to your computer over Wi-Fi.</p>
         </div>
         <div style="background:transparent;height:400px;display:flex;align-items:center;justify-content:center">
-          <img src="../../../Design%20System/assets/materials/electronic-parts/camera-module.png" alt="The Raspberry Pi camera module" style="max-width:100%;max-height:100%;object-fit:contain" />
+          <img src="../../../Design%20System/assets/main/smart-car-full.png" alt="The Freenove 4WD smart car" style="max-width:100%;max-height:100%;object-fit:contain" />
         </div>
       </div>
     </div>
@@ -265,40 +262,13 @@
   </section>
 
   <!-- 06 · Part A divider -->
-  <section class="slide frame slide--dark slide--nohrule" style="background:var(--navy-700)">
-    <div style="position:absolute;width:520px;height:520px;left:-160px;bottom:-200px;border-radius:50%;background:var(--navy-600);opacity:.55"></div>
-    <div style="position:absolute;width:260px;height:260px;right:80px;top:-90px;border-radius:50%;background:var(--teal-300);opacity:.14"></div>
-    <header class="slide__header">
-      <div class="slide__brand"><img src="../../../Design%20System/assets/main/company-logo.png" alt="" /><span class="co">AI Code Academy</span></div>
-      <span class="slide__num">06</span>
-    </header>
-    <div class="slide__body">
-      <div style="display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center;height:100%">
-        <div style="display:flex;flex-direction:column;justify-content:center">
-          <div class="slide__eyebrow" style="margin-bottom:18px">Part A · runs on the Raspberry Pi</div>
-          <h1 class="slide__title" style="font-size:46px;color:#fff;max-width:540px">The Pi camera server</h1>
-          <p class="slide__lead" style="margin-top:20px;max-width:520px;color:var(--teal-100)">File: <code class="inl" style="background:rgba(255,255,255,.14);color:#fff;font-size:16px">lesson_6_pi_camera_stream_server.py</code></p>
-          <div style="margin-top:22px;display:flex;flex-direction:column;gap:9px;font-size:16px;color:#fff;opacity:.92">
-            <div>Open the camera → wait for the computer → send frames.</div>
-            <div style="color:var(--teal-200)">Everyone codes this file <b>first</b> — it runs before the viewer connects.</div>
-          </div>
-        </div>
-        <div style="display:flex;align-items:center;justify-content:center">
-          <img src="../../../Design%20System/assets/icons/raspberry-pi.png" alt="Raspberry Pi" style="width:200px;height:200px;object-fit:contain" />
-        </div>
-      </div>
-    </div>
-    <footer class="slide__footer">
-      <span class="course">Machine Learning with Raspberry Pi &amp; Smart Car — Level 3</span>
-      <span class="lesson">Lesson 6</span>
-    </footer>
-  </section>
+  
 
   <!-- 07 · Server imports (A1/7) -->
   <section class="slide frame">
     <header class="slide__header">
       <div class="slide__brand"><img src="../../../Design%20System/assets/main/company-logo.png" alt="" /><span class="co">AI Code Academy</span></div>
-      <span class="slide__num">07</span>
+      <span class="slide__num">06</span>
     </header>
     <div class="slide__body">
       <div class="slide__head">
@@ -337,7 +307,7 @@
   <section class="slide frame">
     <header class="slide__header">
       <div class="slide__brand"><img src="../../../Design%20System/assets/main/company-logo.png" alt="" /><span class="co">AI Code Academy</span></div>
-      <span class="slide__num">08</span>
+      <span class="slide__num">07</span>
     </header>
     <div class="slide__body">
       <div class="slide__head">
@@ -375,7 +345,7 @@ WARMUP_SECONDS = <span class="nu">2</span>   <span class="co"># let the camera a
   <section class="slide frame">
     <header class="slide__header">
       <div class="slide__brand"><img src="../../../Design%20System/assets/main/company-logo.png" alt="" /><span class="co">AI Code Academy</span></div>
-      <span class="slide__num">09</span>
+      <span class="slide__num">08</span>
     </header>
     <div class="slide__body">
       <div class="slide__head">
@@ -422,7 +392,7 @@ WARMUP_SECONDS = <span class="nu">2</span>   <span class="co"># let the camera a
   <section class="slide frame">
     <header class="slide__header">
       <div class="slide__brand"><img src="../../../Design%20System/assets/main/company-logo.png" alt="" /><span class="co">AI Code Academy</span></div>
-      <span class="slide__num">10</span>
+      <span class="slide__num">09</span>
     </header>
     <div class="slide__body">
       <div class="slide__head">
@@ -459,7 +429,7 @@ WARMUP_SECONDS = <span class="nu">2</span>   <span class="co"># let the camera a
   <section class="slide frame">
     <header class="slide__header">
       <div class="slide__brand"><img src="../../../Design%20System/assets/main/company-logo.png" alt="" /><span class="co">AI Code Academy</span></div>
-      <span class="slide__num">11</span>
+      <span class="slide__num">10</span>
     </header>
     <div class="slide__body">
       <div class="slide__head">
@@ -503,7 +473,7 @@ WARMUP_SECONDS = <span class="nu">2</span>   <span class="co"># let the camera a
   <section class="slide frame">
     <header class="slide__header">
       <div class="slide__brand"><img src="../../../Design%20System/assets/main/company-logo.png" alt="" /><span class="co">AI Code Academy</span></div>
-      <span class="slide__num">12</span>
+      <span class="slide__num">11</span>
     </header>
     <div class="slide__body">
       <div class="slide__head">
@@ -546,7 +516,7 @@ WARMUP_SECONDS = <span class="nu">2</span>   <span class="co"># let the camera a
   <section class="slide frame">
     <header class="slide__header">
       <div class="slide__brand"><img src="../../../Design%20System/assets/main/company-logo.png" alt="" /><span class="co">AI Code Academy</span></div>
-      <span class="slide__num">13</span>
+      <span class="slide__num">12</span>
     </header>
     <div class="slide__body">
       <div class="slide__head">
@@ -583,40 +553,13 @@ WARMUP_SECONDS = <span class="nu">2</span>   <span class="co"># let the camera a
   </section>
 
   <!-- 14 · Part B divider -->
-  <section class="slide frame slide--dark slide--nohrule" style="background:var(--navy-700)">
-    <div style="position:absolute;width:520px;height:520px;right:-160px;bottom:-200px;border-radius:50%;background:var(--navy-600);opacity:.55"></div>
-    <div style="position:absolute;width:260px;height:260px;left:80px;top:-90px;border-radius:50%;background:var(--teal-300);opacity:.14"></div>
-    <header class="slide__header">
-      <div class="slide__brand"><img src="../../../Design%20System/assets/main/company-logo.png" alt="" /><span class="co">AI Code Academy</span></div>
-      <span class="slide__num">14</span>
-    </header>
-    <div class="slide__body">
-      <div style="display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center;height:100%">
-        <div style="display:flex;flex-direction:column;justify-content:center">
-          <div class="slide__eyebrow" style="margin-bottom:18px">Part B · runs on the Pi or a laptop</div>
-          <h1 class="slide__title" style="font-size:46px;color:#fff;max-width:540px">The computer viewer</h1>
-          <p class="slide__lead" style="margin-top:20px;max-width:520px;color:var(--teal-100)">File: <code class="inl" style="background:rgba(255,255,255,.14);color:#fff;font-size:16px">lesson_6_client_video_receiver.py</code></p>
-          <div style="margin-top:22px;display:flex;flex-direction:column;gap:9px;font-size:16px;color:#fff;opacity:.92">
-            <div>Connect to the Pi → read frames → show them in a window.</div>
-            <div style="color:var(--teal-200)">This file needs <code class="inl" style="background:rgba(255,255,255,.14);color:#fff">opencv-python</code> and <code class="inl" style="background:rgba(255,255,255,.14);color:#fff">numpy</code>.</div>
-          </div>
-        </div>
-        <div style="display:flex;align-items:center;justify-content:center">
-          <img src="../../../Design%20System/assets/icons/server-client-black.png" alt="Client and server" style="width:200px;height:200px;object-fit:contain" />
-        </div>
-      </div>
-    </div>
-    <footer class="slide__footer">
-      <span class="course">Machine Learning with Raspberry Pi &amp; Smart Car — Level 3</span>
-      <span class="lesson">Lesson 6</span>
-    </footer>
-  </section>
+  
 
   <!-- 15 · Viewer imports (B1/5) -->
   <section class="slide frame">
     <header class="slide__header">
       <div class="slide__brand"><img src="../../../Design%20System/assets/main/company-logo.png" alt="" /><span class="co">AI Code Academy</span></div>
-      <span class="slide__num">15</span>
+      <span class="slide__num">13</span>
     </header>
     <div class="slide__body">
       <div class="slide__head">
@@ -655,7 +598,7 @@ WARMUP_SECONDS = <span class="nu">2</span>   <span class="co"># let the camera a
   <section class="slide frame">
     <header class="slide__header">
       <div class="slide__brand"><img src="../../../Design%20System/assets/main/company-logo.png" alt="" /><span class="co">AI Code Academy</span></div>
-      <span class="slide__num">16</span>
+      <span class="slide__num">14</span>
     </header>
     <div class="slide__body">
       <div class="slide__head">
@@ -701,7 +644,7 @@ video_socket = video_file = <span class="kw">None</span>
   <section class="slide frame">
     <header class="slide__header">
       <div class="slide__brand"><img src="../../../Design%20System/assets/main/company-logo.png" alt="" /><span class="co">AI Code Academy</span></div>
-      <span class="slide__num">17</span>
+      <span class="slide__num">15</span>
     </header>
     <div class="slide__body">
       <div class="slide__head">
@@ -745,7 +688,7 @@ video_socket = video_file = <span class="kw">None</span>
   <section class="slide frame">
     <header class="slide__header">
       <div class="slide__brand"><img src="../../../Design%20System/assets/main/company-logo.png" alt="" /><span class="co">AI Code Academy</span></div>
-      <span class="slide__num">18</span>
+      <span class="slide__num">16</span>
     </header>
     <div class="slide__body">
       <div class="slide__head">
@@ -785,7 +728,7 @@ video_socket = video_file = <span class="kw">None</span>
   <section class="slide frame">
     <header class="slide__header">
       <div class="slide__brand"><img src="../../../Design%20System/assets/main/company-logo.png" alt="" /><span class="co">AI Code Academy</span></div>
-      <span class="slide__num">19</span>
+      <span class="slide__num">17</span>
     </header>
     <div class="slide__body">
       <div class="slide__head">
@@ -832,7 +775,7 @@ video_socket = video_file = <span class="kw">None</span>
   <section class="slide frame">
     <header class="slide__header">
       <div class="slide__brand"><img src="../../../Design%20System/assets/main/company-logo.png" alt="" /><span class="co">AI Code Academy</span></div>
-      <span class="slide__num">20</span>
+      <span class="slide__num">18</span>
     </header>
     <div class="slide__body">
       <div class="slide__head">
@@ -865,7 +808,7 @@ video_socket = video_file = <span class="kw">None</span>
           </div>
         </div>
         <div style="margin-top:20px;background:var(--navy-600);border-radius:var(--radius-lg);padding:18px 24px;color:#fff;box-shadow:var(--shadow-md);display:flex;align-items:center;gap:16px">
-          <img src="../../../Design%20System/assets/icons/success.png" alt="" style="width:44px;height:44px;object-fit:contain;flex-shrink:0" />
+          <img src="../../../Design%20System/assets/icons/success-light.png" alt="" style="width:44px;height:44px;object-fit:contain;flex-shrink:0" />
           <p style="margin:0;font-size:16.5px;line-height:1.45"><b>The symmetry:</b> the server <code class="inl" style="background:rgba(255,255,255,.14);color:#fff">pack</code>s the size, the viewer <code class="inl" style="background:rgba(255,255,255,.14);color:#fff">unpack</code>s it — server <code class="inl" style="background:rgba(255,255,255,.14);color:#fff">"wb"</code>, viewer <code class="inl" style="background:rgba(255,255,255,.14);color:#fff">"rb"</code>.</p>
         </div>
       </div>
@@ -880,7 +823,7 @@ video_socket = video_file = <span class="kw">None</span>
   <section class="slide frame">
     <header class="slide__header">
       <div class="slide__brand"><img src="../../../Design%20System/assets/main/company-logo.png" alt="" /><span class="co">AI Code Academy</span></div>
-      <span class="slide__num">21</span>
+      <span class="slide__num">19</span>
     </header>
     <div class="slide__body">
       <div class="slide__head">
@@ -930,7 +873,7 @@ python3 lesson_6_pi_camera_stream_server.py</pre>
   <section class="slide frame">
     <header class="slide__header">
       <div class="slide__brand"><img src="../../../Design%20System/assets/main/company-logo.png" alt="" /><span class="co">AI Code Academy</span></div>
-      <span class="slide__num">22</span>
+      <span class="slide__num">20</span>
     </header>
     <div class="slide__body">
       <div class="slide__head">
@@ -963,7 +906,7 @@ python3 lesson_6_pi_camera_stream_server.py</pre>
   <section class="slide frame">
     <header class="slide__header">
       <div class="slide__brand"><img src="../../../Design%20System/assets/main/company-logo.png" alt="" /><span class="co">AI Code Academy</span></div>
-      <span class="slide__num">23</span>
+      <span class="slide__num">21</span>
     </header>
     <div class="slide__body">
       <div class="slide__head">
@@ -997,7 +940,7 @@ python3 lesson_6_pi_camera_stream_server.py</pre>
   <section class="slide frame">
     <header class="slide__header">
       <div class="slide__brand"><img src="../../../Design%20System/assets/main/company-logo.png" alt="" /><span class="co">AI Code Academy</span></div>
-      <span class="slide__num">24</span>
+      <span class="slide__num">22</span>
     </header>
     <div class="slide__body">
       <div class="slide__head">
@@ -1034,7 +977,7 @@ python3 lesson_6_pi_camera_stream_server.py</pre>
     <div style="position:absolute;left:0;top:0;width:6px;height:100%;background:var(--amber-400)"></div>
     <header class="slide__header">
       <div class="slide__brand"><img src="../../../Design%20System/assets/main/company-logo.png" alt="" /><span class="co">AI Code Academy</span></div>
-      <span class="slide__num">25</span>
+      <span class="slide__num">23</span>
     </header>
     <div class="slide__body">
       <div class="slide__head">
@@ -1065,37 +1008,7 @@ python3 lesson_6_pi_camera_stream_server.py</pre>
   </section>
 
   <!-- 26 · Before next class (HIDDEN — coach) -->
-  <section class="slide frame">
-    <div style="position:absolute;left:0;top:0;width:6px;height:100%;background:var(--amber-400)"></div>
-    <header class="slide__header">
-      <div class="slide__brand"><img src="../../../Design%20System/assets/main/company-logo.png" alt="" /><span class="co">AI Code Academy</span></div>
-      <span class="slide__num">26</span>
-    </header>
-    <div class="slide__body">
-      <div class="slide__head">
-        <span style="display:inline-flex;align-items:center;gap:8px;background:var(--amber-100);color:var(--amber-800);font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;padding:5px 12px;border-radius:var(--radius-pill)">● Coach only · hidden slide</span>
-        <h1 class="slide__title" style="margin-top:12px">Before next class — Lesson 7 prep</h1>
-        <p class="slide__desc">Don't present this slide. A little setup now makes the vision lessons run smoothly.</p>
-      </div>
-      <div class="slide__content">
-        <div style="display:grid;grid-template-columns:1.35fr .65fr;gap:44px;align-items:start">
-          <div>
-            <div style="display:flex;gap:14px;align-items:flex-start;padding:0 0 16px"><span class="pnum">1</span><div><h3 style="font-size:19px;font-weight:700;color:var(--text-strong);margin:0 0 3px">Install the viewer libraries</h3><p style="font-size:15px;color:var(--text-muted);margin:0;line-height:1.45">Put <code class="inl">opencv-python</code> + <code class="inl">numpy</code> on any laptops used as viewers — a venv is ideal.</p></div></div>
-            <div style="display:flex;gap:14px;align-items:flex-start;padding:16px 0;border-top:1px solid var(--border-subtle)"><span class="pnum">2</span><div><h3 style="font-size:19px;font-weight:700;color:var(--text-strong);margin:0 0 3px">Know each Pi's IP</h3><p style="font-size:15px;color:var(--text-muted);margin:0;line-height:1.45">Find it with <code class="inl">hostname -I</code> and write it on the board for the class.</p></div></div>
-            <div style="display:flex;gap:14px;align-items:flex-start;padding:16px 0 0;border-top:1px solid var(--border-subtle)"><span class="pnum">3</span><div><h3 style="font-size:19px;font-weight:700;color:var(--text-strong);margin:0 0 3px">Charge the cars</h3><p style="font-size:15px;color:var(--text-muted);margin:0;line-height:1.45"><b>Lesson 7 is face tracking</b> and builds straight on today's camera stream.</p></div></div>
-          </div>
-          <div style="background:var(--navy-600);border-radius:var(--radius-xl);padding:26px;color:#fff;box-shadow:var(--shadow-md)">
-            <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--teal-300);margin-bottom:14px">Timing note</div>
-            <p style="font-size:15px;color:#fff;margin:0;line-height:1.55">This is a <b>longer lesson</b> (~50–55 min). If you're short on time, split it across two sessions — server first, viewer next.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <footer class="slide__footer">
-      <span class="course">Machine Learning with Raspberry Pi &amp; Smart Car — Level 3</span>
-      <span class="lesson">Lesson 6</span>
-    </footer>
-  </section>
+  
 
 </div>
 </body>

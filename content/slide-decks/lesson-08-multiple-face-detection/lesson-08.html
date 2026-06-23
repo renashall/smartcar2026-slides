@@ -27,7 +27,6 @@
   "Try it yourself — change LOCK_DISTANCE (bigger = stickier lock, smaller = switches more easily). Change TARGET_COLOR to your favorite color (remember B, G, R). Add your own text to the summary line. Challenge: lock onto the face closest to the camera (the biggest) instead of nearest-to-last. LOCK_DISTANCE is the fun dial — let students feel sticky versus switchy tracking.",
   "Troubleshooting — ModuleNotFoundError: lesson_7_face_tracking means the two files aren't in the same folder. Target jumps between people means raise LOCK_DISTANCE. The lock sticks to the wrong face means lower LOCK_DISTANCE. No video / refused is the same as Lesson 7: start sudo python3 main.py first and check the IP. Most NEW issues are the missing-neighbor-file or a LOCK_DISTANCE that needs tuning; vision and connection issues are identical to Lesson 7.",
   "Recap & what's next — you reused an entire program by importing it: real software engineering. You added target lock so the car follows one person smoothly. That's the last code lesson! Next, Lesson 9 is the Final Project Workshop — students build their own idea. Big moment: they've finished the code curriculum. Point them toward project ideas for next time.",
-  "COACH (hidden) — do not present. Before class: same setup as Lesson 7 — sudo python3 main.py runs on each Pi, the cascade is in Code/Client/, opencv-python + numpy are installed on the viewer. Critically, confirm every student still has a working lesson_7_face_tracking.py in Code/User/ — this file imports it. Two volunteers in frame makes the target-lock demo land.",
   "COACH (hidden) — do not present. After class: post the recap on the class page, log absent students in the Discord #attendance channel, and remind students this was the last code lesson — Lesson 9 is the Final Project Workshop. Timing ~40-45 min: intro + concepts (slides 1-5) ~12 min, build (6-14) ~16 min, run + experiment (15-16) ~10 min, troubleshoot/recap (17-18) ~5 min. Most common failures: the two lesson files not in the same folder, LOCK_DISTANCE mis-tuned (jumps or sticks), and connection/lighting issues identical to Lesson 7."
 ]</script>
 
@@ -88,7 +87,7 @@
           <p class="slide__lead" style="margin-top:24px;max-width:520px">Find <b style="color:#fff">everyone</b> in view — then <b style="color:#fff">lock onto one</b> and follow that target smoothly.</p>
         </div>
         <div style="background:transparent;height:400px;display:flex;align-items:center;justify-content:center">
-          <img src="../../../Design%20System/assets/icons/face-scanner.png" alt="Face detection" style="max-width:74%;max-height:74%;object-fit:contain" />
+          <img src="../../../Design%20System/assets/main/smart-car-full.png" alt="The Freenove 4WD smart car" style="max-width:100%;max-height:100%;object-fit:contain" />
         </div>
       </div>
     </div>
@@ -119,10 +118,14 @@
           </div>
           <div style="background:var(--neutral-50);border:1px solid var(--border-subtle);border-radius:var(--radius-xl);box-shadow:var(--shadow-md);padding:22px;display:flex;flex-direction:column;align-items:center;gap:12px">
             <div style="position:relative;width:300px;height:180px;background:linear-gradient(160deg,#2a3344,#171c26);border-radius:10px;overflow:hidden">
-              <!-- two faces, jumpy arrows -->
-              <div style="position:absolute;left:44px;top:54px;width:62px;height:70px;border:3px solid #44e08a;border-radius:6px"></div>
-              <div style="position:absolute;left:194px;top:48px;width:62px;height:70px;border:3px solid #44e08a;border-radius:6px"></div>
-              <div style="position:absolute;left:112px;top:84px;font-size:20px;color:#fcd34d;font-weight:800">⇄</div>
+              <!-- two detected faces — the car flips between them -->
+              <div style="position:absolute;left:44px;top:46px;width:62px;height:80px;border:3px solid #44e08a;border-radius:6px;overflow:hidden">
+                <svg width="100%" height="100%" viewBox="0 0 60 78" preserveAspectRatio="xMidYMid slice" style="display:block"><circle cx="30" cy="27" r="14" fill="#9fb0c4"/><path d="M6 78 C6 55 18 48 30 48 C42 48 54 55 54 78 Z" fill="#9fb0c4"/></svg>
+              </div>
+              <div style="position:absolute;left:194px;top:40px;width:62px;height:80px;border:3px solid #44e08a;border-radius:6px;overflow:hidden">
+                <svg width="100%" height="100%" viewBox="0 0 60 78" preserveAspectRatio="xMidYMid slice" style="display:block"><circle cx="30" cy="27" r="14" fill="#9fb0c4"/><path d="M6 78 C6 55 18 48 30 48 C42 48 54 55 54 78 Z" fill="#9fb0c4"/></svg>
+              </div>
+              <div style="position:absolute;left:118px;top:74px;font-size:26px;color:#fcd34d;font-weight:800">⇄</div>
             </div>
             <p style="margin:0;font-family:var(--font-mono);font-size:12px;color:var(--neutral-400);text-align:center">which face do I follow?</p>
           </div>
@@ -166,12 +169,16 @@
           <!-- two faces, one boxed all, one circled target -->
           <div style="background:#11161f;border:1px solid var(--border-subtle);border-radius:var(--radius-xl);box-shadow:var(--shadow-md);padding:20px;display:flex;flex-direction:column;align-items:center;gap:10px">
             <div style="position:relative;width:300px;height:188px;background:linear-gradient(160deg,#2a3344,#171c26);border-radius:10px;overflow:hidden">
-              <!-- face A: just boxed -->
-              <div style="position:absolute;left:40px;top:56px;width:60px;height:68px;border:3px solid #44e08a;border-radius:6px"></div>
-              <!-- face B: boxed + target circle -->
-              <div style="position:absolute;left:196px;top:50px;width:60px;height:68px;border:3px solid #44e08a;border-radius:6px"></div>
-              <div style="position:absolute;left:188px;top:42px;width:76px;height:84px;border:3px solid #ffd54a;border-radius:50%"></div>
-              <div style="position:absolute;left:196px;top:130px;font-family:var(--font-mono);font-size:11px;color:#ffd54a">target</div>
+              <!-- face A: detected + boxed -->
+              <div style="position:absolute;left:40px;top:52px;width:60px;height:80px;border:3px solid #44e08a;border-radius:6px;overflow:hidden">
+                <svg width="100%" height="100%" viewBox="0 0 58 78" preserveAspectRatio="xMidYMid slice" style="display:block"><circle cx="29" cy="27" r="14" fill="#9fb0c4"/><path d="M6 78 C6 55 17 48 29 48 C41 48 52 55 52 78 Z" fill="#9fb0c4"/></svg>
+              </div>
+              <!-- face B: detected + boxed + target lock -->
+              <div style="position:absolute;left:196px;top:46px;width:60px;height:80px;border:3px solid #44e08a;border-radius:6px;overflow:hidden">
+                <svg width="100%" height="100%" viewBox="0 0 58 78" preserveAspectRatio="xMidYMid slice" style="display:block"><circle cx="29" cy="27" r="14" fill="#9fb0c4"/><path d="M6 78 C6 55 17 48 29 48 C41 48 52 55 52 78 Z" fill="#9fb0c4"/></svg>
+              </div>
+              <div style="position:absolute;left:188px;top:38px;width:78px;height:96px;border:3px solid #ffd54a;border-radius:50%"></div>
+              <div style="position:absolute;left:200px;top:140px;font-family:var(--font-mono);font-size:11px;color:#ffd54a">target</div>
             </div>
             <p style="margin:2px 0 0;font-family:var(--font-mono);font-size:12px;color:var(--neutral-400);text-align:center">box for all · circle for the lock</p>
           </div>
@@ -205,7 +212,7 @@
           </div>
           <div style="background:var(--navy-600);border-radius:var(--radius-xl);padding:24px 26px;color:#fff;box-shadow:var(--shadow-lg)">
             <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
-              <img src="../../../Design%20System/assets/icons/technology.png" alt="" style="width:34px;height:34px;object-fit:contain" />
+              <img src="../../../Design%20System/assets/icons/question.png" alt="" style="width:34px;height:34px;object-fit:contain" />
               <span style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--teal-300)">Why the guard mattered</span>
             </div>
             <p style="font-size:16px;color:#fff;margin:0;line-height:1.55">L7's <code class="inl" style="background:rgba(255,255,255,.14);color:#fff">__main__</code> guard means importing it reuses the <b>toolbox</b> without running the program.</p>
@@ -248,14 +255,18 @@
             </div>
           </div>
           <div style="background:var(--neutral-50);border:1px solid var(--border-subtle);border-radius:var(--radius-xl);box-shadow:var(--shadow-md);padding:22px;display:flex;flex-direction:column;align-items:center;gap:14px">
-            <div style="position:relative;width:280px;height:160px;background:#fff;border:1px solid var(--border-subtle);border-radius:8px;overflow:hidden">
+            <div style="position:relative;width:280px;height:160px;background:linear-gradient(160deg,#2a3344,#171c26);border-radius:8px;overflow:hidden">
               <!-- last frame target (ghost) -->
-              <div style="position:absolute;left:96px;top:48px;width:56px;height:62px;border:2px dashed #9fb0c4;border-radius:6px"></div>
-              <div style="position:absolute;left:96px;top:30px;font-family:var(--font-mono);font-size:10px;color:#9fb0c4">last frame</div>
-              <!-- this frame nearest within range -->
-              <div style="position:absolute;left:120px;top:54px;width:56px;height:62px;border:3px solid #ffc02a;border-radius:6px"></div>
+              <div style="position:absolute;left:72px;top:48px;width:54px;height:76px;border:2px dashed #6f8197;border-radius:6px;overflow:hidden">
+                <svg width="100%" height="100%" viewBox="0 0 52 74" preserveAspectRatio="xMidYMid slice" style="display:block"><circle cx="26" cy="25" r="13" fill="#54637a"/><path d="M5 74 C5 53 15 46 26 46 C37 46 47 53 47 74 Z" fill="#54637a"/></svg>
+              </div>
+              <div style="position:absolute;left:72px;top:30px;font-family:var(--font-mono);font-size:10px;color:#9fb0c4">last frame</div>
+              <!-- this frame: nearest face within range -->
+              <div style="position:absolute;left:146px;top:48px;width:54px;height:76px;border:3px solid #ffc02a;border-radius:6px;overflow:hidden">
+                <svg width="100%" height="100%" viewBox="0 0 52 74" preserveAspectRatio="xMidYMid slice" style="display:block"><circle cx="26" cy="25" r="13" fill="#9fb0c4"/><path d="M5 74 C5 53 15 46 26 46 C37 46 47 53 47 74 Z" fill="#9fb0c4"/></svg>
+              </div>
               <!-- distance arrow -->
-              <div style="position:absolute;left:150px;top:74px;font-size:14px;color:var(--navy-600);font-weight:800">↔</div>
+              <div style="position:absolute;left:126px;top:80px;font-size:16px;color:#ffd54a;font-weight:800">↔</div>
             </div>
             <div style="font-family:var(--font-mono);font-size:12px;background:var(--amber-100);color:var(--amber-800);padding:5px 11px;border-radius:var(--radius-pill);font-weight:700">within LOCK_DISTANCE → keep lock</div>
           </div>
@@ -628,7 +639,7 @@ LOCK_DISTANCE = <span class="nu">85</span>               <span class="co"># pixe
             </div>
           </div>
           <div style="background:var(--navy-600);border-radius:var(--radius-lg);padding:18px 24px;color:#fff;box-shadow:var(--shadow-md);display:flex;align-items:center;gap:16px">
-            <img src="../../../Design%20System/assets/icons/success.png" alt="" style="width:44px;height:44px;object-fit:contain;flex-shrink:0" />
+            <img src="../../../Design%20System/assets/icons/success-light.png" alt="" style="width:44px;height:44px;object-fit:contain;flex-shrink:0" />
             <p style="margin:0;font-size:16.5px;line-height:1.45"><b>Almost no new hardware code:</b> the camera, detection, head movement, and connections all came from Lesson 7 — we just added a <code class="inl" style="background:rgba(255,255,255,.14);color:#fff">target lock</code> on top.</p>
           </div>
         </div>
@@ -744,7 +755,7 @@ sudo python3 main.py</pre>
             <div style="display:flex;gap:15px;align-items:flex-start;padding:11px 0 0;border-top:1px solid var(--border-subtle)"><img src="../../../Design%20System/assets/icons/error.png" alt="" style="width:32px;height:32px;flex-shrink:0" /><div><div style="font-size:17px;font-weight:700;color:var(--text-strong)">No video / refused</div><div style="font-size:14.5px;color:var(--text-muted);line-height:1.4">Same as L7: start <code class="inl">sudo python3 main.py</code> first; check the IP.</div></div></div>
           </div>
           <div style="background:var(--navy-600);border-radius:var(--radius-xl);padding:30px 28px;color:#fff;box-shadow:var(--shadow-lg)">
-            <img src="../../../Design%20System/assets/icons/warning.png" alt="" style="width:52px;height:52px;object-fit:contain;margin-bottom:14px" />
+            <img src="../../../Design%20System/assets/icons/warning-light.png" alt="" style="width:52px;height:52px;object-fit:contain;margin-bottom:14px" />
             <div style="font-size:23px;font-weight:800;color:#fff;margin-bottom:10px">Same neighbor</div>
             <p style="font-size:15.5px;color:var(--teal-100);margin:0;line-height:1.55">Vision and connection issues are <b>identical to Lesson 7</b>. The new failure is just the two files not sitting together.</p>
           </div>
@@ -778,7 +789,7 @@ sudo python3 main.py</pre>
           </div>
           <div style="background:var(--navy-600);border-radius:var(--radius-xl);padding:30px;color:#fff;box-shadow:var(--shadow-lg);display:flex;flex-direction:column;justify-content:center">
             <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px">
-              <img src="../../../Design%20System/assets/icons/success.png" alt="" style="width:42px;height:42px;object-fit:contain" />
+              <img src="../../../Design%20System/assets/icons/success-light.png" alt="" style="width:42px;height:42px;object-fit:contain" />
               <div style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--teal-300)">Up next</div>
             </div>
             <h3 style="font-size:25px;font-weight:800;color:#fff;margin:0 0 10px">Lesson 9<br/>Final Project Workshop</h3>
@@ -794,46 +805,14 @@ sudo python3 main.py</pre>
   </section>
 
   <!-- 19 · Before class (HIDDEN — coach) -->
-  <section class="slide frame">
-    <div style="position:absolute;left:0;top:0;width:6px;height:100%;background:var(--amber-400)"></div>
-    <header class="slide__header">
-      <div class="slide__brand"><img src="../../../Design%20System/assets/main/company-logo.png" alt="" /><span class="co">AI Code Academy</span></div>
-      <span class="slide__num">19</span>
-    </header>
-    <div class="slide__body">
-      <div class="slide__head">
-        <span style="display:inline-flex;align-items:center;gap:8px;background:var(--amber-100);color:var(--amber-800);font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;padding:5px 12px;border-radius:var(--radius-pill)">● Coach only · hidden slide</span>
-        <h1 class="slide__title" style="margin-top:12px">Before class — Lesson 8 prep</h1>
-        <p class="slide__desc">Don't present this slide. The setup is the same as Lesson 7, with one extra check.</p>
-      </div>
-      <div class="slide__content">
-        <div style="display:grid;grid-template-columns:1.35fr .65fr;gap:44px;align-items:start">
-          <div>
-            <div style="display:flex;gap:14px;align-items:flex-start;padding:0 0 14px"><span class="pnum">1</span><div><h3 style="font-size:18px;font-weight:700;color:var(--text-strong);margin:0 0 3px">Same server &amp; viewer setup as L7</h3><p style="font-size:14.5px;color:var(--text-muted);margin:0;line-height:1.4"><code class="inl">sudo python3 main.py</code> runs on each Pi, the cascade is in <code class="inl">Code/Client/</code>, and <code class="inl">opencv-python</code> + <code class="inl">numpy</code> are on the viewer.</p></div></div>
-            <div style="display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-top:1px solid var(--border-subtle)"><span class="pnum">2</span><div><h3 style="font-size:18px;font-weight:700;color:var(--text-strong);margin:0 0 3px">Confirm Lesson 7 still works</h3><p style="font-size:14.5px;color:var(--text-muted);margin:0;line-height:1.4">Every student needs a working <code class="inl">lesson_7_face_tracking.py</code> in <code class="inl">Code/User/</code> — <b>this file imports it</b>.</p></div></div>
-            <div style="display:flex;gap:14px;align-items:flex-start;padding:14px 0 0;border-top:1px solid var(--border-subtle)"><span class="pnum">3</span><div><h3 style="font-size:18px;font-weight:700;color:var(--text-strong);margin:0 0 3px">Line up two volunteers</h3><p style="font-size:14.5px;color:var(--text-muted);margin:0;line-height:1.4">Two students in frame makes the <b>target-lock</b> demo land. Show the problem first (L7 jumping), then the fix.</p></div></div>
-          </div>
-          <div style="background:var(--navy-600);border-radius:var(--radius-xl);padding:26px;color:#fff;box-shadow:var(--shadow-md)">
-            <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--teal-300);margin-bottom:12px">Most common failures</div>
-            <div style="font-size:14px;color:#fff;line-height:1.4;padding:6px 0"><b>1.</b> the two lesson files not in the same folder</div>
-            <div style="font-size:14px;color:#fff;line-height:1.4;padding:6px 0;border-top:1px solid rgba(255,255,255,.15)"><b>2.</b> LOCK_DISTANCE mis-tuned (jumps or sticks)</div>
-            <div style="font-size:14px;color:#fff;line-height:1.4;padding:6px 0;border-top:1px solid rgba(255,255,255,.15)"><b>3.</b> connection / lighting — identical to Lesson 7</div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <footer class="slide__footer">
-      <span class="course">Machine Learning with Raspberry Pi &amp; Smart Car — Level 3</span>
-      <span class="lesson">Lesson 8</span>
-    </footer>
-  </section>
+  
 
   <!-- 20 · End-of-class checklist (HIDDEN — coach) -->
   <section class="slide frame">
     <div style="position:absolute;left:0;top:0;width:6px;height:100%;background:var(--amber-400)"></div>
     <header class="slide__header">
       <div class="slide__brand"><img src="../../../Design%20System/assets/main/company-logo.png" alt="" /><span class="co">AI Code Academy</span></div>
-      <span class="slide__num">20</span>
+      <span class="slide__num">19</span>
     </header>
     <div class="slide__body">
       <div class="slide__head">
