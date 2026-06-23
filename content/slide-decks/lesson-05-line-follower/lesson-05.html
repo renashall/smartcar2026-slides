@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="../../../Design%20System/slides/slide-frame.css" />
 
 <script type="application/json" id="speaker-notes">[
-  "Title — ~1 min. Today the car follows a line on the floor. Have a line track (black tape on a light floor) ready to demo. No sudo needed today. Site: https://aicodeacademy.com",
+  "Title — ~1 min. Today the car follows a line on the floor. Have a line track (black tape on a light floor) ready to demo. Run the lesson command with sudo. Site: https://aicodeacademy.com",
   "Introduction — last lesson the car avoided obstacles and chased light. Today it follows a line, the classic robot challenge. New tool: three infrared (IR) sensors underneath the car. Show the underside so students see the three sensors.",
   "Goals — set the goal: smooth following around a loop of tape. Three IR sensors (Left, Middle, Right) decide where the line is and how to steer. New skill: reading the Pi's pins directly with RPi.GPIO.",
   "The three IR sensors — each reads a simple yes/no: 1 = sees the dark line, 0 = sees the light floor. Together they tell us where the line is. Demo by hand: slide the car so only the middle/left/right sensor is over the tape.",
@@ -24,7 +24,7 @@
   "destroy() (chunk 8/9) — stop the wheels, then release the pins with GPIO.cleanup(). cleanup() is new — the polite 'I'm done with the pins' step so other programs can use them next time.",
   "Main block (chunk 9/9) — the same safe wrapper: setup, loop, and always destroy(). Students should recognize this instantly by now.",
   "Whole file — complete lesson_5_line_follower.py: imports -> pins -> speeds -> setup() -> read_sensors() -> choose_move() -> loop() -> destroy() -> main. Highlight how small choose_move is thanks to the binary trick.",
-  "Run it — put the car on a line track (black tape on a light floor), then on the Pi: cd smartcar2026/Code/User then python3 lesson_5_line_follower.py. A simple oval/loop of tape works best. Ctrl+C to stop.",
+  "Run it — put the car on a line track (black tape on a light floor), then on the Pi: cd smartcar2026/Code/User then sudo python3 lesson_5_line_follower.py. A simple oval/loop of tape works best. Ctrl+C to stop.",
   "Try it yourself — the print(sensors) tip is the best way for students to SEE the binary numbers change as they move the car by hand. Speed up FORWARD for a faster lap; strengthen HARD_LEFT/HARD_RIGHT for sharp corners.",
   "Troubleshooting — sensor height above the floor matters a lot; a few millimeters can fix erratic reads. Steers the wrong way -> Left/Right may be swapped; check pins 14 / 15 / 23. 'Pin already in use' is harmless.",
   "Recap — celebrate the halfway milestone: five lessons down. You read the Pi's pins with RPi.GPIO and used a binary trick to turn three sensors into one decision. Next: Lesson 6 gives the car a camera and live video over Wi-Fi.",
@@ -631,12 +631,12 @@ STOP = (<span class="nu">0</span>, <span class="nu">0</span>, <span class="nu">0
             <span style="background:var(--neutral-100);color:var(--navy-700);font-family:var(--font-mono);font-size:14px;font-weight:600;padding:7px 13px;border-radius:var(--radius-pill)">pins</span><span style="color:var(--teal-600);font-weight:800">→</span>
             <span style="background:var(--neutral-100);color:var(--navy-700);font-family:var(--font-mono);font-size:14px;font-weight:600;padding:7px 13px;border-radius:var(--radius-pill)">speeds</span><span style="color:var(--teal-600);font-weight:800">→</span>
             <span style="background:var(--neutral-100);color:var(--navy-700);font-family:var(--font-mono);font-size:14px;font-weight:600;padding:7px 13px;border-radius:var(--radius-pill)">setup()</span><span style="color:var(--teal-600);font-weight:800">→</span>
-            <span style="background:var(--teal-100);color:var(--teal-800);font-family:var(--font-mono);font-size:14px;font-weight:700;padding:7px 13px;border-radius:var(--radius-pill)">read_sensors()</span><span style="color:var(--teal-600);font-weight:800">→</span>
+            <span style="background:#cdeaf2;color:#0f6b82;font-family:var(--font-mono);font-size:14px;font-weight:700;padding:7px 13px;border-radius:var(--radius-pill)">read_sensors()</span><span style="color:var(--teal-600);font-weight:800">→</span>
             <span style="background:var(--amber-100);color:var(--amber-800);font-family:var(--font-mono);font-size:14px;font-weight:700;padding:7px 13px;border-radius:var(--radius-pill)">choose_move()</span><span style="color:var(--teal-600);font-weight:800">→</span>
             <span style="background:var(--neutral-100);color:var(--navy-700);font-family:var(--font-mono);font-size:14px;font-weight:600;padding:7px 13px;border-radius:var(--radius-pill)">loop()</span><span style="color:var(--teal-600);font-weight:800">→</span>
             <span style="background:var(--neutral-100);color:var(--navy-700);font-family:var(--font-mono);font-size:14px;font-weight:600;padding:7px 13px;border-radius:var(--radius-pill)">destroy()</span><span style="color:var(--teal-600);font-weight:800">→</span>
             <span style="background:var(--neutral-100);color:var(--navy-700);font-family:var(--font-mono);font-size:14px;font-weight:600;padding:7px 13px;border-radius:var(--radius-pill)">main block</span>
-            <p style="width:100%;margin:14px 0 0;font-size:17px;color:var(--text-muted);line-height:1.5">The <span style="color:var(--teal-700);font-weight:700">teal</span> read and <span style="color:var(--amber-800);font-weight:700">amber</span> decide steps are the heart — three sensors in, one move out.</p>
+            <p style="width:100%;margin:14px 0 0;font-size:17px;color:var(--text-muted);line-height:1.5">The <span style="color:#147d96;font-weight:700">teal</span> read and <span style="color:var(--amber-800);font-weight:700">amber</span> decide steps are the heart — three sensors in, one move out.</p>
           </div>
           <div style="display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center">
             <img src="../../../Design%20System/assets/icons/success.png" alt="" style="width:120px;height:120px;object-fit:contain" />
@@ -668,13 +668,13 @@ STOP = (<span class="nu">0</span>, <span class="nu">0</span>, <span class="nu">0
           <div>
             <div class="row" style="padding-top:0;border-top:0"><span class="dot"></span><p>A simple <b>oval / loop</b> of tape works best.</p></div>
             <div class="row"><span class="dot"></span><p>The car should drive along the line on its own.</p></div>
-            <div class="row"><span class="dot"></span><p>Press <code class="inl">Ctrl+C</code> to stop. No <code class="inl">sudo</code> needed today.</p></div>
+            <div class="row"><span class="dot"></span><p>Press <code class="inl">Ctrl+C</code> to stop. Use <code class="inl">sudo</code> for the run command.</p></div>
           </div>
           <div style="display:flex;flex-direction:column;gap:14px">
             <div class="cwrap">
               <div class="cbar"><i style="background:var(--red-400)"></i><i style="background:var(--amber-400)"></i><i style="background:var(--teal-300)"></i><span class="cfile">Pi terminal</span></div>
 <pre class="cpre sm">cd smartcar2026/Code/User
-python3 lesson_5_line_follower.py</pre>
+sudo python3 lesson_5_line_follower.py</pre>
             </div>
             <div style="display:flex;gap:13px;align-items:center;background:var(--amber-100);border:1px solid var(--amber-300);border-radius:var(--radius-lg);padding:14px 18px">
               <img src="../../../Design%20System/assets/icons/lightbulb-idea.png" alt="" style="width:34px;height:34px;flex-shrink:0;object-fit:contain" />

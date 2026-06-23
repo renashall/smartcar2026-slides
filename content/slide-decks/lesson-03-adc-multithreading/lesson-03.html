@@ -29,7 +29,7 @@
   "destroy() (chunk 10) — the payoff for the daemon/Event slide: set the flag, join(timeout=2) so we never hang, then i2cClose() to close the ADC.",
   "Main block (chunk 11) — third lesson in a row with this try / except / finally block. Students should recognise it instantly now.",
   "Whole file (chunk 12) — scroll the assembled file; highlight the TWO functions that loop (loop and monitor_battery).",
-  "Run it — point at the mixed output: proof both threads run at once. Light prints every 1 s, battery every 3 s. sudo is optional here (no LED strip). Ctrl+C to stop.",
+  "Run it — point at the mixed output: proof both threads run at once. Light prints every 1 s, battery every 3 s. Use sudo for consistency across the course. Ctrl+C to stop.",
   "Try it yourself — demo 'cover the sensor' early; it's the most tangible moment. The brighter-side challenge previews line-following / light-seeking logic.",
   "Troubleshooting — if I2C errors appear, check raspi-config (I2C enabled) and the ADC seating. Remember the battery x3. Give Ctrl+C a second to join the thread.",
   "Recap — celebrate: they've now touched every core subsystem of the car (lights, sound, motors, commands, sensors). Next: smarter, more autonomous behavior.",
@@ -872,13 +872,13 @@ battery_thread = <span class="kw">None</span></pre>
           <div>
             <div class="row" style="padding-top:0;border-top:0"><span class="dot"></span><p>Light prints every <code class="inl">1 s</code>, battery every <code class="inl">3 s</code> — they <b>mix</b>.</p></div>
             <div class="row"><span class="dot"></span><p>The mixed output is the proof: <b>both threads run at once</b>.</p></div>
-            <div class="row"><span class="dot"></span><p>Press <code class="inl">Ctrl+C</code> to stop. No LED strip, so <code class="inl">sudo</code> is optional here.</p></div>
+            <div class="row"><span class="dot"></span><p>Press <code class="inl">Ctrl+C</code> to stop. Use <code class="inl">sudo</code> for the run command.</p></div>
           </div>
           <div style="display:flex;flex-direction:column;gap:14px">
             <div class="cwrap">
               <div class="cbar"><i style="background:var(--red-400)"></i><i style="background:var(--amber-400)"></i><i style="background:var(--teal-300)"></i><span class="cfile">Pi terminal</span></div>
 <pre class="cpre sm">cd smartcar2026/Code/User
-python3 lesson_3_adc_multithreading.py</pre>
+sudo python3 lesson_3_adc_multithreading.py</pre>
             </div>
             <div class="cwrap">
               <div class="cbar"><i style="background:var(--red-400)"></i><i style="background:var(--amber-400)"></i><i style="background:var(--teal-300)"></i><span class="cfile">output</span></div>

@@ -80,6 +80,10 @@ Save every deck deliverable (`.html`, `.pdf`, `.pptx`, images) together in
 `content/slide-decks/lesson-<n>-<name>/`, named `lesson-<n>.<ext>` (e.g.
 `lesson-10.html`, `lesson-10.pdf`, `lesson-10.pptx`).
 
+After you make any update to slide deck deliverables in this repo, commit and
+sync the repo once the deck has been verified and temporary files have been
+cleaned up.
+
 ## Asset Rules
 
 - Prefer assets already in `Design System/assets/` before creating new visuals.

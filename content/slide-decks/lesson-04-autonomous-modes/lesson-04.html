@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="../../../Design%20System/slides/slide-frame.css" />
 
 <script type="application/json" id="speaker-notes">[
-  "Title — ~1 min. Today the car makes its own decisions. Make sure there's floor space to drive. No sudo needed today. Site: https://aicodeacademy.com",
+  "Title — ~1 min. Today the car makes its own decisions. Make sure there's floor space to drive. Run the lesson command with sudo. Site: https://aicodeacademy.com",
   "Introduction — frame the jump: from remote control to autonomy. Quick recall of which sensor does what — motors (L2), light + battery sensors (L3), servo head + ultrasonic (L1).",
   "Goals — decide as a class which mode to demo first; sonic is usually more reliable indoors. DEMO_MODE picks the brain that runs. Light = drive toward brightest light; Sonic = look around and dodge.",
   "Sense -> Think -> Act — this is the key idea of the whole lesson. Everything below is just filling in these three steps. The loop repeats them many times a second.",
@@ -25,7 +25,7 @@
   "destroy() (chunk 10/11) — same safety habit as every lesson: leave the car stopped. The 'is not None' guards matter because unused parts were never created.",
   "Main block (chunk 11/11) — fourth time seeing this try / except KeyboardInterrupt / finally: destroy() wrapper. Students should predict it now.",
   "Whole file — scroll the assembled file; point out how loop() picks which 'brain' runs. One file, two self-driving modes.",
-  "Run it — clear a driving area first. Set DEMO_MODE to 'sonic' or 'light'. Give it floor space; for light mode use a phone flashlight. Watch fingers and table edges. Ctrl+C to stop.",
+  "Run it — clear a driving area first. Set DEMO_MODE to 'sonic' or 'light'. Give it floor space; for light mode use a phone flashlight. Run with sudo. Watch fingers and table edges. Ctrl+C to stop.",
   "Try it yourself — the LED/beep challenge connects back to Lessons 1 & 2; great for fast finishers. Lower speeds if it's too wild; tweak BLOCKED and SIDE_DIFFERENCE.",
   "Troubleshooting — most 'weird driving' today is low battery or too-high speed. Check those first. Light mode wrong way = remember lower voltage = brighter; check wiring.",
   "Recap — celebrate the Sense -> Think -> Act loop and two autonomous modes. Tease Lesson 5: line following, a third kind of 'sense and steer' using the infrared sensors.",
@@ -683,12 +683,12 @@ ultrasonic = <span class="kw">None</span>
             <span style="background:var(--neutral-100);color:var(--navy-700);font-family:var(--font-mono);font-size:14px;font-weight:600;padding:7px 13px;border-radius:var(--radius-pill)">settings</span><span style="color:var(--teal-600);font-weight:800">→</span>
             <span style="background:var(--neutral-100);color:var(--navy-700);font-family:var(--font-mono);font-size:14px;font-weight:600;padding:7px 13px;border-radius:var(--radius-pill)">setup()</span><span style="color:var(--teal-600);font-weight:800">→</span>
             <span style="background:var(--amber-100);color:var(--amber-800);font-family:var(--font-mono);font-size:14px;font-weight:700;padding:7px 13px;border-radius:var(--radius-pill)">light_step()</span><span style="color:var(--teal-600);font-weight:800">→</span>
-            <span style="background:var(--teal-100);color:var(--teal-800);font-family:var(--font-mono);font-size:14px;font-weight:700;padding:7px 13px;border-radius:var(--radius-pill)">look()</span><span style="color:var(--teal-600);font-weight:800">→</span>
-            <span style="background:var(--teal-100);color:var(--teal-800);font-family:var(--font-mono);font-size:14px;font-weight:700;padding:7px 13px;border-radius:var(--radius-pill)">sonic_step()</span><span style="color:var(--teal-600);font-weight:800">→</span>
+            <span style="background:#cdeaf2;color:#0f6b82;font-family:var(--font-mono);font-size:14px;font-weight:700;padding:7px 13px;border-radius:var(--radius-pill)">look()</span><span style="color:var(--teal-600);font-weight:800">→</span>
+            <span style="background:#cdeaf2;color:#0f6b82;font-family:var(--font-mono);font-size:14px;font-weight:700;padding:7px 13px;border-radius:var(--radius-pill)">sonic_step()</span><span style="color:var(--teal-600);font-weight:800">→</span>
             <span style="background:var(--neutral-100);color:var(--navy-700);font-family:var(--font-mono);font-size:14px;font-weight:600;padding:7px 13px;border-radius:var(--radius-pill)">loop()</span><span style="color:var(--teal-600);font-weight:800">→</span>
             <span style="background:var(--neutral-100);color:var(--navy-700);font-family:var(--font-mono);font-size:14px;font-weight:600;padding:7px 13px;border-radius:var(--radius-pill)">destroy()</span><span style="color:var(--teal-600);font-weight:800">→</span>
             <span style="background:var(--neutral-100);color:var(--navy-700);font-family:var(--font-mono);font-size:14px;font-weight:600;padding:7px 13px;border-radius:var(--radius-pill)">main block</span>
-            <p style="width:100%;margin:14px 0 0;font-size:17px;color:var(--text-muted);line-height:1.5">The <span style="color:var(--amber-800);font-weight:700">amber</span> and <span style="color:var(--teal-700);font-weight:700">teal</span> pieces are the two "brains" — <code class="inl">loop()</code> runs just one of them.</p>
+            <p style="width:100%;margin:14px 0 0;font-size:17px;color:var(--text-muted);line-height:1.5">The <span style="color:var(--amber-800);font-weight:700">amber</span> and <span style="color:#147d96;font-weight:700">teal</span> pieces are the two "brains" — <code class="inl">loop()</code> runs just one of them.</p>
           </div>
           <div style="display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center">
             <img src="../../../Design%20System/assets/icons/success.png" alt="" style="width:120px;height:120px;object-fit:contain" />
@@ -720,13 +720,13 @@ ultrasonic = <span class="kw">None</span>
           <div>
             <div class="row" style="padding-top:0;border-top:0"><span class="dot"></span><p>Set <code class="inl">DEMO_MODE</code> to <code class="inl">"sonic"</code> or <code class="inl">"light"</code> first.</p></div>
             <div class="row"><span class="dot"></span><p>For <b>light mode</b>, use a phone flashlight to lead it.</p></div>
-            <div class="row"><span class="dot"></span><p>Press <code class="inl">Ctrl+C</code> to stop. No <code class="inl">sudo</code> needed today.</p></div>
+            <div class="row"><span class="dot"></span><p>Press <code class="inl">Ctrl+C</code> to stop. Use <code class="inl">sudo</code> for the run command.</p></div>
           </div>
           <div style="display:flex;flex-direction:column;gap:14px">
             <div class="cwrap">
               <div class="cbar"><i style="background:var(--red-400)"></i><i style="background:var(--amber-400)"></i><i style="background:var(--teal-300)"></i><span class="cfile">Pi terminal</span></div>
 <pre class="cpre sm">cd smartcar2026/Code/User
-python3 lesson_4_autonomous_modes.py</pre>
+sudo python3 lesson_4_autonomous_modes.py</pre>
             </div>
             <div style="display:flex;gap:13px;align-items:center;background:var(--amber-100);border:1px solid var(--amber-300);border-radius:var(--radius-lg);padding:14px 18px">
               <img src="../../../Design%20System/assets/icons/warning.png" alt="" style="width:34px;height:34px;flex-shrink:0;object-fit:contain" />
