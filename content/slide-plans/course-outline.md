@@ -34,6 +34,9 @@ with a final project workshop and presentation.
 ## Deck Sources
 
 - Lesson plans live in `content/slide-plans/lesson-00-setup.md` through
-  `content/slide-plans/lesson-10-final-project-presentation.md`.
+  `content/slide-plans/lesson-11-camera-gui.md` (lesson 11 is a flexible bonus
+  lesson).
 - General course notes live in `content/specific-notes.md`.
 - Coaching and administrative notes live in `content/organization-notes.md`.
+- Useful course links (downloads, repo, build video) live in
+  `content/links.txt`.

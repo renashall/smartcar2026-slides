@@ -1,0 +1,26 @@
+Smart Car Course — Useful Links
+================================
+
+AI Code Academy
+  https://aicodeacademy.com
+
+Smart car build video (Google Drive)
+  https://drive.google.com/file/d/1y3MdVZHkrGRwUXXxi6jHIrmBIQTBDR71/view?usp=drive_link
+
+Course GitHub repository
+  https://github.com/renashall/smartcar2026
+
+Resources file (Tutorial.pdf)
+  https://github.com/renashall/smartcar2026/blob/main/Resources/Tutorial.pdf
+
+About Battery file (About_Battery.pdf)
+  https://github.com/renashall/smartcar2026/blob/main/Resources/About_Battery.pdf
+
+18650 batteries (18650 Battery Store)
+  https://www.18650batterystore.com/
+
+Raspberry Pi Imager
+  https://www.raspberrypi.com/software/
+
+VNC Viewer
+  https://www.realvnc.com/en/connect/download/viewer/
