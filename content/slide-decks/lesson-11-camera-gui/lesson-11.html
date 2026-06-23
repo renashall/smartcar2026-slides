@@ -14,7 +14,7 @@
   "Our goals — four verbs. RUN the camera GUI and see live video. CONTROL the head with the five buttons. UNDERSTAND how one frame travels: capture on the Pi, stream over the network, decode on your computer, display in the window. LOCATE where each of those steps lives in the file. By the end they should be able to point at each step in the code.",
   "The video path — the Pi owns the camera and streams JPEG pictures out on port 8000. Your computer decodes each picture in memory (no file on disk) and draws it in the window. Servo commands flow back to the Pi on port 5000. Two connections, two ports: video in, commands out. The Pi only captures and streams; your computer does all the thinking — decode, draw, and optional face-finding.",
   "Inside the file — a PyQt5 window needs exactly one class, CameraWindow. Everything else stays a plain function, the same lesson style they know. The one genuinely new idea is a background thread: reading pictures from the network is slow, so we do it in the background. That keeps the buttons clickable and the window responsive while video keeps flowing.",
-  "Imports (chunk 1/15) — import car_setup leads the list: it adds the car's Server and Client folders to the import path, so from Command import COMMAND just works and the cascade file resolves. socket and struct read the stream; threading runs the background reader; cv2 and numpy handle pictures; PyQt5 builds the window.",
+  "Imports (chunk 1/15) — import car_setup leads the list: it adds the car's Server and Client folders to the import path, so from command import COMMAND just works and the cascade file resolves. socket and struct read the stream; threading runs the background reader; cv2 and numpy handle pictures; PyQt5 builds the window.",
   "Settings (chunk 2/15) — ports (8000 video, 5000 commands — the same ports the car server opens), the frame size, which servo is pan ('0') versus tilt ('1'), and the safe angle ranges: pan 0-180, tilt 80-180. SERVO_STEP is how many degrees each move is; DEAD_ZONE ignores tiny offsets so the head doesn't jitter. CASCADE_PATH points into Code/Client via car_setup.CODE_DIR.",
   "Shared state (chunk 3/15) — these are global because the background thread AND the window both touch them: the two sockets, the latest frame, and a Lock that keeps that frame safe. Explain the Lock as a talking stick — only one thread holds the frame at a time, so it's never half-written when the other side reads it. Plus the current head angles and two on/off flags.",
   "connect() (chunk 4/15) — opens two sockets. Connection 1: pictures come in on port 8000, wrapped as a file with makefile('rb') so we can ask for an exact number of bytes. Connection 2: servo commands go out on port 5000. Same two ports as Lesson 6 (video) and Lesson 2 (commands) — this lesson just opens both at once.",
@@ -29,8 +29,8 @@
   "Button handlers (chunk 13/15) — on_track_changed flips the track_faces flag from the checkbox. nudge() moves one servo by a step, clamped to its safe range, then sends it. go_home() recentres both servos to 90 degrees. Notice both the buttons and track_face() reuse send_servo() and clamp() — show how the small functions get reused all over the file.",
   "refresh_video() (chunk 14/15) — the timer calls this. Take a quick copy of the latest frame UNDER the lock so the thread barely pauses, then return early if there's no picture yet. Swap OpenCV's Blue-Green-Red order to Qt's Red-Green-Blue — that's why faces look natural, not blue-tinted. Wrap the pixels in a QImage and draw it on the label.",
   "destroy() and main (chunk 15/15) — destroy() sets running = False to stop the thread, then closes the video file, the video socket, and the command socket. The main block builds the one QApplication, shows the window, and runs app.exec_() until the window closes. Note the wrapper is try/finally here, not try/except KeyboardInterrupt/finally, because PyQt supplies its own event loop — but the clean-shutdown habit (destroy() in finally) is exactly the same.",
-  "We built the whole file — complete bonus_camera_gui.py: imports, settings, shared state, connect(), read_frame(), send_servo()/clamp(), track_face(), video_thread(), the CameraWindow class, its handlers, refresh_video(), destroy(), and the main block. One class for the window, plain functions for the work, one thread for the video. Tie it back to slide 5: a class only because PyQt needs one.",
-  "Run it — step 1, on the Pi, start the car's full server: cd smartcar2026/Code/Server, then sudo python3 main.py. Step 2, on your computer: cd smartcar2026/Code/User, then sudo python bonus_camera_gui.py. In the window: type your Pi's IP, click Connect, and tick Track faces to follow a face. The IP box defaults to 192.168.1.50 — students must change it to their Pi's IP. Ports 5000 and 8000 must be reachable.",
+  "We built the whole file — complete lesson_11_camera_gui.py: imports, settings, shared state, connect(), read_frame(), send_servo()/clamp(), track_face(), video_thread(), the CameraWindow class, its handlers, refresh_video(), destroy(), and the main block. One class for the window, plain functions for the work, one thread for the video. Tie it back to slide 5: a class only because PyQt needs one.",
+  "Run it — step 1, on the Pi, start the car's full server: cd smartcar2026/Code/Server, then sudo python3 main.py. Step 2, on your computer: cd smartcar2026/Code/User, then python lesson_11_camera_gui.py. In the window: type your Pi's IP, click Connect, and tick Track faces to follow a face. The IP box defaults to 192.168.1.50 — students must change it to their Pi's IP. Ports 5000 and 8000 must be reachable.",
   "Moving the camera head — each button nudges one servo by SERVO_STEP (4 degrees), sent as a CMD_SERVO command. Up/Down move tilt, channel '1' (+4 / -4). Left/Right move pan, channel '0' (-4 / +4). Home recentres pan and tilt to 90 degrees. The command format is CMD_SERVO#0#<pan> and CMD_SERVO#1#<tilt>. Connect the plus-pad layout back to chunk 10 — the grid coordinates make the shape.",
   "Try it yourself — change SERVO_STEP (bigger = faster, jerkier head; smaller = slower, smoother). Change DEAD_ZONE (bigger ignores more wobble; smaller follows more eagerly). Resize the frame with FRAME_WIDTH / FRAME_HEIGHT. Challenge: add a snapshot button that saves the current frame as a timestamped .png, or a small label showing the live pan and tilt angles. SERVO_STEP and DEAD_ZONE are the fun dials.",
   "Troubleshooting — 'Could not connect' means a wrong IP or ports 5000/8000 blocked; fix it and click Connect again. A black or frozen image means a camera-cable issue; restart the GUI and the Pi server. Face tracking does nothing if the box isn't ticked or the cascade can't load from Code/Client. Detection feels slow because it runs on your computer, not the Pi — improve lighting and face the camera. Most issues are the wrong IP or the server not started; check those two first.",
@@ -135,7 +135,7 @@
               <i style="width:9px;height:9px;border-radius:50%;background:#ff6058;display:inline-block"></i>
               <i style="width:9px;height:9px;border-radius:50%;background:#ffbe2f;display:inline-block"></i>
               <i style="width:9px;height:9px;border-radius:50%;background:#2bca42;display:inline-block"></i>
-              <span style="margin-left:6px;color:#fff;font-size:11px;font-family:var(--font-mono)">Bonus Lesson - Camera GUI</span>
+              <span style="margin-left:6px;color:#fff;font-size:11px;font-family:var(--font-mono)">Lesson 11 - Camera GUI (Bonus)</span>
             </div>
             <div style="display:flex;gap:12px;padding:13px">
               <div style="position:relative;width:200px;height:150px;background:linear-gradient(160deg,#2a3344,#171c26);border-radius:6px;overflow:hidden;flex:none">
@@ -194,7 +194,7 @@
             <div><div style="font-size:18px;font-weight:800;color:var(--navy-700)">Locate</div><p style="margin:2px 0 0;font-size:14.5px;color:var(--text-muted);line-height:1.35">Point at each step inside one file.</p></div>
           </div>
         </div>
-        <div style="margin-top:16px;background:var(--neutral-50);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);padding:13px 18px;font-size:15px;color:var(--text-body)">One file does it all: <code class="inl">bonus_camera_gui.py</code> — one window class plus a handful of plain functions.</div>
+        <div style="margin-top:16px;background:var(--neutral-50);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);padding:13px 18px;font-size:15px;color:var(--text-body)">One file does it all: <code class="inl">lesson_11_camera_gui.py</code> — one window class plus a handful of plain functions.</div>
       </div>
     </div>
     <footer class="slide__footer">
@@ -300,7 +300,7 @@
       <div class="slide__head">
         <div class="slide__eyebrow">Build the file · chunk 1 / 15</div>
         <h1 class="slide__title">Start the file: imports</h1>
-        <p class="slide__desc"><code class="inl">car_setup</code> first — so <code class="inl">from Command import COMMAND</code> just works.</p>
+        <p class="slide__desc"><code class="inl">car_setup</code> first — so <code class="inl">from command import COMMAND</code> just works.</p>
       </div>
       <div class="slide__content">
         <div style="display:grid;grid-template-columns:.72fr 1.28fr;gap:36px;align-items:center">
@@ -310,8 +310,8 @@
             <div class="row"><span class="dot"></span><p><code class="inl">cv2</code>/<code class="inl">numpy</code> handle pictures; <b>PyQt5</b> builds the window.</p></div>
           </div>
           <div class="cwrap">
-            <div class="cbar"><i style="background:var(--red-400)"></i><i style="background:var(--amber-400)"></i><i style="background:var(--teal-300)"></i><span class="cfile">bonus_camera_gui.py</span></div>
-<pre class="cpre xs"><span class="st">"""Bonus Lesson: Camera GUI."""</span>
+            <div class="cbar"><i style="background:var(--red-400)"></i><i style="background:var(--amber-400)"></i><i style="background:var(--teal-300)"></i><span class="cfile">lesson_11_camera_gui.py</span></div>
+<pre class="cpre xs"><span class="st">"""Lesson 11: Camera GUI (Bonus)."""</span>
 
 <span class="kw">import</span> car_setup            <span class="co"># adds the car's code folders to the path</span>
 
@@ -355,7 +355,7 @@
             <div class="row"><span class="dot"></span><p><code class="inl">DEAD_ZONE</code> stops the head from <b>jittering</b>.</p></div>
           </div>
           <div class="cwrap">
-            <div class="cbar"><i style="background:var(--red-400)"></i><i style="background:var(--amber-400)"></i><i style="background:var(--teal-300)"></i><span class="cfile">bonus_camera_gui.py</span></div>
+            <div class="cbar"><i style="background:var(--red-400)"></i><i style="background:var(--amber-400)"></i><i style="background:var(--teal-300)"></i><span class="cfile">lesson_11_camera_gui.py</span></div>
 <pre class="cpre xs"><span class="co"># ---- settings ----</span>
 VIDEO_PORT = <span class="nu">8000</span>           <span class="co"># receive pictures here</span>
 COMMAND_PORT = <span class="nu">5000</span>         <span class="co"># send servo commands here</span>
@@ -398,7 +398,7 @@ CASCADE_PATH = car_setup.CODE_DIR / <span class="st">"Client"</span> / <span cla
             <div class="row"><span class="dot"></span><p>Head <b>angles</b> + two on/off <b>flags</b>.</p></div>
           </div>
           <div class="cwrap">
-            <div class="cbar"><i style="background:var(--red-400)"></i><i style="background:var(--amber-400)"></i><i style="background:var(--teal-300)"></i><span class="cfile">bonus_camera_gui.py</span></div>
+            <div class="cbar"><i style="background:var(--red-400)"></i><i style="background:var(--amber-400)"></i><i style="background:var(--teal-300)"></i><span class="cfile">lesson_11_camera_gui.py</span></div>
 <pre class="cpre xxs"><span class="co"># shared state used by the background video thread</span>
 cmd = <span class="fn">COMMAND</span>()                      <span class="co"># names, like cmd.CMD_SERVO</span>
 face_cascade = cv2.<span class="fn">CascadeClassifier</span>(<span class="fn">str</span>(CASCADE_PATH))
@@ -443,7 +443,7 @@ tilt_angle = <span class="nu">90.0</span>           <span class="co"># current u
             <div class="row"><span class="dot"></span><p><code class="inl">makefile("rb")</code> reads an exact number of bytes.</p></div>
           </div>
           <div class="cwrap">
-            <div class="cbar"><i style="background:var(--red-400)"></i><i style="background:var(--amber-400)"></i><i style="background:var(--teal-300)"></i><span class="cfile">bonus_camera_gui.py</span></div>
+            <div class="cbar"><i style="background:var(--red-400)"></i><i style="background:var(--amber-400)"></i><i style="background:var(--teal-300)"></i><span class="cfile">lesson_11_camera_gui.py</span></div>
 <pre class="cpre xs"><span class="kw">def</span> <span class="fn">connect</span>(pi_ip):
     <span class="st">"""Open the video and command sockets."""</span>
     <span class="kw">global</span> video_socket, video_file, command_socket
@@ -485,7 +485,7 @@ tilt_angle = <span class="nu">90.0</span>           <span class="co"># current u
             <div class="row"><span class="dot"></span><p><code class="inl">imdecode</code> → image, <b>no file on disk</b>.</p></div>
           </div>
           <div class="cwrap">
-            <div class="cbar"><i style="background:var(--red-400)"></i><i style="background:var(--amber-400)"></i><i style="background:var(--teal-300)"></i><span class="cfile">bonus_camera_gui.py</span></div>
+            <div class="cbar"><i style="background:var(--red-400)"></i><i style="background:var(--amber-400)"></i><i style="background:var(--teal-300)"></i><span class="cfile">lesson_11_camera_gui.py</span></div>
 <pre class="cpre xxs"><span class="kw">def</span> <span class="fn">read_frame</span>():
     <span class="st">"""Read one picture: a 4-byte size, then JPEG bytes."""</span>
     header = video_file.<span class="fn">read</span>(<span class="nu">4</span>)            <span class="co"># the picture's size</span>
@@ -529,7 +529,7 @@ tilt_angle = <span class="nu">90.0</span>           <span class="co"># current u
             <div class="row"><span class="dot"></span><p><code class="inl">clamp()</code> keeps every angle in its <b>safe range</b>.</p></div>
           </div>
           <div class="cwrap">
-            <div class="cbar"><i style="background:var(--red-400)"></i><i style="background:var(--amber-400)"></i><i style="background:var(--teal-300)"></i><span class="cfile">bonus_camera_gui.py</span></div>
+            <div class="cbar"><i style="background:var(--red-400)"></i><i style="background:var(--amber-400)"></i><i style="background:var(--teal-300)"></i><span class="cfile">lesson_11_camera_gui.py</span></div>
 <pre class="cpre xs"><span class="kw">def</span> <span class="fn">send_servo</span>(channel, angle):
     <span class="st">"""Send one servo command, e.g. CMD_SERVO#0#95."""</span>
     <span class="kw">if</span> command_socket <span class="kw">is None</span>:
@@ -572,14 +572,14 @@ tilt_angle = <span class="nu">90.0</span>           <span class="co"># current u
             <div class="row"><span class="dot"></span><p>Else nudge pan &amp; tilt by <code class="inl">SERVO_STEP</code>.</p></div>
           </div>
           <div class="cwrap">
-            <div class="cbar"><i style="background:var(--red-400)"></i><i style="background:var(--amber-400)"></i><i style="background:var(--teal-300)"></i><span class="cfile">bonus_camera_gui.py</span></div>
+            <div class="cbar"><i style="background:var(--red-400)"></i><i style="background:var(--amber-400)"></i><i style="background:var(--teal-300)"></i><span class="cfile">lesson_11_camera_gui.py</span></div>
 <pre class="cpre xxs"><span class="kw">def</span> <span class="fn">track_face</span>(face):
     <span class="st">"""Turn the head so the face moves toward the middle."""</span>
     <span class="kw">global</span> pan_angle, tilt_angle
     x, y, w, h = face
     <span class="co"># -1 at left/top, +1 at right/bottom, 0 in the middle.</span>
-    offset_x = (x + w / <span class="nu">2</span>) / FRAME_WIDTH - <span class="nu">0.5</span>
-    offset_y = (y + h / <span class="nu">2</span>) / FRAME_HEIGHT - <span class="nu">0.5</span>
+    offset_x = ((x + w / <span class="nu">2</span>) / FRAME_WIDTH - <span class="nu">0.5</span>) * <span class="nu">2</span>
+    offset_y = ((y + h / <span class="nu">2</span>) / FRAME_HEIGHT - <span class="nu">0.5</span>) * <span class="nu">2</span>
     <span class="kw">if</span> <span class="fn">abs</span>(offset_x) &lt; DEAD_ZONE <span class="kw">and</span> <span class="fn">abs</span>(offset_y) &lt; DEAD_ZONE:
         <span class="kw">return</span>                          <span class="co"># already centred</span>
     pan_angle = <span class="fn">clamp</span>(pan_angle + SERVO_STEP * offset_x, PAN_MIN, PAN_MAX)
@@ -616,7 +616,7 @@ tilt_angle = <span class="nu">90.0</span>           <span class="co"># current u
             <div class="row"><span class="dot"></span><p>Store it under the <b>lock</b>, safely.</p></div>
           </div>
           <div class="cwrap">
-            <div class="cbar"><i style="background:var(--red-400)"></i><i style="background:var(--amber-400)"></i><i style="background:var(--teal-300)"></i><span class="cfile">bonus_camera_gui.py</span></div>
+            <div class="cbar"><i style="background:var(--red-400)"></i><i style="background:var(--amber-400)"></i><i style="background:var(--teal-300)"></i><span class="cfile">lesson_11_camera_gui.py</span></div>
 <pre class="cpre xxs"><span class="kw">def</span> <span class="fn">video_thread</span>():
     <span class="st">"""Read a picture, optionally find faces, store it."""</span>
     <span class="kw">global</span> latest_frame
@@ -663,11 +663,11 @@ tilt_angle = <span class="nu">90.0</span>           <span class="co"># current u
             <div class="row"><span class="dot"></span><p>A <b>Track faces</b> checkbox.</p></div>
           </div>
           <div class="cwrap">
-            <div class="cbar"><i style="background:var(--red-400)"></i><i style="background:var(--amber-400)"></i><i style="background:var(--teal-300)"></i><span class="cfile">bonus_camera_gui.py</span></div>
+            <div class="cbar"><i style="background:var(--red-400)"></i><i style="background:var(--amber-400)"></i><i style="background:var(--teal-300)"></i><span class="cfile">lesson_11_camera_gui.py</span></div>
 <pre class="cpre xxs"><span class="kw">class</span> <span class="fn">CameraWindow</span>(QtWidgets.QMainWindow):
     <span class="kw">def</span> <span class="fn">__init__</span>(self):
         <span class="fn">super</span>().<span class="fn">__init__</span>()                 <span class="co"># PyQt sets up first</span>
-        self.<span class="fn">setWindowTitle</span>(<span class="st">"Bonus Lesson - Camera GUI"</span>)
+        self.<span class="fn">setWindowTitle</span>(<span class="st">"Lesson 11 - Camera GUI (Bonus)"</span>)
 
         <span class="co"># The label the video picture is drawn onto.</span>
         self.video_label = QtWidgets.<span class="fn">QLabel</span>(<span class="st">"Not connected"</span>)
@@ -707,7 +707,7 @@ tilt_angle = <span class="nu">90.0</span>           <span class="co"># current u
       <div class="slide__content">
         <div style="display:grid;grid-template-columns:1.42fr .58fr;gap:28px;align-items:center">
           <div class="cwrap">
-            <div class="cbar"><i style="background:var(--red-400)"></i><i style="background:var(--amber-400)"></i><i style="background:var(--teal-300)"></i><span class="cfile">bonus_camera_gui.py</span></div>
+            <div class="cbar"><i style="background:var(--red-400)"></i><i style="background:var(--amber-400)"></i><i style="background:var(--teal-300)"></i><span class="cfile">lesson_11_camera_gui.py</span></div>
 <pre class="cpre xxxs">        <span class="co"># Five buttons to move the head by hand.</span>
         up = QtWidgets.<span class="fn">QPushButton</span>(<span class="st">"Up"</span>)
         down = QtWidgets.<span class="fn">QPushButton</span>(<span class="st">"Down"</span>)
@@ -766,7 +766,7 @@ tilt_angle = <span class="nu">90.0</span>           <span class="co"># current u
             <div class="row"><span class="dot"></span><p>A <code class="inl">QTimer</code> keeps the picture <b>fresh</b>.</p></div>
           </div>
           <div class="cwrap">
-            <div class="cbar"><i style="background:var(--red-400)"></i><i style="background:var(--amber-400)"></i><i style="background:var(--teal-300)"></i><span class="cfile">bonus_camera_gui.py</span></div>
+            <div class="cbar"><i style="background:var(--red-400)"></i><i style="background:var(--amber-400)"></i><i style="background:var(--teal-300)"></i><span class="cfile">lesson_11_camera_gui.py</span></div>
 <pre class="cpre xxs">        <span class="co"># Stack the controls down the right-hand side.</span>
         controls = QtWidgets.<span class="fn">QVBoxLayout</span>()
         controls.<span class="fn">addWidget</span>(self.ip_box)
@@ -816,7 +816,7 @@ tilt_angle = <span class="nu">90.0</span>           <span class="co"># current u
             <div class="row"><span class="dot"></span><p>Start a <b>daemon thread</b> (stops with the app).</p></div>
           </div>
           <div class="cwrap">
-            <div class="cbar"><i style="background:var(--red-400)"></i><i style="background:var(--amber-400)"></i><i style="background:var(--teal-300)"></i><span class="cfile">bonus_camera_gui.py</span></div>
+            <div class="cbar"><i style="background:var(--red-400)"></i><i style="background:var(--amber-400)"></i><i style="background:var(--teal-300)"></i><span class="cfile">lesson_11_camera_gui.py</span></div>
 <pre class="cpre xs">    <span class="kw">def</span> <span class="fn">on_connect</span>(self):
         <span class="st">"""Connect, then start the background video thread."""</span>
         <span class="kw">global</span> running
@@ -859,7 +859,7 @@ tilt_angle = <span class="nu">90.0</span>           <span class="co"># current u
             <div class="row"><span class="dot"></span><p><code class="inl">go_home</code> → recentre to <b>90°</b>.</p></div>
           </div>
           <div class="cwrap">
-            <div class="cbar"><i style="background:var(--red-400)"></i><i style="background:var(--amber-400)"></i><i style="background:var(--teal-300)"></i><span class="cfile">bonus_camera_gui.py</span></div>
+            <div class="cbar"><i style="background:var(--red-400)"></i><i style="background:var(--amber-400)"></i><i style="background:var(--teal-300)"></i><span class="cfile">lesson_11_camera_gui.py</span></div>
 <pre class="cpre xxs">    <span class="kw">def</span> <span class="fn">on_track_changed</span>(self):
         <span class="kw">global</span> track_faces
         track_faces = self.track_checkbox.<span class="fn">isChecked</span>()
@@ -908,7 +908,7 @@ tilt_angle = <span class="nu">90.0</span>           <span class="co"># current u
             <div class="row"><span class="dot"></span><p>Wrap pixels in a <code class="inl">QImage</code>, draw it.</p></div>
           </div>
           <div class="cwrap">
-            <div class="cbar"><i style="background:var(--red-400)"></i><i style="background:var(--amber-400)"></i><i style="background:var(--teal-300)"></i><span class="cfile">bonus_camera_gui.py</span></div>
+            <div class="cbar"><i style="background:var(--red-400)"></i><i style="background:var(--amber-400)"></i><i style="background:var(--teal-300)"></i><span class="cfile">lesson_11_camera_gui.py</span></div>
 <pre class="cpre xxs">    <span class="kw">def</span> <span class="fn">refresh_video</span>(self):
         <span class="st">"""Copy the newest picture and draw it in the window."""</span>
         <span class="kw">with</span> frame_lock:
@@ -951,7 +951,7 @@ tilt_angle = <span class="nu">90.0</span>           <span class="co"># current u
             <div class="row"><span class="dot"></span><p><code class="inl">finally</code> always <b>cleans up</b>.</p></div>
           </div>
           <div class="cwrap">
-            <div class="cbar"><i style="background:var(--red-400)"></i><i style="background:var(--amber-400)"></i><i style="background:var(--teal-300)"></i><span class="cfile">bonus_camera_gui.py</span></div>
+            <div class="cbar"><i style="background:var(--red-400)"></i><i style="background:var(--amber-400)"></i><i style="background:var(--teal-300)"></i><span class="cfile">lesson_11_camera_gui.py</span></div>
 <pre class="cpre xxxs"><span class="kw">def</span> <span class="fn">destroy</span>():
     <span class="st">"""Stop the thread and close the connections."""</span>
     <span class="kw">global</span> running
@@ -997,7 +997,7 @@ tilt_angle = <span class="nu">90.0</span>           <span class="co"># current u
       <div class="slide__content">
         <div style="display:grid;grid-template-columns:1fr;gap:18px;align-items:start">
           <div style="background:var(--surface-card);border:1px solid var(--border-subtle);border-top:3px solid var(--teal-300);border-radius:var(--radius-lg);padding:20px 22px;box-shadow:var(--shadow-sm)">
-            <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px"><img src="../../../Design%20System/assets/icons/camera-black.png" alt="" style="width:30px;height:30px;object-fit:contain" /><span style="font-size:18px;font-weight:800;color:var(--navy-700)">bonus_camera_gui.py</span></div>
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px"><img src="../../../Design%20System/assets/icons/camera-black.png" alt="" style="width:30px;height:30px;object-fit:contain" /><span style="font-size:18px;font-weight:800;color:var(--navy-700)">lesson_11_camera_gui.py</span></div>
             <div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-family:var(--font-mono);font-size:12px">
               <span style="background:var(--amber-100);color:var(--amber-800);font-weight:700;padding:5px 10px;border-radius:var(--radius-pill)">imports</span><span style="color:var(--teal-600);font-weight:800">→</span>
               <span style="background:var(--neutral-100);color:var(--navy-700);font-weight:600;padding:5px 10px;border-radius:var(--radius-pill)">settings</span><span style="color:var(--teal-600);font-weight:800">→</span>
@@ -1055,7 +1055,7 @@ sudo python3 main.py</pre>
               <div class="cwrap">
                 <div class="cbar"><i style="background:var(--red-400)"></i><i style="background:var(--amber-400)"></i><i style="background:var(--teal-300)"></i><span class="cfile">terminal</span></div>
 <pre class="cpre sm">cd smartcar2026/Code/User
-sudo python bonus_camera_gui.py</pre>
+python lesson_11_camera_gui.py</pre>
               </div>
             </div>
           </div>
@@ -1237,11 +1237,10 @@ sudo python bonus_camera_gui.py</pre>
             <div style="display:flex;gap:14px;align-items:flex-start;padding:16px 0 0;border-top:1px solid var(--border-subtle)"><span class="pnum">3</span><div><h3 style="font-size:19px;font-weight:700;color:var(--text-strong);margin:0 0 3px">Point toward final projects</h3><p style="font-size:15px;color:var(--text-muted);margin:0;line-height:1.45">This file is a strong base — nudge students toward the snapshot / angle-label extensions.</p></div></div>
           </div>
           <div style="background:var(--navy-600);border-radius:var(--radius-xl);padding:26px;color:#fff;box-shadow:var(--shadow-md)">
-            <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--teal-300);margin-bottom:14px">Timing (~50–55 min)</div>
-            <div style="font-size:14px;color:#fff;font-weight:600;line-height:1.4;padding:6px 0">Intro + concepts ~12 min</div>
-            <div style="font-size:14px;color:#fff;font-weight:600;line-height:1.4;padding:6px 0;border-top:1px solid rgba(255,255,255,.15)">Build the file ~25 min</div>
-            <div style="font-size:14px;color:#fff;font-weight:600;line-height:1.4;padding:6px 0;border-top:1px solid rgba(255,255,255,.15)">Run + control ~10 min</div>
-            <div style="font-size:14px;color:#fff;font-weight:600;line-height:1.4;padding:6px 0;border-top:1px solid rgba(255,255,255,.15)">Experiment + recap ~8 min</div>
+            <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--teal-300);margin-bottom:14px">Every class</div>
+            <div style="font-size:14.5px;color:#fff;font-weight:600;line-height:1.4;padding:8px 0">✓ Post a class announcement</div>
+            <div style="font-size:14.5px;color:#fff;font-weight:600;line-height:1.4;padding:8px 0;border-top:1px solid rgba(255,255,255,.15)">✓ Introductions if needed</div>
+            <div style="font-size:14.5px;color:#fff;font-weight:600;line-height:1.4;padding:8px 0;border-top:1px solid rgba(255,255,255,.15)">✓ Note absences in #attendance</div>
           </div>
         </div>
       </div>
