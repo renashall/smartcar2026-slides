@@ -638,7 +638,7 @@ tilt_angle = <span class="nu">90.0</span>      <span class="co"># current up/dow
           </div>
           <div class="cwrap">
             <div class="cbar"><i style="background:var(--red-400)"></i><i style="background:var(--amber-400)"></i><i style="background:var(--teal-300)"></i><span class="cfile">lesson_7_face_tracking.py</span></div>
-<pre class="cpre xxs"><span class="kw">def</span> <span class="fn">track_face</span>(face):
+<pre class="cpre xxs" style="line-height:1.4"><span class="kw">def</span> <span class="fn">track_face</span>(face):
     <span class="kw">global</span> pan_angle, tilt_angle
     <span class="kw">if</span> face <span class="kw">is None</span>:
         <span class="kw">return</span>
@@ -654,7 +654,6 @@ tilt_angle = <span class="nu">90.0</span>      <span class="co"># current up/dow
     tilt_angle = <span class="fn">clamp</span>(tilt_angle - SERVO_STEP * offset_y, TILT_MIN, TILT_MAX)
     <span class="fn">send_servo</span>(PAN_SERVO, pan_angle)
     <span class="fn">send_servo</span>(TILT_SERVO, tilt_angle)
-
 
 <span class="kw">def</span> <span class="fn">clamp</span>(value, low, high):
     <span class="kw">return</span> <span class="fn">max</span>(low, <span class="fn">min</span>(high, value))</pre>
@@ -734,7 +733,7 @@ tilt_angle = <span class="nu">90.0</span>      <span class="co"># current up/dow
           </div>
           <div class="cwrap">
             <div class="cbar"><i style="background:var(--red-400)"></i><i style="background:var(--amber-400)"></i><i style="background:var(--teal-300)"></i><span class="cfile">lesson_7_face_tracking.py</span></div>
-<pre class="cpre xs"><span class="kw">def</span> <span class="fn">destroy</span>():
+<pre class="cpre xxs"><span class="kw">def</span> <span class="fn">destroy</span>():
     <span class="st">"""Close both connections and the window."""</span>
     <span class="kw">if</span> video_file <span class="kw">is not None</span>:
         video_file.<span class="fn">close</span>()
