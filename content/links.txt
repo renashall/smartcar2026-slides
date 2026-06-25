@@ -7,8 +7,11 @@ AI Code Academy
 Smart car build video (Google Drive)
   https://drive.google.com/file/d/1y3MdVZHkrGRwUXXxi6jHIrmBIQTBDR71/view?usp=drive_link
 
-Course GitHub repository
+Course Code GitHub repository
   https://github.com/renashall/smartcar2026
+
+Course Slides GitHub repository
+  https://github.com/renashall/smartcar2026-slides
 
 Resources file (Tutorial.pdf)
   https://github.com/renashall/smartcar2026/blob/main/Resources/Tutorial.pdf
