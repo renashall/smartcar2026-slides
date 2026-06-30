@@ -15,7 +15,8 @@
 ## Slide 1 — Title
 
 **On screen**
-- **Lesson 11 — Camera GUI**
+
+- **Lesson 11 — Camera GUI (Bonus))**
 - Machine Learning with Raspberry Pi & Smart Car (Level 3)
 - AI Code Academy · aicodeacademy.com
 - One small window: live camera, head buttons, and a face-tracking checkbox.
@@ -29,6 +30,7 @@
 ## Slide 2 — Introduction
 
 **On screen**
+
 - So far you ran video and face tracking from **separate terminal scripts**.
 - Today we put it all in **one desktop window** you can click.
 - Live camera + **head buttons** + a **Track faces** checkbox — one file.
@@ -42,6 +44,7 @@
 ## Slide 3 — Our Goals
 
 **On screen**
+
 - **Run** the camera GUI and see the live video.
 - **Control** the head with Up/Down/Left/Right/Home buttons.
 - **Understand** how a frame travels: capture → stream → decode → display.
@@ -56,6 +59,7 @@
 ## Slide 4 — The Video Path
 
 **On screen**
+
 - The **Pi** owns the camera and **streams** JPEG pictures (port **8000**).
 - Your **computer decodes** each picture in memory and **displays** it.
 - Servo commands go **back** to the Pi (port **5000**).
@@ -70,6 +74,7 @@
 ## Slide 5 — Inside the File
 
 **On screen**
+
 - One window class — **`CameraWindow`** — because a PyQt5 window needs a class.
 - Everything else is a **plain function** (the familiar lesson style).
 - A **background thread** reads video so the buttons stay clickable.
@@ -89,6 +94,7 @@
 - `cv2` + `numpy` handle pictures; **PyQt5** builds the window.
 
 **Code (builds file · chunk 1/15):**
+
 ```python
 """Lesson 11: Camera GUI (Bonus).
 
@@ -117,11 +123,13 @@ from command import COMMAND  # the command names the car server understands
 ## Slide 7 — Settings We Can Tune
 
 **On screen**
+
 - Ports, frame size, which servo is **pan** vs **tilt**, and the **safe angle ranges**.
 - Pan is channel `"0"`, tilt is channel `"1"`. Angles are clamped: pan 0–180, tilt 80–180.
 - `SERVO_STEP` = degrees per move; `DEAD_ZONE` = ignore tiny offsets so the head won't jitter.
 
 **Code (builds file · chunk 2/15):**
+
 ```python
 # ---- settings ----
 VIDEO_PORT = 8000           # we receive pictures on this port
@@ -144,11 +152,13 @@ CASCADE_PATH = car_setup.CODE_DIR / "Client" / "haarcascade_frontalface_default.
 ## Slide 8 — Shared State
 
 **On screen**
+
 - These are **global** because the background thread **and** the window both touch them.
 - The two sockets, the **latest frame**, and a **lock** that keeps the frame safe.
 - Plus the current head angles and two on/off flags.
 
 **Code (builds file · chunk 3/15):**
+
 ```python
 # ---- shared state used by the background video thread ----
 cmd = COMMAND()                      # command names, like cmd.CMD_SERVO
@@ -173,11 +183,13 @@ tilt_angle = 90.0           # current up/down head angle
 ## Slide 9 — connect(): Open Two Sockets
 
 **On screen**
+
 - **Connection 1** — pictures come in on port 8000.
 - **Connection 2** — servo commands go out on port 5000.
 - Wrapping the video socket as a **file** (`makefile("rb")`) lets us ask for an exact number of bytes.
 
 **Code (builds file · chunk 4/15):**
+
 ```python
 def connect(pi_ip):
     """Open the video and command sockets."""
@@ -199,11 +211,13 @@ def connect(pi_ip):
 ## Slide 10 — read_frame(): Size First, Then the Picture
 
 **On screen**
+
 - Each picture is a **4-byte size** followed by that many **JPEG bytes**.
 - A short or zero read means the stream ended → return `None`.
 - `cv2.imdecode` turns the raw bytes straight into an image — **no file on disk**.
 
 **Code (builds file · chunk 5/15):**
+
 ```python
 def read_frame():
     """Read one picture: a 4-byte size, then that many JPEG bytes."""
@@ -226,11 +240,13 @@ def read_frame():
 ## Slide 11 — send_servo() & clamp()
 
 **On screen**
+
 - A head command is just **text**: name, channel, angle, ending in a newline.
 - Example: `CMD_SERVO#0#95\n` — pan servo to 95°.
 - `clamp()` keeps every angle inside its safe range **before** it is sent.
 
 **Code (builds file · chunk 6/15):**
+
 ```python
 def send_servo(channel, angle):
     """Send one servo command to the car, e.g. CMD_SERVO#0#95."""
@@ -238,6 +254,7 @@ def send_servo(channel, angle):
         return                             # not connected yet, so do nothing
     message = cmd.CMD_SERVO + "#" + channel + "#" + str(int(angle)) + "\n"
     command_socket.send(message.encode("utf-8"))
+
 
 
 def clamp(value, low, high):
@@ -252,11 +269,13 @@ def clamp(value, low, high):
 ## Slide 12 — track_face(): Nudge the Head Toward Center
 
 **On screen**
+
 - Work out how far the face is from the **middle** of the frame.
 - Inside the **dead zone**? Don't move (stops the twitch).
 - Otherwise move pan & tilt a small `SERVO_STEP` the right way.
 
 **Code (builds file · chunk 7/15):**
+
 ```python
 def track_face(face):
     """Turn the head a little so the face moves toward the middle."""
@@ -280,11 +299,13 @@ def track_face(face):
 ## Slide 13 — video_thread(): The Background Loop
 
 **On screen**
+
 - Runs in the background: **read a frame**, and when tracking is on, **box every face** and **follow the biggest**.
 - `max(faces, key=area)` picks the biggest box (width × height).
 - Store the finished picture under the **lock** so the window can read it safely.
 
 **Code (builds file · chunk 8/15):**
+
 ```python
 def video_thread():
     """Background loop: read a picture, optionally find faces, store it."""
@@ -312,10 +333,12 @@ def video_thread():
 ## Slide 14 — CameraWindow (1 of 3): Video + Connect
 
 **On screen**
+
 - The class builds the window: a **video label**, an **IP box + Connect**, and a **Track faces** checkbox.
 - Each control is wired to a handler (`on_connect`, `on_track_changed`).
 
 **Code (builds file · chunk 9/15):**
+
 ```python
 class CameraWindow(QtWidgets.QMainWindow):
     def __init__(self):
@@ -344,11 +367,13 @@ class CameraWindow(QtWidgets.QMainWindow):
 ## Slide 15 — CameraWindow (2 of 3): The Five Head Buttons
 
 **On screen**
+
 - Five buttons → `nudge()` with **which servo** and **how far**.
 - `lambda` is a tiny throwaway function used to pass those values along.
 - Laid out in a **plus-pad**: Up on top, Left/Home/Right in the middle, Down below.
 
 **Code (builds file · chunk 10/15):**
+
 ```python
         # Five buttons to move the head by hand.
         up = QtWidgets.QPushButton("Up")
@@ -379,10 +404,12 @@ class CameraWindow(QtWidgets.QMainWindow):
 ## Slide 16 — CameraWindow (3 of 3): Lay It Out & Start the Timer
 
 **On screen**
+
 - Stack the controls down the **right**, the video on the **left**.
 - A **timer** calls `refresh_video()` every **30 ms** (~33 fps) so the video looks smooth.
 
 **Code (builds file · chunk 11/15):**
+
 ```python
         # Stack the controls down the right-hand side.
         controls = QtWidgets.QVBoxLayout()
@@ -412,11 +439,13 @@ class CameraWindow(QtWidgets.QMainWindow):
 ## Slide 17 — on_connect(): Connect, Then Start the Thread
 
 **On screen**
+
 - Try to `connect()` with whatever IP is in the box.
 - A bad IP raises `OSError` → show "Could not connect" instead of crashing.
 - On success, start the **background video thread** as a **daemon** (it stops when the app closes).
 
 **Code (builds file · chunk 12/15):**
+
 ```python
     def on_connect(self):
         """Connect to the Pi, then start the background video thread."""
@@ -439,11 +468,13 @@ class CameraWindow(QtWidgets.QMainWindow):
 ## Slide 18 — Button Handlers: Toggle, Nudge, Home
 
 **On screen**
+
 - `on_track_changed` → flip the `track_faces` flag.
 - `nudge` → move one servo a `SERVO_STEP`, clamped to its safe range.
 - `go_home` → recentre both servos to **90°**.
 
 **Code (builds file · chunk 13/15):**
+
 ```python
     def on_track_changed(self):
         """Remember whether the 'Track faces' box is ticked."""
@@ -475,11 +506,13 @@ class CameraWindow(QtWidgets.QMainWindow):
 ## Slide 19 — refresh_video(): Copy, Convert, Show
 
 **On screen**
+
 - The timer calls this. Take a quick **copy under the lock** so the thread keeps working.
 - Swap OpenCV's **BGR** to Qt's **RGB** (that's why faces look natural, not blue).
 - Wrap the pixels in a `QImage` and draw it on the label.
 
 **Code (builds file · chunk 14/15):**
+
 ```python
     def refresh_video(self):
         """Copy the newest picture from the thread and draw it in the window."""
@@ -502,11 +535,13 @@ class CameraWindow(QtWidgets.QMainWindow):
 ## Slide 20 — destroy() & the Main Block
 
 **On screen**
+
 - `destroy()` stops the thread and closes the sockets.
 - The main block builds the `QApplication`, shows the window, and **always** cleans up.
 - PyQt runs its **own loop** (`app.exec_()`) — so the wrapper is `try / finally`, not the usual `try / except KeyboardInterrupt / finally`.
 
 **Code (builds file · chunk 15/15):**
+
 ```python
 def destroy():
     """Stop the thread and close the connections when the app ends."""
@@ -518,6 +553,7 @@ def destroy():
         video_socket.close()
     if command_socket is not None:
         command_socket.close()
+
 
 
 if __name__ == "__main__":
@@ -550,16 +586,21 @@ if __name__ == "__main__":
 ## Slide 22 — Run It
 
 **On screen**
+
 - **Step 1 — on the Pi:** start the car's server.
+
 ```sh
 cd smartcar2026/Code/Server
 sudo python3 main.py
 ```
+
 - **Step 2 — on your computer:** run the GUI.
+
 ```sh
 cd smartcar2026/Code/User
 python lesson_11_camera_gui.py
 ```
+
 - In the window: type your Pi's IP → click **Connect** → tick **Track faces**.
 
 **Visual:** Design System/assets/icons/terminal.png
@@ -571,6 +612,7 @@ python lesson_11_camera_gui.py
 ## Slide 23 — Moving the Camera Head
 
 **On screen**
+
 - Each button nudges one servo by `SERVO_STEP` (4°), sent as a `CMD_SERVO` command.
 - **Up / Down** → tilt, channel `"1"` (+4° / -4°).
 - **Left / Right** → pan, channel `"0"` (-4° / +4°).
@@ -586,6 +628,7 @@ python lesson_11_camera_gui.py
 ## Slide 24 — Try It Yourself
 
 **On screen**
+
 - Change `SERVO_STEP` — bigger = faster, jerkier head; smaller = slower, smoother.
 - Change `DEAD_ZONE` — bigger ignores more wobble; smaller follows more eagerly.
 - Resize the window's frame with `FRAME_WIDTH` / `FRAME_HEIGHT`.
@@ -598,6 +641,7 @@ python lesson_11_camera_gui.py
 ## Slide 25 — Troubleshooting
 
 **On screen**
+
 - **"Could not connect"** → wrong IP, or ports 5000/8000 blocked. Fix and click Connect again.
 - **Image is black / freezes** → check the camera cable; restart the GUI and the Pi server.
 - **Face tracking does nothing** → tick **Track faces**; the cascade must load from `Code/Client/`.
@@ -612,6 +656,7 @@ python lesson_11_camera_gui.py
 ## Slide 26 — Recap & What's Next
 
 **On screen**
+
 - You built a **desktop GUI** that ties together Pi capture, TCP streaming, OpenCV decoding, PyQt display, and servo control.
 - You learned the big new idea: a **background thread** keeps the window responsive.
 - **Key idea:** the GUI follows *where* a face is, not *who* it is — a clean base for a final project.
@@ -630,12 +675,14 @@ python lesson_11_camera_gui.py
 **Timing (~50–55 min):** Intro + concepts (1–5) ~12 min · build the file (6–21) ~25 min · run + control (22–23) ~10 min · experiment/troubleshoot/recap (24–26) ~8 min. The build is long — consider a short break after the thread (slide 13).
 
 **Before class**
+
 - Confirm each Pi runs the full server: `sudo python3 main.py` from `Code/Server` (the camera + command ports both come from the main server).
 - Install `opencv-python`, `numpy`, and `PyQt5` on each student computer (a venv is ideal). PyQt5 is the new dependency this lesson.
 - Confirm `haarcascade_frontalface_default.xml` is in `Code/Client/` (the cascade path resolves there via `car_setup.CODE_DIR`).
 - Know how to find each Pi's IP (`hostname -I`) and write it on the board.
 
 **Key teaching points**
+
 - A PyQt5 window needs one class; everything else stays a plain function — same lesson style.
 - A background thread does the slow work (network + face detection) so the window's buttons stay responsive; a `Lock` keeps the shared frame safe.
 - Two connections, two ports: video in on 8000, servo commands out on 5000 — the same ports the car server opens.
@@ -643,19 +690,24 @@ python lesson_11_camera_gui.py
 - The clean-shutdown habit (`destroy()` in `finally`) carries over; PyQt just supplies its own event loop via `app.exec_()`.
 
 **Safety**
+
 - Servo head only — no driving motors in this lesson. Still keep fingers clear of the pan/tilt bracket when Home/arrow buttons fire.
 
 **Most common failures** (ranked)
+
 1. Wrong Pi IP in the box, or the server not started → "Could not connect".
 2. `PyQt5` (or `opencv-python` / `numpy`) not installed on the student's computer.
 3. Cascade file missing from `Code/Client/` → Track faces does nothing.
 4. Black/frozen video → camera ribbon cable or the Pi camera not enabled.
 
 **Teaching tips**
+
 - Demo the *responsiveness* point: with tracking on, the buttons still click instantly — that's the thread earning its keep.
 - Have a volunteer move across the frame to show the dead zone (no twitch when centred) vs. correction at the edges.
 
 **Assets to source (flagged in deck)**
+
 - Pipeline diagram (Pi → stream 8000 → decode → display; commands back on 5000) — slide 4 (deck draws a CSS version).
 - Plus-pad button map with servo/degree labels — slide 23 (deck draws a CSS version).
 - Optional: a real screenshot of the running Camera GUI window for the title or intro (deck currently uses a CSS window mockup).
+
