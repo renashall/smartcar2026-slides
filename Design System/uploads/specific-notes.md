@@ -12,7 +12,7 @@ Setup links, common issues, and reminders specific to this course.
 | **Smart Car GitHub Repo** | [renashall/smartcar2026](https://github.com/renashall/smartcar2026) | Course code repository for the smart car. |
 | **Smart Car Tutorial PDF** | [Tutorial.pdf](https://github.com/renashall/smartcar2026/blob/main/Resources/Tutorial.pdf) | Official kit tutorial/reference PDF in the course repo. |
 | **Battery Guide PDF** | [About_Battery.pdf](https://github.com/renashall/smartcar2026/blob/main/Resources/About_Battery.pdf) | Official battery selection and safety PDF in the course repo. |
-| **Smart Car Video Setup** | [Google Drive video](https://drive.google.com/file/d/1y3MdVZHkrGRwUXXxi6jHIrmBIQTBDR71/view?usp=drive_link) | Video setup guide for building the smart car. |
+| **Smart Car Video Setup** | [Google Drive video](https://drive.google.com/file/d/1fl8dAGgtttkPZFmboovwltMmlfYszNP7/view?usp=share_link) | Video setup guide for building the smart car. |
 | **Batteries** | [18650batterystore.com](https://www.18650batterystore.com/) | Use the correct battery type for the smart car. A reputable source for quality cells. |
 
 ### Link details
