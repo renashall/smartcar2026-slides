@@ -18,7 +18,7 @@ with a final project workshop and presentation.
 
 | Lesson | Title                      | Short description                                                                                                                                                                          |
 | ------ | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| 00     | Setup                      | Build the smart car, prepare the Raspberry Pi, install remote access tools, clone the course code, and verify that Python and the setup scripts are ready.                                 |
+| 00     | Initial Setup              | Build the smart car, prepare the Raspberry Pi, install remote access tools, clone the course code, and verify that Python and the setup scripts are ready.                                 |
 | 01     | Components                 | Meet the car's core parts by lighting LEDs, sweeping the servo head, reading ultrasonic distance, and learning the recurring lesson script structure.                                      |
 | 02     | Server & Client Commands   | Learn how the computer sends text commands to the car server, then drive the wheels, test the buzzer, and control LEDs through command strings.                                            |
 | 03     | ADC & Multithreading       | Read analog sensor values through the ADC, calculate battery level, and use a background thread to monitor the car while the main program keeps running.                                   |
@@ -33,10 +33,11 @@ with a final project workshop and presentation.
 
 ## Deck Sources
 
-- Lesson plans live in `content/slide-plans/lesson-00-setup.md` through
+- Lesson plans live in `content/slide-plans/lesson-00-initial-setup.md` through
   `content/slide-plans/lesson-11-camera-gui.md` (lesson 11 is a flexible bonus
   lesson).
 - General course notes live in `content/specific-notes.md`.
 - Coaching and administrative notes live in `content/organization-notes.md`.
 - Useful course links (downloads, repo, build video) live in
   `content/links.txt`.
+

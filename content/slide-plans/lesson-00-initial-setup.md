@@ -2,7 +2,7 @@
 
 **Organization:** AI Code Academy · aicodeacademy.com
 **Course:** Machine Learning with Raspberry Pi & Smart Car (Level 3)
-**Lesson:** 0 — Setup
+**Lesson:** 0 — Initial Setup
 **Format:** Hands-on setup session — get to know the kit, flash the Raspberry Pi, connect to it remotely, and install the course code. Coach-guided.
 **Works on:** A computer (Windows / macOS / Linux) + the Raspberry Pi.
 
@@ -14,7 +14,8 @@
 ## Slide 1 — Title
 
 **On screen**
-- **Lesson 0 — Setup**
+
+- **Lesson 0 — Initial Setup**
 - Machine Learning with Raspberry Pi & Smart Car (Level 3)
 - AI Code Academy · aicodeacademy.com
 
@@ -27,6 +28,7 @@
 ## Slide 2 — Introduction
 
 **On screen**
+
 - Welcome to the course! Before we write code, we prepare our robot.
 - Today is **all setup** — the kit, the Raspberry Pi (the car's brain), and the course code.
 - It's the longest, most technical session — but you only do it once.
@@ -40,6 +42,7 @@
 ## Slide 3 — Our Goals
 
 **On screen**
+
 - By the end of today you will:
   - know the **parts** of your kit and how to build the car,
   - handle **batteries safely** and power the Pi correctly,
@@ -56,6 +59,7 @@
 ## Slide 4 — Two References You'll Use All Course
 
 **On screen**
+
 - Keep these two PDFs handy (in the repo's `Resources/` folder):
   - 📘 **[Tutorial.pdf](https://github.com/renashall/smartcar2026/blob/main/Resources/Tutorial.pdf)** — building the car and general kit guidance.
   - 🔋 **[About_Battery.pdf](https://github.com/renashall/smartcar2026/blob/main/Resources/About_Battery.pdf)** — choosing and handling batteries safely.
@@ -70,6 +74,7 @@
 ## Slide 5 — What's in the Box
 
 **On screen**
+
 - Your kit has five groups of parts:
   1. the **car board** + acrylic frame,
   2. **transmission** parts (motors, wheels),
@@ -87,6 +92,7 @@
 ## Slide 6 — The Car Board & Frame
 
 **On screen**
+
 - **Smart car board** — the main circuit board the Pi sits on.
 - **Acrylic parts** — the layered frame/chassis.
 - **Screw set** — holds it all together.
@@ -100,6 +106,7 @@
 ## Slide 7 — Transmission Parts: Motors & Wheels
 
 **On screen**
+
 - **DC motors** — drive the four wheels.
 - **Motor brackets** — hold the motors to the frame.
 - **Servo motor set** — turns the camera head.
@@ -114,6 +121,7 @@
 ## Slide 8 — Electronic Parts: Sensors & Cables
 
 **On screen**
+
 - **Connection board** — links sensors to the Pi.
 - **Ultrasonic sensor** — distance (the "eyes" for obstacles).
 - **Camera module** — video for Lessons 6–8.
@@ -129,6 +137,7 @@
 ## Slide 9 — Tools
 
 **On screen**
+
 - **Screwdriver** (3 mm) — assembly.
 - **Black tape** — also handy for making a line track (Lesson 5!).
 - **Wire tidy** — keep cables neat.
@@ -142,6 +151,7 @@
 ## Slide 10 — Building the Car → Follow Tutorial.pdf
 
 **On screen**
+
 - The full step-by-step **assembly** is in **[`Resources/Tutorial.pdf`](https://github.com/renashall/smartcar2026/blob/main/Resources/Tutorial.pdf)**.
 - Build the frame, mount motors + wheels, attach the head/camera, and seat the Pi on the board.
 - Take your time and keep screws organized.
@@ -155,6 +165,7 @@
 ## Slide 11 — Power: What You'll Use
 
 **On screen**
+
 - **18650 batteries** — power the car's motors and the Pi when mobile.
 - **Battery charger** — recharge the 18650 cells.
 - **AC power adapter** — power the Pi directly during setup.
@@ -169,6 +180,7 @@
 ## Slide 12 — The 18650 Batteries
 
 **On screen**
+
 - The car uses **18650** rechargeable lithium cells.
 - **Buy quality cells** — cheap/counterfeit ones can be unsafe and perform poorly.
   - A reputable source: **18650batterystore.com**
@@ -183,6 +195,7 @@
 ## Slide 13 — ⚠️ Battery Safety
 
 **On screen**
+
 - Treat lithium batteries with respect:
   - Use the **correct type** for the car (see [About_Battery.pdf](https://github.com/renashall/smartcar2026/blob/main/Resources/About_Battery.pdf)).
   - Insert with the right **polarity** (+ / −).
@@ -200,6 +213,7 @@
 ## Slide 14 — Charging the Batteries
 
 **On screen**
+
 - Use the included/recommended **charger**.
 - Charge cells **fully** before the first drive.
 - Watch orientation in the charger (+ / −).
@@ -214,6 +228,7 @@
 ## Slide 15 — Powering the Raspberry Pi (Use the Right Adapter)
 
 **On screen**
+
 - The Pi needs a **proper power supply** — match your model:
   - **Pi 5:** 5V / 5A (25W)
   - **Pi 4:** 5V / 3A (15W)
@@ -230,6 +245,7 @@
 ## Slide 16 — Which Raspberry Pi?
 
 **On screen**
+
 - This course works with **Raspberry Pi 3B+, 4, or 5**.
 - ⭐ **Pi 3 or 4 is recommended** — they have the **standard camera ribbon connector** the kit's camera plugs into.
 - **Pi 5 works too**, but its camera connector is **different**, so the kit's ribbon camera **won't connect**. On a Pi 5, the **camera components and lessons (6–8) won't work**.
@@ -244,6 +260,7 @@
 ## Slide 17 — What You Need to Set Up the Pi
 
 **On screen**
+
 - A **microSD card** + a card reader/adapter.
 - A **computer** (Windows / macOS / Linux) to flash the card.
 - Your **Wi-Fi** name and password.
@@ -258,6 +275,7 @@
 ## Slide 18 — Step 1: Install Raspberry Pi Imager
 
 **On screen**
+
 - On **your computer**, download and install **Raspberry Pi Imager**:
   - https://www.raspberrypi.com/software/
 - It's free and flashes Raspberry Pi OS onto the microSD card.
@@ -272,6 +290,7 @@
 ## Slide 19 — Step 2: Choose Device, OS & Storage
 
 **On screen**
+
 - Open Raspberry Pi Imager and pick three things:
   1. **Device** — your Pi model.
   2. **Operating System** — choose **Raspberry Pi OS (32-bit)**, the **Bookworm** image (under "Raspberry Pi OS (other)"). **Not the 64-bit version.**
@@ -287,6 +306,7 @@
 ## Slide 20 — Step 3: Pre-Configure (the Important Part!)
 
 **On screen**
+
 - Before writing, open **⚙️ OS Customisation / Edit Settings** and set:
   - **Hostname** (e.g. `mypi` → reachable as `mypi.local`),
   - **Username & password** (pick something memorable),
@@ -303,6 +323,7 @@
 ## Slide 21 — Step 4: Write & First Boot
 
 **On screen**
+
 - Click **Write** and wait for it to finish (and verify).
 - Eject the card, put it into the Pi, connect power.
 - The first boot takes a couple of minutes — give it time.
@@ -316,6 +337,7 @@
 ## Slide 22 — Two Ways to Reach Your Pi
 
 **On screen**
+
 - Most setups are **headless** (no monitor for the Pi). We reach it from our computer two ways:
   - **SSH** — a text **terminal** on the Pi.
   - **VNC** — the Pi's full **desktop** in a window.
@@ -330,6 +352,7 @@
 ## Slide 23 — Find Your Pi
 
 **On screen**
+
 - You reach the Pi by **hostname** or **IP address**:
   - hostname: `mypi.local` (the name you set in Step 3),
   - IP: e.g. `192.168.1.50`.
@@ -344,12 +367,15 @@
 ## Slide 24 — SSH Into the Pi
 
 **On screen**
+
 - From **your computer's terminal**, connect with the username + hostname you set:
+
 ```sh
 ssh <username>@<hostname>.local
 # example:
 ssh pi@mypi.local
 ```
+
 - Say **yes** to the first-time fingerprint prompt, then enter your password.
 - You're now typing commands **on the Pi**. 🎉
 
@@ -362,10 +388,13 @@ ssh pi@mypi.local
 ## Slide 25 — Enable VNC on the Pi
 
 **On screen**
+
 - Over your SSH connection, open the config tool:
+
 ```sh
 sudo raspi-config
 ```
+
 - Go to **Interface Options → VNC → Enable**.
 - (The course setup scripts handle **I2C** and the **camera**, but enabling **VNC** is a manual step.)
 - Finish and reboot if asked.
@@ -379,6 +408,7 @@ sudo raspi-config
 ## Slide 26 — Install VNC Viewer on Your Computer
 
 **On screen**
+
 - On **your computer**, download **VNC Viewer**:
   - https://www.realvnc.com/en/connect/download/viewer/
 - Free; pick your OS. Newer versions may ask you to create an account.
@@ -392,6 +422,7 @@ sudo raspi-config
 ## Slide 27 — Connect with VNC Viewer
 
 **On screen**
+
 - Open VNC Viewer and enter your Pi's **hostname** or **IP**:
   - `mypi.local` (or `192.168.1.50`)
 - Log in with your Pi **username & password**.
@@ -406,6 +437,7 @@ sudo raspi-config
 ## Slide 28 — Optional: Raspberry Pi Connect
 
 **On screen**
+
 - **Raspberry Pi Connect** lets you reach your Pi from **anywhere** (not just home Wi-Fi).
   - https://www.raspberrypi.com/software/connect/
 - Free; needs an account, and you must sign in **on the Pi** once.
@@ -420,12 +452,15 @@ sudo raspi-config
 ## Slide 29 — Download the Course Code
 
 **On screen**
+
 - You need the course code in **two places**: on the **Pi** (to drive the car) and on **your computer** (for the camera/vision lessons 6–8 & 11).
 - Get it with **git** — the same command everywhere:
+
 ```sh
 git clone https://github.com/renashall/smartcar2026.git
 cd smartcar2026
 ```
+
 - This creates a **`smartcar2026`** folder with all the lesson code.
 - No git? Download the **ZIP** from the repo page and unzip it.
 
@@ -438,6 +473,7 @@ cd smartcar2026
 ## Slide 30 — Cloning in a Terminal: Mac · Windows · Pi
 
 **On screen**
+
 - The `git clone` command is **identical** on every system — only the terminal differs:
   - **Windows:** open **PowerShell** or **Windows Terminal**.
   - **macOS:** open **Terminal**.
@@ -456,12 +492,15 @@ cd smartcar2026
 ## Slide 31 — Run Setup, Part 1 (on the Pi)
 
 **On screen**
+
 - From the `Code` folder, make the scripts runnable and start part 1:
+
 ```sh
 cd smartcar2026/Code
 chmod +x setupPart1.sh setupPart2.sh
 ./setupPart1.sh
 ```
+
 - It enables Pi interfaces, makes `python3` the default `python`, and installs basic I2C support.
 - When it finishes, it asks you to **reboot**.
 
@@ -474,11 +513,14 @@ chmod +x setupPart1.sh setupPart2.sh
 ## Slide 32 — Run Setup, Part 2 (on the Pi)
 
 **On screen**
+
 - After the reboot, return to the `Code` folder and run part 2:
+
 ```sh
 cd smartcar2026/Code
 ./setupPart2.sh
 ```
+
 - It sets up the **camera** boot config, installs the **LED (WS281x) driver** and the **course Python packages**.
 - Then it asks you to **reboot** one more time.
 
@@ -491,6 +533,7 @@ cd smartcar2026/Code
 ## Slide 33 — What the Setup Scripts Did
 
 **On screen**
+
 - You don't need to memorize this, but the scripts set up:
   - the Pi **interfaces** (I2C, camera, etc.),
   - `python3` as the default **`python`**,
@@ -507,10 +550,13 @@ cd smartcar2026/Code
 ## Slide 34 — Where Your Code Lives: Code/User
 
 **On screen**
+
 - Put all your course work in:
+
 ```text
 smartcar2026/Code/User
 ```
+
 - Lesson files start with `import car_setup` so the car's modules import cleanly.
 - We'll explain `car_setup.py` properly in **Lesson 1**.
 
@@ -523,6 +569,7 @@ smartcar2026/Code/User
 ## Slide 35 — Editing Code on the Pi: Thonny
 
 **On screen**
+
 - Raspberry Pi OS comes with **Thonny**, a beginner-friendly Python editor — already installed, nothing to download.
 - Open it on the Pi desktop (over **VNC**): **Menu → Programming → Thonny**.
 - Use it to open, write, and **save** your lesson files in `smartcar2026/Code/User`.
@@ -538,14 +585,17 @@ smartcar2026/Code/User
 ## Slide 36 — Is Python Installed? (Your Computer)
 
 **On screen**
+
 - The **Pi** already has Python (the setup scripts handled it). These next steps are for **your computer**, for the vision lessons.
 - Open a terminal and check the version:
+
 ```sh
 # Windows
 py --version
 # macOS / Linux
 python3 --version
 ```
+
 - See something like `Python 3.12.x`? You're set — skip ahead to making a venv.
 
 **Visual:** Design System/assets/icons/terminal.png + Design System/assets/icons/windows.png + Design System/assets/icons/mac-apple-black.png
@@ -557,6 +607,7 @@ python3 --version
 ## Slide 37 — Install Python if Needed
 
 **On screen**
+
 - If the check failed, install **Python 3**:
   - **Windows:** download from **python.org/downloads**, run it, and **tick "Add python.exe to PATH"**. (Or `winget install Python.Python.3.12`.)
   - **macOS:** download from **python.org/downloads**, or with Homebrew: `brew install python`.
@@ -571,8 +622,10 @@ python3 --version
 ## Slide 38 — Create a Virtual Environment
 
 **On screen**
+
 - A **virtual environment (venv)** is a private package box for this project — installs stay here, not on your whole computer.
 - Make one named **`.venv`** in the **repo root** (do this once):
+
 ```sh
 cd smartcar2026
 # Windows
@@ -580,6 +633,7 @@ py -m venv .venv
 # macOS / Linux
 python3 -m venv .venv
 ```
+
 - This creates a `.venv` folder you'll reuse for every lesson.
 
 **Visual:** Design System/assets/icons/technology.png
@@ -591,17 +645,22 @@ python3 -m venv .venv
 ## Slide 39 — Activate the Venv Every Time You Run Code
 
 **On screen**
+
 - **Activate it whenever** you open a terminal to run a lesson:
+
 ```sh
 # Windows (PowerShell)
 .\.venv\Scripts\Activate.ps1
 # macOS / Linux
 source .venv/bin/activate
 ```
+
 - Your prompt shows **`(.venv)`** when it's active. Install the packages **once**:
+
 ```sh
 pip install -r requirements.txt
 ```
+
 - Run `deactivate` when you're done.
 - PowerShell blocks the script? Run once: `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned`.
 
@@ -614,13 +673,16 @@ pip install -r requirements.txt
 ## Slide 40 — Shortcut: Let Code/setup.py Do It for You
 
 **On screen**
+
 - Don't want to do slides 38–39 by hand? In the **repo root**, run the helper:
+
 ```sh
 # Windows
 python Code\setup.py
 # macOS / Linux
 python3 Code/setup.py
 ```
+
 - It **creates `.venv`** and **installs all the packages** for you. No admin/`sudo` needed. (`--force` rebuilds it.)
 - You **still activate** the venv (slide 39) before running a lesson.
 
@@ -633,6 +695,7 @@ python3 Code/setup.py
 ## Slide 41 — Try It Yourself: Verify Your Setup
 
 **On screen**
+
 - Confirm each piece works:
   1. The Pi **boots** and joins Wi-Fi.
   2. You can **SSH** in: `ssh pi@mypi.local`.
@@ -651,6 +714,7 @@ python3 Code/setup.py
 ## Slide 42 — Troubleshooting
 
 **On screen**
+
 - **Pi won't boot / rainbow screen / ⚡ icon** → wrong or weak power adapter (match slide 15).
 - **Can't find the Pi** → same Wi-Fi as your computer? Try the IP instead of `.local`.
 - **SSH refused / times out** → SSH wasn't enabled in Imager (Step 3); re-flash with SSH on.
@@ -670,6 +734,7 @@ python3 Code/setup.py
 ## Slide 43 — Recap & What's Next
 
 **On screen**
+
 - You built/inventoried the kit, learned **battery safety**, and powered the Pi correctly.
 - You **flashed** the OS, reached the Pi with **SSH + VNC**, and installed the **course code** on the Pi and your computer.
 - Your robot's brain is alive and reachable. 🧠
@@ -688,20 +753,24 @@ python3 Code/setup.py
 **Timing:** This often spans **more than one session**. Rough split: kit + assembly (5–10) variable (assembly can be homework) · battery safety + power (11–15) ~15 min · flashing (16–21) ~25 min · SSH/VNC (22–28) ~25 min · install code on the Pi + Thonny (29–35) ~22 min · Python/venv on your computer (36–40) ~15 min · verify/troubleshoot (41–42) ~15 min. Don't rush; later lessons depend on this working.
 
 **Before class**
+
 - Have ready: charged spare 18650s, a known-good power adapter per Pi model, a spare pre-flashed SD card, the Wi-Fi name/password, and the course repo link (also pasted in Discord / the class page).
 - Pre-flash a demo card yourself so you can show the Imager steps live.
 - Confirm `Resources/Tutorial.pdf` and `Resources/About_Battery.pdf` are accessible to students.
 - On laptops, have the Python and git installers ready in case they're missing.
 
 **Safety (lead this seriously)**
+
 - Battery handling (slide 13): correct type, polarity, no shorts, no damaged cells, supervised charging.
 - Correct Pi power adapter (slide 15) — under-power causes most boot issues.
 
 **Pi vs. computer**
+
 - The **Pi** uses its **system Python** via the setup scripts — **no venv** there.
 - The **venv steps (36–40) are computer-only**, for the camera/vision lessons (6 viewer, 7, 8, 11).
 
 **Biggest time-sinks (head these off)**
+
 1. SSH not enabled in Imager Step 3 → can't connect headless. Make everyone enable it.
 2. Wrong/weak power adapter → boot/stability problems.
 3. `.local` hostname not resolving on Windows → use the IP, or install Bonjour.
@@ -711,9 +780,11 @@ python3 Code/setup.py
 7. PowerShell blocks venv activation → `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned`.
 
 **Record-keeping**
+
 - Write down each student's **hostname / username / password** — they *will* forget.
 
 **Links (verify before class)**
+
 - Course repo (clone) — https://github.com/renashall/smartcar2026.git
 - Raspberry Pi Imager — https://www.raspberrypi.com/software/
 - VNC Viewer — https://www.realvnc.com/en/connect/download/viewer/
@@ -723,5 +794,7 @@ python3 Code/setup.py
 - About_Battery.pdf — https://github.com/renashall/smartcar2026/blob/main/Resources/About_Battery.pdf
 
 **Assets to source (flagged in deck)**
+
 - Raspberry Pi Imager main screen (Device / OS / Storage) — slide 19.
 - Imager OS-customisation dialog with SSH enabled — slide 20.
+
