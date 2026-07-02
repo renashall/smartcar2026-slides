@@ -1,4 +1,4 @@
-# Lesson 0 — Setup
+# Lesson 0 — Initial ==Setup==
 
 **Organization:** AI Code Academy · aicodeacademy.com
 **Course:** Machine Learning with Raspberry Pi & Smart Car (Level 3)
